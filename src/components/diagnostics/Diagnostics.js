@@ -137,25 +137,25 @@ export default function Dashboard() {
 
     return(
         <div>
-          <DefaultViewDataProvider imsi={queryString.parse(location.search).imsi}  refresh={refreshBoolean} refreshStatus={refreshStatus} timeInterval={timeInterval} >
             <Box m={2}>
                 <Typography component="h1" variant="h6" color="inherit" padding="12" display="inline" className={classes.title}>
                 Diagnostics
                 </Typography>
             </Box>
-            <Box m={1}> 
+            <Box m={1}>
+            <DefaultViewDataProvider imsi={queryString.parse(location.search).imsi}  refresh={refreshBoolean} refreshStatus={refreshStatus} timeInterval={timeInterval} >
                 <TabContext value={value}>
                     <TabList onChange={handleChange} aria-label="simple tabs example">
                         <Tab label="AMS PROD CMG" value="1" />
                         <Tab label="FRA PROD CMG" value="2" />
                         <Tab label="Staging CMG" value="3" />
                     </TabList>
-                    <TabPanel value="1"><Summary/></TabPanel>
-                    <TabPanel value="2"><Summary/></TabPanel>
-                    <TabPanel value="3"><Summary/></TabPanel>
-                </TabContext>            
+                    <TabPanel value="1"><Summary refresh={refreshBoolean} refreshStatus={refreshStatus} timeInterval={timeInterval} passData = {(refreshStatus, refreshBoolean, timeInterval) => { setTimeInterval(timeInterval); setRefreshBoolean(refreshBoolean); setRefreshStatus(refreshStatus)}}/></TabPanel>
+                    <TabPanel value="2"><Summary /></TabPanel>
+                    <TabPanel value="3"><Summary /></TabPanel>
+                </TabContext>
+            </DefaultViewDataProvider>           
             </Box>
-            </DefaultViewDataProvider>
         </div>
     );
 }

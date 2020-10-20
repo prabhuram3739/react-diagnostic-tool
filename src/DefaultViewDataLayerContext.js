@@ -16,6 +16,7 @@ export class DefaultViewDataProvider extends Component {
   }
 
   componentDidMount() {
+    console.log(this.state.timeInterval);
     this.setState({ loading: true }, () => {
       this.getDefaultViewData(this.props.imsi, this.state.refresh, this.state.refreshStatus, this.state.timeInterval);
     });

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -44,6 +44,8 @@ import { Link } from 'react-router-dom';
 import DefaultViewDataLayerContext, { DefaultViewDataProvider } from '../../DefaultViewDataLayerContext';
 import Loader from 'react-loader-spinner';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
+import Button from '@material-ui/core/Button';
+import Fade from '@material-ui/core/Fade';
 
 const drawerWidth = 240;
 
@@ -180,7 +182,7 @@ const useStyles = makeStyles((theme) => ({
   },   
 }));
 
-export default function Summary() {
+export default function Summary(props) {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [open, setOpen] = React.useState(true);
@@ -193,7 +195,8 @@ export default function Summary() {
       
       const [anchorEl, setAnchorEl] = React.useState(null);
       const openMenu = Boolean(anchorEl);
-    
+      const [refreshAnchorEl, setRefreshAnchorEl] = React.useState(null);
+      const openRefreshMenu = Boolean(refreshAnchorEl);
       const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
       };
@@ -201,6 +204,18 @@ export default function Summary() {
       const handleClose = () => {
         setAnchorEl(null);
       };
+      const handleRefreshClick = (event) => {
+        setRefreshAnchorEl(event.currentTarget);
+      };
+    
+      const handleRefreshClose = () => {
+        setRefreshAnchorEl(null);
+      };
+      let [refreshBoolean, setRefreshBoolean] = useState(false);
+    let [refreshStatus, setRefreshStatus] = useState(false);
+    let [buttonText, setButtonText] = useState("Enable");
+    let [timeInterval, setTimeInterval] = useState(3000);
+    let [autoRefresh, setAutoRefresh] = useState("Disable");
       const { data, count, loading } = useContext(DefaultViewDataLayerContext) || {};
       const finalData = [];
       finalData.push(data.packetSwitchAdminDefaultViewVO);
@@ -251,12 +266,114 @@ export default function Summary() {
                             <StorageOutlinedIcon />
                         </IconButton> 
                         </Tooltip>
+                        {/*<Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleRefreshClick}>
                         <Tooltip title="Refresh" placement="top">                          
+                        
+                            <RefreshOutlinedIcon />
+                            
+                        
+                        </Tooltip>
+    </Button>*/}
+                        <IconButton
+                                aria-label="more"
+                                aria-controls="fade-menu"
+                                aria-haspopup="true"
+                                onClick={handleRefreshClick}
+                        >
+                        <Tooltip title="Refresh" placement="top">                          
+                        <RefreshOutlinedIcon />
+                        </Tooltip>
+                        </IconButton>
+                        <Menu
+                        id="fade-menu"
+                        anchorEl={refreshAnchorEl}
+                        keepMounted
+                        open={openRefreshMenu}
+                        onClose={handleRefreshClose}
+                        PaperProps={{
+                            style: {
+                                padding: '2px',
+                            },
+                        }}           
+                        TransitionComponent={Fade}
+                        >
+                        <MenuItem>
+                        <input className="reducedPaddingTop" disabled={(autoRefresh === 'Disable') ? true : false} type="checkbox" onChange={ () => { refreshBoolean ?  props.passData(!props.refresh, props.refreshStatus, timeInterval) && setRefreshBoolean(false) : props.passData(props.refresh, props.refreshStatus, timeInterval) && setRefreshBoolean(true); refreshStatus ? props.passData(!props.refresh, !props.refreshStatus, timeInterval) && setRefreshStatus(false) : props.passData(props.refresh, props.refreshStatus, timeInterval) && setRefreshStatus(true); (buttonText === 'Enable') ? setButtonText('Disable') : setButtonText('Enable'); 
+                        timeInterval === 10000 ? props.passData(!props.refreshStatus, !props.refreshBoolean, 10000) && setTimeInterval(timeInterval) : timeInterval === 60000 ? props.passData(!props.refreshStatus, !props.refreshBoolean, 60000) && setTimeInterval(timeInterval) : timeInterval === 120000 ? props.passData(!props.refreshStatus, !props.refreshBoolean, 120000) && setTimeInterval(timeInterval) : timeInterval === 300000 ? props.passData(!props.refreshStatus, !props.refreshBoolean, 300000) && setTimeInterval(timeInterval) : timeInterval === 600000 ? props.passData(!props.refreshStatus, !props.refreshBoolean, 600000) && setTimeInterval(timeInterval) : props.passData(!refreshStatus, !refreshBoolean, 3000) && setTimeInterval(0); }}/>
+                        <span className="autoRefreshTxt ml-1">Auto refresh</span>
+                        </MenuItem>
+                        <MenuItem>
+                        <input type="radio" checked={timeInterval === 10000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(10000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 10 Seconds 
+                        </MenuItem>
+                        <MenuItem>
+                        <input type="radio" checked={timeInterval === 60000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(60000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 1 Minute
+                        </MenuItem>
+                        <MenuItem>
+                        <input type="radio" checked={timeInterval === 120000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(120000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 2 Minutes 
+                        </MenuItem>
+                        <MenuItem>
+                        <input type="radio" checked={timeInterval === 300000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(300000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 5 Minutes 
+                        </MenuItem>
+                        <MenuItem>
+                        <input type="radio" checked={timeInterval === 600000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(600000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 10 Minutes
+                        </MenuItem>
+                        </Menu>
+                        
+                        {/*<ul className="nav nav-bar nav-tabs dropleft pull-right refreshBtn pl-0">
+        <li className="nav-item dropdown">
+            <a className="nav-link" data-toggle="dropdown" href="test" role="button" aria-haspopup="true" aria-expanded="false" style={{borderColor: "white"}}>
+            <button type="button" className='btn btn-primary pull-right'>
+            <Tooltip title="Refresh" placement="top">                          
                         <IconButton type="submit" className={classes.iconButton} aria-label="refresh">
                             <RefreshOutlinedIcon />
                             
                         </IconButton>
                         </Tooltip>
+            </button>
+            </a>
+
+            <div className="dropdown-menu" >
+            <span className="dropdown-item">
+            <input className="reducedPaddingTop" disabled={(autoRefresh === 'Disable') ? true : false} type="checkbox" onChange={ () => { refreshBoolean ?  setRefreshBoolean(false) : setRefreshBoolean(true); refreshStatus ? setRefreshStatus(false) : setRefreshStatus(true); (buttonText === 'Enable') ? setButtonText('Disable') : setButtonText('Enable'); timeInterval ? setTimeInterval(timeInterval) : setTimeInterval(0); }}/>
+            <span className="autoRefreshTxt ml-1">Auto refresh</span>
+            </span>
+            <div className="dropdown-divider"></div>
+            <span className="dropdown-item">
+                <span>Refresh interval</span>
+            </span>
+            
+            <div className="dropdown-divider"></div>
+
+            <span className="dropdown-item">
+                <input type="radio" checked={timeInterval === 10000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(10000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 10 Seconds
+            </span>
+
+            <div className="dropdown-divider"></div>
+ 
+            <span className="dropdown-item">
+            <input type="radio" checked={timeInterval === 60000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(60000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 1 Minute
+            </span>
+
+            <div className="dropdown-divider"></div>
+
+            <span className="dropdown-item">
+            <input type="radio" checked={timeInterval === 120000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(120000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 2 Minutes
+            </span>
+
+            <div className="dropdown-divider"></div>
+
+            <span className="dropdown-item">
+            <input type="radio" checked={timeInterval === 300000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(300000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 5 Minutes
+            </span>
+
+            <div className="dropdown-divider"></div>
+
+            <span className="dropdown-item">
+            <input type="radio" checked={timeInterval === 600000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(600000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 10 Minutes
+            </span>
+            </div>
+        </li>
+    </ul>*/}
                         <div>
                             <IconButton
                                 aria-label="more"
