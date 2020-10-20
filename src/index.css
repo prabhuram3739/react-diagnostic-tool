@@ -1,0 +1,228 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.centerDisplayDefaultView {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+}
+
+.v-loading-indicator[style*="none"] {
+    display: block !important;
+    width: 100%;
+    opacity: 0;
+    -webkit-animation: none;
+    -moz-animation: none;
+    animation: none;
+    -webkit-transition: opacity 5s 3s, width 1s;
+    -moz-transition: opacity 5s 3s, width 1s;
+    transition: opacity 5s 3s, width 1s;
+}
+
+.v-loading-indicator-wait {
+    width: 96%;
+    -webkit-animation: v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards !important;
+    -moz-animation: v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards !important;
+    animation: v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards !important;
+}
+
+.v-loading-indicator-delay {
+    width: 100%;
+    -webkit-animation: v-progress-delay 10.8s forwards !important;
+    -moz-animation: v-progress-delay 10.8s forwards !important;
+    animation: v-progress-delay 10.8s forwards !important;
+}
+
+.v-loading-indicator {
+    position: fixed !important;
+    z-index: 99999;
+    left: 0;
+    right: auto;
+    top: 0;
+    width: 100%;
+    opacity: 1;
+    height: 4px;
+    background-color: #ff3154;
+    pointer-events: none;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+    -webkit-animation: v-progress-start 1000ms 200ms both;
+    -moz-animation: v-progress-start 1000ms 200ms both;
+    animation: v-progress-start 1000ms 200ms both;
+}
+
+@-webkit-keyframes v-rotate-360 {
+    to {
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+@-moz-keyframes v-rotate-360 {
+    to {
+        -moz-transform: rotate(360deg)
+    }
+}
+
+@-o-keyframes v-rotate-360 {
+    to {
+        -o-transform: rotate(360deg)
+    }
+}
+
+@keyframes v-rotate-360 {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@-webkit-keyframes v-progress-start {
+    0% {
+        width: 0
+    }
+    100% {
+        width: 100%
+    }
+}
+
+@-moz-keyframes v-progress-start {
+    0% {
+        width: 0
+    }
+    100% {
+        width: 100%
+    }
+}
+
+@keyframes v-progress-start {
+    0% {
+        width: 0
+    }
+    100% {
+        width: 100%
+    }
+}
+
+@-webkit-keyframes v-progress-delay {
+    0% {
+        width: 50%
+    }
+    100% {
+        width: 90%
+    }
+}
+
+@-moz-keyframes v-progress-delay {
+    0% {
+        width: 50%
+    }
+    100% {
+        width: 90%
+    }
+}
+
+@keyframes v-progress-delay {
+    0% {
+        width: 50%
+    }
+    100% {
+        width: 90%
+    }
+}
+
+@-webkit-keyframes v-progress-wait {
+    0% {
+        width: 90%;
+        height: 4px
+    }
+    3% {
+        width: 91%;
+        height: 7px
+    }
+    100% {
+        width: 96%;
+        height: 7px
+    }
+}
+
+@-moz-keyframes v-progress-wait {
+    0% {
+        width: 90%;
+        height: 4px
+    }
+    3% {
+        width: 91%;
+        height: 7px
+    }
+    100% {
+        width: 96%;
+        height: 7px
+    }
+}
+
+@keyframes v-progress-wait {
+    0% {
+        width: 90%;
+        height: 4px
+    }
+    3% {
+        width: 91%;
+        height: 7px
+    }
+    100% {
+        width: 96%;
+        height: 7px
+    }
+}
+
+@-webkit-keyframes v-progress-wait-pulse {
+    0% {
+        opacity: 1
+    }
+    50% {
+        opacity: .1
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+@-moz-keyframes v-progress-wait-pulse {
+    0% {
+        opacity: 1
+    }
+    50% {
+        opacity: .1
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+@keyframes v-progress-wait-pulse {
+    0% {
+        opacity: 1
+    }
+    50% {
+        opacity: .1
+    }
+    100% {
+        opacity: 1
+    }
+}
+
+.customCard {
+    height: 280px;
+    overflow-y: scroll !important;
+}
