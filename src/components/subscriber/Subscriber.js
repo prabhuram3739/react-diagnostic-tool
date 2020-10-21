@@ -28,6 +28,7 @@ import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import Menu from '@material-ui/core/Menu';
+import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
@@ -220,12 +221,12 @@ export default function Subscriber() {
                   <CardHeader 
                     //title={'Node'}
                     subheader={'Subscriber Details'}
-                    action={<form className={classes.root} action="/dashboard/subscriber/" noValidate autoComplete="off" style={{float: "right"}}>
-                      <TextField id="outlined-basic" label="Search IMSI" name="imsi" variant="outlined" size="small"/>
+                    action={<form className={classes.root} action="/dashboard/subscriber/" autoComplete="off" style={{float: "right"}}>
+                      <TextField id="outlined-basic" label="Search IMSI" name="imsi" variant="outlined" size="small" required />
                       <Tooltip title="Search IMSI" placement="top">
-                      <IconButton type="submit" className={classes.iconButton} aria-label="search">
-                          <SearchOutlinedIcon />
-                      </IconButton>
+                      <Button type="submit" color="primary">
+                        <SearchOutlinedIcon />
+                      </Button>
                       </Tooltip>
                       <Divider className={classes.divider} orientation="vertical" />
                       <Tooltip title="Voice Services" placement="top">
