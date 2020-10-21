@@ -52,6 +52,8 @@ import GYInlineModal from './gyInlineModal/GYInlineModal';
 import ClearSubscriberModal from './clearSubscriberModal/ClearSubscriberModal';
 import GYBypassModal from './gyBypassModal/GYBypassModal';
 import GAProfileModal from './gaProfileModal/GAProfileModal';
+import ApnShutdownGXInlineModal from './apnShutdownGXInlineModal/APNShutdownGXInlineModal';
+import APNShutdownGXBypassModal from './apnShutdownGXBypassModal/APNShutdownGXBypassModal';
 
 const drawerWidth = 240;
 
@@ -280,14 +282,14 @@ export default function Summary(props) {
                         </span>   
                         </Tooltip> 
                         <Tooltip title="GX Inline" placement="top">
-                        <IconButton className={classes.iconButton} aria-label="GX Inline" >
-                            <StorageOutlinedIcon />
-                        </IconButton> 
+                        <span onClick={() => setModalGXInlineShow(true)}>
+                        <ApnShutdownGXInlineModal show={ModalGXInlineShow} onHide={() => setModalGXInlineShow(false)} />
+                        </span> 
                         </Tooltip>
                         <Tooltip title="GX Bypass" placement="top">
-                        <IconButton className={classes.iconButton} aria-label="GX Bypass" >
-                        <SignalCellularAltOutlinedIcon/>
-                        </IconButton> 
+                        <span onClick={() => setModalGXBypassShow(true)}>
+                        <APNShutdownGXBypassModal show={ModalGXBypassShow} onHide={() => setModalGXBypassShow(false)} />
+                        </span> 
                         </Tooltip>
                         <Tooltip title="Ga Profile - Add/Modify" placement="top">
                         <span onClick={() => setModalGAModifyShow(true)}>
@@ -338,7 +340,7 @@ export default function Summary(props) {
                         <input type="radio" checked={timeInterval === 600000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(600000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setAutoRefresh('Disable'); }}/> 10 Minutes
                         </MenuItem>
                         </Menu>
-                        <div>
+                        {/*<div>
                             <IconButton
                                 aria-label="more"
                                 aria-controls="long-menu"
@@ -364,8 +366,8 @@ export default function Summary(props) {
                                     {option}
                                 </MenuItem>
                                 ))}
-                            </Menu>
-                        </div>
+                                </Menu>
+                        </div>*/}
                     </form>
                 </Grid>
                { loading ? <div><div className="v-loading-indicator second v-loading-indicator-delay v-loading-indicator-wait" ></div><Loader className="centerDisplayDefaultView mt-5" type="Circles" color="#00BFFF" height={40} width={40} /></div>  :

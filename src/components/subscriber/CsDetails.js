@@ -238,7 +238,8 @@ export default function CsDetails() {
                                 <TableRow style={{boader: "none"}}>
                                         <TableCell align="right" className={classes.boaderlessTh}>Subscriber Status</TableCell>
                                         <TableCell align="left" style={{color: "green"}} className={classes.boaderlessTr}>{item.circuitSwitch.subscriberStatus === true ? 'IMSI Active' : 'IMSI Inactive'}</TableCell>
-                                    </TableRow>  
+                                    </TableRow>
+                                   { item.circuitSwitch.threeGApnDataList !== '' ? <React.Fragment>
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>3G APN List:</TableCell>
                                         <TableCell align="left" className={classes.boaderlessTr}>
@@ -248,7 +249,7 @@ export default function CsDetails() {
                                           )
                                         })}
                                         </TableCell>
-                                    </TableRow>
+                                    </TableRow></React.Fragment> : ''}
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>4G APN List:</TableCell>
                                         <TableCell align="left" className={classes.boaderlessTr}>
