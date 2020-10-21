@@ -235,38 +235,61 @@ export default function PsDetails() {
                         <TableContainer component={Paper} className={classes.boaderlessTable}>
                             <Table size="small" >
                                 <TableBody>
+                                <TableRow>
+                                        <TableCell align="right" className={classes.boaderlessTh}>APN Requested:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.apnRequested ? item.packetSwitch.apnRequested : 'No Data Available'}</TableCell>
+                                  </TableRow>
                                 <TableRow style={{boader: "none"}}>
                                         <TableCell align="right" className={classes.boaderlessTh}>Up Time:</TableCell>
                                         <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.upTime ? item.packetSwitch.upTime : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>RAT Type:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ratType ? item.packetSwitch.ratType : 'No Data Available'}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>Netork MCC:</TableCell>
                                         <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.networkMCC ? item.packetSwitch.networkMCC : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                      
+                                    </TableRow>
                                     <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>APN Requested:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.apnRequested ? item.packetSwitch.apnRequested : 'No Data Available'}</TableCell>
-                                    </TableRow>  
+                                        <TableCell align="right" className={classes.boaderlessTh}>UE IPv4 Address:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ueIpv4Address ? item.packetSwitch.ueIpv4Address :  'No Data Available'}</TableCell>
+                                    </TableRow>
                                     <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Virtual APN:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.virtualApn ? item.packetSwitch.virtualApn : 'No Data Available'}</TableCell>
-                                    </TableRow>    
+                                        <TableCell align="right" className={classes.boaderlessTh}>Pri DNS IPv4 Address:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.primaryDnsIpv4Address ? item.packetSwitch.primaryDnsIpv4Address : 'No Data Available'}</TableCell>
+                                    </TableRow>
                                     <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>PDN Type:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.pdnType ? item.packetSwitch.pdnType : 'No Data Available'}</TableCell>
-                                    </TableRow> 
+                                        <TableCell align="right" className={classes.boaderlessTh}>Sec DNS IPv6 Address:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.secondaryDnsIpv6Address ? item.packetSwitch.secondaryDnsIpv6Address : 'No Data Available'}</TableCell>
+                                    </TableRow>
                                     <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>UL APN AMBR:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ulApnAmbr ? item.packetSwitch.ulApnAmbr : 'No Data Available'}</TableCell>
-                                    </TableRow> 
+                                        <TableCell align="right" className={classes.boaderlessTh}>Total Data Volume Used (MB):</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.totalDataVolumeUsed ? item.packetSwitch.totalDataVolumeUsed : 'No Data Available'}</TableCell>
+                                    </TableRow>
                                     <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>DL APN AMBR:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.dlApnAmbr ? item.packetSwitch.dlApnAmbr : 'No Data Available'}</TableCell>
+                                        <TableCell align="right" className={classes.boaderlessTh}>PGW Ctl Addr:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8PgwCtlAddr ? item.packetSwitch.s8PgwCtlAddr : 'No Data Available'}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell align="right" className={classes.boaderlessTh}>SGW Data Addr:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8SgwDataAddr ? item.packetSwitch.s8SgwDataAddr : 'No Data Available'}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell align="right" className={classes.boaderlessTh}>Gx Diameter Peer Profile In Use:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.gxPeerProfileInUse ? item.packetSwitch.gxPeerProfileInUse : 'No Data Available'}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell align="right"className={classes.boaderlessTh}>Gx failover count:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.gxFailoverCount ? item.packetSwitch.gxFailoverCount : 'No Data Available'}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell align="right" className={classes.boaderlessTh}>DCCA Profile In Use:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.dccaProfile ? item.packetSwitch.dccaProfile : 'No Data Available'}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell align="right" className={classes.boaderlessTh}>GY Diameter Peer In Use:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.peerProfileInUse ? item.packetSwitch.peerProfileInUse : 'No Data Available'}</TableCell>
+                                    </TableRow>
+                                    <TableRow>
+                                        <TableCell align="right" className={classes.boaderlessTh}>GY Failover Count:</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.failoverCount ? item.packetSwitch.failoverCount : 'No Data Available'}</TableCell>
                                     </TableRow>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
                                 </TableBody>
                             </Table>
@@ -276,54 +299,58 @@ export default function PsDetails() {
                         <TableContainer component={Paper} className={classes.boaderlessTable}>
                         <Table  size="small" >
                                 <TableBody>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>Virtual APN:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.virtualApn ? item.packetSwitch.virtualApn : 'No Data Available'}</TableCell>
+                                </TableRow> 
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>RAT Type:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ratType ? item.packetSwitch.ratType : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>Network MNC:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.networkMNC ? item.packetSwitch.networkMNC : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>UE IPv6 Address:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.networkMNC ? item.packetSwitch.networkMNC : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>Sec DNS IPv4 address:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.secondaryDnsIpv4Address ? item.packetSwitch.secondaryDnsIpv4Address : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>DL APN AMBR:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.dlApnAmbr ? item.packetSwitch.dlApnAmbr : 'No Data Available'}</TableCell>
+                                </TableRow>
                                 <TableRow style={{boader: "none"}}>
-                                        <TableCell align="right" className={classes.boaderlessTh}>S8 DL Bytes:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8DlBytes ? item.packetSwitch.s8DlBytes : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>SGI UL Bytes:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.sgiUlBytes ? item.packetSwitch.sgiUlBytes : 'No Data Available'}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Total Data Volume Used (MB):</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.totalDataVolumeUsed ? item.packetSwitch.totalDataVolumeUsed : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Pri DNS IPv4 Address:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.primaryDnsIpv4Address ? item.packetSwitch.primaryDnsIpv4Address : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Sec DNS IPv4 address:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.secondaryDnsIpv4Address ? item.packetSwitch.secondaryDnsIpv4Address : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Pri DNS IPv6 address:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.primaryDnsIpv6Address ? item.packetSwitch.primaryDnsIpv6Address : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Sec DNS IPv6 address:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.secondaryDnsIpv6Address ? item.packetSwitch.secondaryDnsIpv6Address : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>S8 PGW Data addr:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8PgwDataAddr ? item.packetSwitch.s8PgwDataAddr : 'No Data Available'}</TableCell>
-                                    </TableRow>    
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>S8 SGW V4 Ctl Adr:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8SgwV4CtlAdr ? item.packetSwitch.s8SgwV4CtlAdr : 'No Data Available'}</TableCell>
-                                    </TableRow> 
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>S8 SGW Data Addr:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8SgwDataAddr ? item.packetSwitch.s8SgwDataAddr : 'No Data Available'}</TableCell>
-                                    </TableRow> 
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Gx peer profile in use:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.gxPeerProfileInUse ? item.packetSwitch.gxPeerProfileInUse : 'No Data Available'}</TableCell>
-                                    </TableRow> 
-                                    <TableRow>
-                                        <TableCell align="right"className={classes.boaderlessTh}>Gx failover count:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.gxFailoverCount ? item.packetSwitch.gxFailoverCount : 'No Data Available'}</TableCell>
-                                    </TableRow>                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+                                  <TableCell align="right" className={classes.boaderlessTh}>DL Bytes:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8DlBytes ? item.packetSwitch.s8DlBytes : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>PGW Data Addr:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8PgwDataAddr ? item.packetSwitch.s8PgwDataAddr : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow style={{boader: "none"}}>
+                                  <TableCell align="right" className={classes.boaderlessTh}>PCRF Local Hostname:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.pcrfHostname ? item.packetSwitch.pcrfHostname : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>PCRF Destination Hostname:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.pcrfDestinationHost ? item.packetSwitch.pcrfDestinationHost : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>OCS Address:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ocsAddress ? item.packetSwitch.ocsAddress : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>OCS Destination Realm:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ocsDestinationRealm ? item.packetSwitch.ocsDestinationRealm : 'No Data Available'}</TableCell>
+                                </TableRow>    
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>OCS Destination Hostname:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ocsDestinationHost ? item.packetSwitch.ocsDestinationHost : 'No Data Available'}</TableCell>
+                                </TableRow>                                                                                                                                                                                                                                                                                                                                                                                                                                        
                                 </TableBody>
                             </Table>
                         </TableContainer>                                            
@@ -332,60 +359,60 @@ export default function PsDetails() {
                     <TableContainer component={Paper} className={classes.boaderlessTable}>
                     <Table  size="small" >
                                 <TableBody>
-                                <TableRow style={{boader: "none"}}>
-                                        <TableCell align="right" className={classes.boaderlessTh}>PCRF Hostname:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.pcrfHostname ? item.packetSwitch.pcrfHostname : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>PCRF Address:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.pcrfAddress ? item.packetSwitch.pcrfAddress : 'No Data Available'}</TableCell>
-                                    </TableRow>
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>PCRF Destination Host:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.pcrfDestinationHost ? item.packetSwitch.pcrfDestinationHost : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>DCCA Profile:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.dccaProfile ? item.packetSwitch.dccaProfile : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Peer Profile In-use:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.peerProfileInUse ? item.packetSwitch.peerProfileInUse : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Failover Count:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.failoverCount ? item.packetSwitch.failoverCount : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>OCS Address:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ocsAddress ? item.packetSwitch.ocsAddress : 'No Data Available'}</TableCell>
-                                    </TableRow>  
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>OCS Destination Realm:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ocsDestinationRealm ? item.packetSwitch.ocsDestinationRealm : 'No Data Available'}</TableCell>
-                                    </TableRow>    
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>OCS Destination Host:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ocsDestinationHost ? item.packetSwitch.ocsDestinationHost : 'No Data Available'}</TableCell>
-                                    </TableRow>
-                                    {item.packetSwitch.ratingGroupDataList.map((rating, index) => {
-                                    return(
-                                    <React.Fragment key={index}>
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Rating Group:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{rating.ratingGroup ? rating.ratingGroup : 'No Data Available'}</TableCell>
-                                    </TableRow> 
-                                    <TableRow>
-                                        <TableCell align="right" className={classes.boaderlessTh}>Used Total Octets:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{rating.usedTotalOctets ? rating.usedTotalOctets : 'No Data Available'}</TableCell>
-                                    </TableRow> 
-                                    <TableRow>
-                                        <TableCell align="right"className={classes.boaderlessTh}>Diameter Code:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{rating.diameterCode ? rating.diameterCode : 'No Data Available'}</TableCell>
-                                    </TableRow>
-                                    </React.Fragment>
-                                    )
-                                  })}                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>Number of PDN Connection:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.numbercontexts ? item.packetSwitch.numbercontexts : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>Network:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.networkMCCMNC? item.packetSwitch.networkMCCMNC.replace(/[ ,]+/g, ", ") : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>Cell ID:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.cellID ? item.packetSwitch.cellID : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>PDN Type:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.pdnType ? item.packetSwitch.pdnType : 'No Data Available'}</TableCell>
+                                </TableRow>    
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>Pri DNS IPv6 Address:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.primaryDnsIpv6Address ? item.packetSwitch.primaryDnsIpv6Address : 'No Data Available'}</TableCell>
+                                </TableRow>  
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>UL APN AMBR:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.ulApnAmbr ? item.packetSwitch.ulApnAmbr : 'No Data Available'}</TableCell>
+                                </TableRow>     
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>UL Bytes:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.sgiUlBytes ? item.packetSwitch.sgiUlBytes : 'No Data Available'}</TableCell>
+                                </TableRow>       
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>SGW/SGSN Ctl Address:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8SgwV4CtlAdr ? item.packetSwitch.s8SgwV4CtlAdr : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className={classes.boaderlessTh}>PCRF IP Address:</TableCell>
+                                  <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.pcrfAddress ? item.packetSwitch.pcrfAddress : 'No Data Available'}</TableCell>
+                                </TableRow> 
+                                {item.packetSwitch.ratingGroupDataList.map((rating, index) => {
+                                  return(
+                                  <React.Fragment key={index}>
+                                  <TableRow>
+                                    <TableCell align="right" className={classes.boaderlessTh}>Rating Group:</TableCell>
+                                    <TableCell align="left" className={classes.boaderlessTr}>{rating.ratingGroup ? rating.ratingGroup : 'No Data Available'}</TableCell>
+                                  </TableRow> 
+                                  <TableRow>
+                                    <TableCell align="right" className={classes.boaderlessTh}>Used Total Octets:</TableCell>
+                                    <TableCell align="left" className={classes.boaderlessTr}>{rating.usedTotalOctets ? rating.usedTotalOctets : 'No Data Available'}</TableCell>
+                                  </TableRow> 
+                                  <TableRow>
+                                    <TableCell align="right"className={classes.boaderlessTh}>Diameter Code:</TableCell>
+                                    <TableCell align="left" className={classes.boaderlessTr}>{rating.diameterCode ? rating.diameterCode : 'No Data Available'}</TableCell>
+                                  </TableRow>
+                                  </React.Fragment>    
+                                  )
+                                })}                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
                                 </TableBody>
                             </Table>
                     </TableContainer>                                            

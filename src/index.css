@@ -226,3 +226,15 @@ code {
     height: 280px;
     overflow-y: scroll !important;
 }
+
+.MuiCardHeader-subheader {
+    font-weight: 700 !important;
+}
+
+.modalOpenButton {
+    padding-top: 7px;
+}
+
+.warningLabel {
+    color: #cd040b !important;
+}

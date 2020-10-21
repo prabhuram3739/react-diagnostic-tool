@@ -46,17 +46,19 @@ import Loader from 'react-loader-spinner';
 import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import Button from '@material-ui/core/Button';
 import Fade from '@material-ui/core/Fade';
+import ApnEnableDisableModal from './apnEnableDisableModal/ApnEnableDisableModal';
 
 const drawerWidth = 240;
 
 const options = [
-    'Enable/Disable APN',
-    'Add/Modify Gi DNS',
-    'Enable/Disable Online Charging',
-    //'Disable Online Charging',
-    'Enable/Disable Policy Control',
-    //'Disable Realtime Policy',
-    'Add/Modify Ga Profile',
+    'Clear Subscriber',
+    'APN Enable/Disable',
+    'GI DNS - Add/Modify',
+    'GY Inline',
+    'GY Bypass',
+    'GX Inline',
+    'GX Bypass',
+    'Ga Profile - Add/Modify',
   ];
 
 const ITEM_HEIGHT = 48;
@@ -186,6 +188,7 @@ export default function Summary(props) {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [open, setOpen] = React.useState(true);
+    const [ ModalAPNEnableDisableShow, setModalAPNEnableDisableShow ] = React.useState(false);
     const handleDrawerOpen = () => {
         setOpen(true);
       };
@@ -227,53 +230,58 @@ export default function Summary(props) {
          )
         }
        }
-
-
     return(
         <div className={classes.root}>
             <Grid container spacing={1} direction="column" alignContent="center" alignItems="stretch" justify="space-around" >
                 <Grid item style={{width: "100%", padding: "0px"}}  xs={false} sm={false} lg={false} xl={false}>
                     <form className={classes.root} action="/dashboard/subscriber/" noValidate autoComplete="off" style={{float: "right"}}>
-                        <TextField id="outlined-basic" label="Search IMSI" name = "imsi" required variant="outlined" size="small"/>
+                        <TextField id="outlined-basic" label="Search IMSI" name = "imsi" variant="outlined" size="small" />
                         <Tooltip title="Search IMSI" placement="top">
-                        <IconButton type="submit" className={classes.iconButton} aria-label="search">
+                        <IconButton className={classes.iconButton} aria-label="search">
                             <SearchOutlinedIcon />
                         </IconButton>
                         </Tooltip>
                         <Divider className={classes.divider} orientation="vertical" />
-                        <Tooltip title="Enable/Disable APN" placement="top">
-                        <IconButton type="submit" className={classes.iconButton} aria-label="Enable/Disable APN" >
-                            <PublicOutlinedIcon />
+                        <Tooltip title="Clear Subscriber" placement="top">
+                        <IconButton className={classes.iconButton} aria-label="Clear Subscriber" >
+                        <PhoneAndroidOutlinedIcon />
                         </IconButton>
                         </Tooltip>
-                        <Tooltip title="Add/Modify Gi DNS" placement="top">
-                        <IconButton type="submit" className={classes.iconButton} aria-label="Add/Modify Gi DNS" >
+                        <Tooltip title="APN Enable/Disable" placement="top">
+                        <span onClick={() => setModalAPNEnableDisableShow(true)}>
+                        <ApnEnableDisableModal show={ModalAPNEnableDisableShow} onHide={() => setModalAPNEnableDisableShow(false)} />
+                        </span>
+                        </Tooltip>
+                        <Tooltip title="GI DNS - Add/Modify" placement="top">
+                        <IconButton className={classes.iconButton} aria-label="GI DNS - Add/Modify" >
                             <DnsOutlinedIcon />
                         </IconButton>  
                         </Tooltip>       
                         <Tooltip title="Enable/Disable Online Charging" placement="top">                 
-                        <IconButton type="submit" className={classes.iconButton} aria-label="Enable/Disable Online Charging" >
-                            <MonetizationOnOutlinedIcon />
+                        <IconButton className={classes.iconButton} aria-label="GY Inline" >
+                        <MonetizationOnOutlinedIcon />
                         </IconButton>    
                         </Tooltip>     
-                        <Tooltip title="Enable/Disable Policy Control" placement="top">                                     
-                        <IconButton type="submit" className={classes.iconButton} aria-label="Enable/Disable Policy Control" >
+                        <Tooltip title="GY Bypass" placement="top">                                     
+                        <IconButton className={classes.iconButton} aria-label="GY Bypass" >
                             <PolicyOutlinedIcon />
                         </IconButton>
                         </Tooltip> 
-                        <Tooltip title="Add/Modify Ga Profile" placement="top">
-                        <IconButton type="submit" className={classes.iconButton} aria-label="Add/Modify Ga Profile" >
+                        <Tooltip title="GX Inline" placement="top">
+                        <IconButton className={classes.iconButton} aria-label="GX Inline" >
                             <StorageOutlinedIcon />
                         </IconButton> 
                         </Tooltip>
-                        {/*<Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleRefreshClick}>
-                        <Tooltip title="Refresh" placement="top">                          
-                        
-                            <RefreshOutlinedIcon />
-                            
-                        
+                        <Tooltip title="GX Bypass" placement="top">
+                        <IconButton className={classes.iconButton} aria-label="GX Bypass" >
+                        <SignalCellularAltOutlinedIcon/>
+                        </IconButton> 
                         </Tooltip>
-    </Button>*/}
+                        <Tooltip title="Ga Profile - Add/Modify" placement="top">
+                        <IconButton className={classes.iconButton} aria-label="Ga Profile - Add/Modify" >
+                        <SignalCellular3BarOutlinedIcon/>
+                        </IconButton> 
+                        </Tooltip>
                         <IconButton
                                 aria-label="more"
                                 aria-controls="fade-menu"
@@ -318,62 +326,6 @@ export default function Summary(props) {
                         <input type="radio" checked={timeInterval === 600000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(600000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setAutoRefresh('Disable'); }}/> 10 Minutes
                         </MenuItem>
                         </Menu>
-                        
-                        {/*<ul className="nav nav-bar nav-tabs dropleft pull-right refreshBtn pl-0">
-        <li className="nav-item dropdown">
-            <a className="nav-link" data-toggle="dropdown" href="test" role="button" aria-haspopup="true" aria-expanded="false" style={{borderColor: "white"}}>
-            <button type="button" className='btn btn-primary pull-right'>
-            <Tooltip title="Refresh" placement="top">                          
-                        <IconButton type="submit" className={classes.iconButton} aria-label="refresh">
-                            <RefreshOutlinedIcon />
-                            
-                        </IconButton>
-                        </Tooltip>
-            </button>
-            </a>
-
-            <div className="dropdown-menu" >
-            <span className="dropdown-item">
-            <input className="reducedPaddingTop" disabled={(autoRefresh === 'Disable') ? true : false} type="checkbox" onChange={ () => { refreshBoolean ?  setRefreshBoolean(false) : setRefreshBoolean(true); refreshStatus ? setRefreshStatus(false) : setRefreshStatus(true); (buttonText === 'Enable') ? setButtonText('Disable') : setButtonText('Enable'); timeInterval ? setTimeInterval(timeInterval) : setTimeInterval(0); }}/>
-            <span className="autoRefreshTxt ml-1">Auto refresh</span>
-            </span>
-            <div className="dropdown-divider"></div>
-            <span className="dropdown-item">
-                <span>Refresh interval</span>
-            </span>
-            
-            <div className="dropdown-divider"></div>
-
-            <span className="dropdown-item">
-                <input type="radio" checked={timeInterval === 10000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(10000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 10 Seconds
-            </span>
-
-            <div className="dropdown-divider"></div>
- 
-            <span className="dropdown-item">
-            <input type="radio" checked={timeInterval === 60000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(60000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 1 Minute
-            </span>
-
-            <div className="dropdown-divider"></div>
-
-            <span className="dropdown-item">
-            <input type="radio" checked={timeInterval === 120000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(120000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 2 Minutes
-            </span>
-
-            <div className="dropdown-divider"></div>
-
-            <span className="dropdown-item">
-            <input type="radio" checked={timeInterval === 300000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(300000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 5 Minutes
-            </span>
-
-            <div className="dropdown-divider"></div>
-
-            <span className="dropdown-item">
-            <input type="radio" checked={timeInterval === 600000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(600000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 10 Minutes
-            </span>
-            </div>
-        </li>
-    </ul>*/}
                         <div>
                             <IconButton
                                 aria-label="more"
