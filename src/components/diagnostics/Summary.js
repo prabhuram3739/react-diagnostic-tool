@@ -47,6 +47,11 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import Button from '@material-ui/core/Button';
 import Fade from '@material-ui/core/Fade';
 import ApnEnableDisableModal from './apnEnableDisableModal/ApnEnableDisableModal';
+import GIDNSModal from './giDNSModal/GIDNSModal';
+import GYInlineModal from './gyInlineModal/GYInlineModal';
+import ClearSubscriberModal from './clearSubscriberModal/ClearSubscriberModal';
+import GYBypassModal from './gyBypassModal/GYBypassModal';
+import GAProfileModal from './gaProfileModal/GAProfileModal';
 
 const drawerWidth = 240;
 
@@ -189,6 +194,13 @@ export default function Summary(props) {
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [open, setOpen] = React.useState(true);
     const [ ModalAPNEnableDisableShow, setModalAPNEnableDisableShow ] = React.useState(false);
+    const [ ModalGIDNSShow, setModalGIDNSShow ] = React.useState(false);
+    const [ ModalGYInlineShow, setModalGYInlineShow ] = React.useState(false);
+    const [ ModalGYBypassShow, setModalGYBypassShow ] = React.useState(false);
+    const [ ModalGXInlineShow, setModalGXInlineShow ] = React.useState(false);
+    const [ ModalGXBypassShow, setModalGXBypassShow ] = React.useState(false);
+    const [ ModalGAModifyShow, setModalGAModifyShow ] = React.useState(false);
+    const [ ModalClearSubscriberShow, setModalClearSubscriberShow ] = React.useState(false);
     const handleDrawerOpen = () => {
         setOpen(true);
       };
@@ -234,18 +246,18 @@ export default function Summary(props) {
         <div className={classes.root}>
             <Grid container spacing={1} direction="column" alignContent="center" alignItems="stretch" justify="space-around" >
                 <Grid item style={{width: "100%", padding: "0px"}}  xs={false} sm={false} lg={false} xl={false}>
-                    <form className={classes.root} action="/dashboard/subscriber/" noValidate autoComplete="off" style={{float: "right"}}>
-                        <TextField id="outlined-basic" label="Search IMSI" name = "imsi" variant="outlined" size="small" />
+                    <form className={classes.root} action="/dashboard/subscriber/" autoComplete="off" style={{float: "right"}}>
+                        <TextField id="outlined-basic" label="Search IMSI" name = "imsi" variant="outlined" size="small" required />
                         <Tooltip title="Search IMSI" placement="top">
-                        <IconButton className={classes.iconButton} aria-label="search">
+                        <Button type="submit" color="primary">
                             <SearchOutlinedIcon />
-                        </IconButton>
+                        </Button>
                         </Tooltip>
                         <Divider className={classes.divider} orientation="vertical" />
                         <Tooltip title="Clear Subscriber" placement="top">
-                        <IconButton className={classes.iconButton} aria-label="Clear Subscriber" >
-                        <PhoneAndroidOutlinedIcon />
-                        </IconButton>
+                        <span onClick={() => setModalClearSubscriberShow(true)}>
+                        <ClearSubscriberModal show={ModalClearSubscriberShow} onHide={() => setModalClearSubscriberShow(false)} />
+                        </span>   
                         </Tooltip>
                         <Tooltip title="APN Enable/Disable" placement="top">
                         <span onClick={() => setModalAPNEnableDisableShow(true)}>
@@ -253,19 +265,19 @@ export default function Summary(props) {
                         </span>
                         </Tooltip>
                         <Tooltip title="GI DNS - Add/Modify" placement="top">
-                        <IconButton className={classes.iconButton} aria-label="GI DNS - Add/Modify" >
-                            <DnsOutlinedIcon />
-                        </IconButton>  
+                        <span onClick={() => setModalGIDNSShow(true)}>
+                        <GIDNSModal show={ModalGIDNSShow} onHide={() => setModalGIDNSShow(false)} />
+                        </span>
                         </Tooltip>       
-                        <Tooltip title="Enable/Disable Online Charging" placement="top">                 
-                        <IconButton className={classes.iconButton} aria-label="GY Inline" >
-                        <MonetizationOnOutlinedIcon />
-                        </IconButton>    
+                        <Tooltip title="GY inline" placement="top">                 
+                        <span onClick={() => setModalGYInlineShow(true)}>
+                        <GYInlineModal show={ModalGIDNSShow} onHide={() => setModalGYInlineShow(false)} />
+                        </span>   
                         </Tooltip>     
                         <Tooltip title="GY Bypass" placement="top">                                     
-                        <IconButton className={classes.iconButton} aria-label="GY Bypass" >
-                            <PolicyOutlinedIcon />
-                        </IconButton>
+                        <span onClick={() => setModalGYBypassShow(true)}>
+                        <GYBypassModal show={ModalGYBypassShow} onHide={() => setModalGYBypassShow(false)} />
+                        </span>   
                         </Tooltip> 
                         <Tooltip title="GX Inline" placement="top">
                         <IconButton className={classes.iconButton} aria-label="GX Inline" >
@@ -278,9 +290,9 @@ export default function Summary(props) {
                         </IconButton> 
                         </Tooltip>
                         <Tooltip title="Ga Profile - Add/Modify" placement="top">
-                        <IconButton className={classes.iconButton} aria-label="Ga Profile - Add/Modify" >
-                        <SignalCellular3BarOutlinedIcon/>
-                        </IconButton> 
+                        <span onClick={() => setModalGAModifyShow(true)}>
+                        <GAProfileModal show={ModalGAModifyShow} onHide={() => setModalGAModifyShow(false)} />
+                        </span> 
                         </Tooltip>
                         <IconButton
                                 aria-label="more"

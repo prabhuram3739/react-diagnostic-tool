@@ -46,12 +46,11 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 function ApnDisableModal(props) {
-  const [APNDisableModalShow, setAPNDisableModalShow] = React.useState(false);
   const classes = useStyles();
+  const [ApnModalDisableShow, setApnModalDisableShow] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('md');
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -66,7 +65,6 @@ function ApnDisableModal(props) {
             Disable
         </Button>
         <Dialog
-        {...props}
           fullWidth={fullWidth}
           maxWidth={maxWidth}
           open={open}

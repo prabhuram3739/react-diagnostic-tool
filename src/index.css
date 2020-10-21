@@ -235,6 +235,17 @@ code {
     padding-top: 7px;
 }
 
-.warningLabel {
+.warningLabel,
+.headerMsgText {
     color: #cd040b !important;
+}
+
+.msgText,
+.headerMsgText {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.iconBtn {
+    padding: 12px 16px !important;
 }

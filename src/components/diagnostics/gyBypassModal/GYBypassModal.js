@@ -1,10 +1,9 @@
 import React from "react";
-import ApnDisableModal from '../apnDisableModal/ApnDisableModal';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
-import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
+import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -52,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function ApnEnableDisableModal(props) {
+function GYBypassModal(props) {
   const [APNDisableModalShow, setAPNDisableModalShow] = React.useState(false);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -70,7 +69,7 @@ function ApnEnableDisableModal(props) {
       
         <React.Fragment>
         <Button className="iconBtn" onClick={handleClickOpen}>
-        <PublicOutlinedIcon/>
+        <PolicyOutlinedIcon/>
         </Button>
         <Dialog
           fullWidth={fullWidth}
@@ -79,7 +78,7 @@ function ApnEnableDisableModal(props) {
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
         ><form className={classes.form}>
-          <DialogTitle id="max-width-dialog-title">APN Enable/Disable</DialogTitle>
+          <DialogTitle id="max-width-dialog-title">GY Bypass</DialogTitle>
           <DialogContent>
             
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
@@ -102,11 +101,8 @@ function ApnEnableDisableModal(props) {
           </DialogContent>
           <DialogActions>
           <Button type="submit" color="primary" variant="contained">
-            Enable
+            Submit
           </Button>
-          <span onClick={() => setAPNDisableModalShow(true)}>
-          <ApnDisableModal show={APNDisableModalShow} onHide={() => setAPNDisableModalShow(false) } />
-          </span>
           <Button onClick={handleClose} color="primary" variant="contained">
             Cancel
           </Button>
@@ -117,4 +113,4 @@ function ApnEnableDisableModal(props) {
     );
   }
 
-  export default ApnEnableDisableModal;
+  export default GYBypassModal;
