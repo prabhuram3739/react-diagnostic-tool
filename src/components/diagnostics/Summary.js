@@ -303,19 +303,19 @@ export default function Summary(props) {
                         <span className="autoRefreshTxt ml-1">Auto refresh</span>
                         </MenuItem>
                         <MenuItem>
-                        <input type="radio" checked={timeInterval === 10000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(10000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 10 Seconds 
+                        <input type="radio" checked={timeInterval === 10000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(10000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setAutoRefresh('Disable'); }}/> 10 Seconds 
                         </MenuItem>
                         <MenuItem>
-                        <input type="radio" checked={timeInterval === 60000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(60000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 1 Minute
+                        <input type="radio" checked={timeInterval === 60000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(60000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setAutoRefresh('Disable'); }}/> 1 Minute
                         </MenuItem>
                         <MenuItem>
-                        <input type="radio" checked={timeInterval === 120000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(120000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 2 Minutes 
+                        <input type="radio" checked={timeInterval === 120000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(120000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setAutoRefresh('Disable'); }}/> 2 Minutes 
                         </MenuItem>
                         <MenuItem>
-                        <input type="radio" checked={timeInterval === 300000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(300000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 5 Minutes 
+                        <input type="radio" checked={timeInterval === 300000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(300000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setAutoRefresh('Disable'); }}/> 5 Minutes 
                         </MenuItem>
                         <MenuItem>
-                        <input type="radio" checked={timeInterval === 600000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(600000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setButtonText('Disable'); }}/> 10 Minutes
+                        <input type="radio" checked={timeInterval === 600000 ?  true : false} onChange={ () => { timeInterval === 3000? setTimeInterval(600000) : setTimeInterval(3000); (autoRefresh === 'Disable') ? setAutoRefresh('Enable') : setAutoRefresh('Disable'); }}/> 10 Minutes
                         </MenuItem>
                         </Menu>
                         
