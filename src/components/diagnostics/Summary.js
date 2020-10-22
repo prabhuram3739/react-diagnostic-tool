@@ -228,6 +228,10 @@ export default function Summary(props) {
       const handleRefreshClose = () => {
         setRefreshAnchorEl(null);
       };
+      const toCamelCase = (str) => {
+          console.log(str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase()));
+          return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+    }
       let [refreshBoolean, setRefreshBoolean] = useState(false);
     let [refreshStatus, setRefreshStatus] = useState(false);
     let [buttonText, setButtonText] = useState("Enable");
@@ -261,22 +265,22 @@ export default function Summary(props) {
                         <ClearSubscriberModal show={ModalClearSubscriberShow} onHide={() => setModalClearSubscriberShow(false)} />
                         </span>   
                         </Tooltip>
-                        <Tooltip title="APN Enable/Disable" placement="top">
+                        <Tooltip title="Enable/Disable APN" placement="top">
                         <span onClick={() => setModalAPNEnableDisableShow(true)}>
                         <ApnEnableDisableModal show={ModalAPNEnableDisableShow} onHide={() => setModalAPNEnableDisableShow(false)} />
                         </span>
                         </Tooltip>
-                        <Tooltip title="GI DNS - Add/Modify" placement="top">
+                        <Tooltip title="Add/Modify Gi DNS" placement="top">
                         <span onClick={() => setModalGIDNSShow(true)}>
                         <GIDNSModal show={ModalGIDNSShow} onHide={() => setModalGIDNSShow(false)} />
                         </span>
                         </Tooltip>       
-                        <Tooltip title="GY inline" placement="top">                 
+                        <Tooltip title="Enable/Disable Online Charging" placement="top">                 
                         <span onClick={() => setModalGYInlineShow(true)}>
                         <GYInlineModal show={ModalGIDNSShow} onHide={() => setModalGYInlineShow(false)} />
                         </span>   
                         </Tooltip>     
-                        <Tooltip title="GY Bypass" placement="top">                                     
+                        <Tooltip title="Enable/Disable Realtime Policy" placement="top">                                     
                         <span onClick={() => setModalGYBypassShow(true)}>
                         <GYBypassModal show={ModalGYBypassShow} onHide={() => setModalGYBypassShow(false)} />
                         </span>   
@@ -291,7 +295,7 @@ export default function Summary(props) {
                         <APNShutdownGXBypassModal show={ModalGXBypassShow} onHide={() => setModalGXBypassShow(false)} />
                         </span> 
                         </Tooltip>
-                        <Tooltip title="Ga Profile - Add/Modify" placement="top">
+                        <Tooltip title="Add/Modify Ga Profile" placement="top">
                         <span onClick={() => setModalGAModifyShow(true)}>
                         <GAProfileModal show={ModalGAModifyShow} onHide={() => setModalGAModifyShow(false)} />
                         </span> 
@@ -367,7 +371,7 @@ export default function Summary(props) {
                                 </MenuItem>
                                 ))}
                                 </Menu>
-                        </div>*/}
+                        </div>*/} 
                     </form>
                 </Grid>
                { loading ? <div><div className="v-loading-indicator second v-loading-indicator-delay v-loading-indicator-wait" ></div><Loader className="centerDisplayDefaultView mt-5" type="Circles" color="#00BFFF" height={40} width={40} /></div>  :
@@ -463,104 +467,94 @@ export default function Summary(props) {
                     </Card>
                 </Grid>
 
-                {/* Summary Card */}
-                <Grid item style={{width: "100%"}}  xs={false} sm={false} lg={false} xl={false}>
-                    <Card style={{width: "100%", backgroundColor: "#d3d3d3"}} className={classes.card} elevation={3} component="div" >
-                        <CardContent >
-                            <Grid container spacing={1} alignContent="center" alignItems="center" justify="space-around" boxshadow="none">
-                                <Grid item xs={false} sm={false} lg={false}>
-                                <Paper className={classes.paper} elevation={0} style={{backgroundColor: "inherit"}} >
-                                        <Typography component="h4" variant="h6" color="primary" className={classes.title} align="center">
-                                        {item.packetSwitchAdminDefaultHeaderVO.homers ? item.packetSwitchAdminDefaultHeaderVO.homers : 'No Data Available'}
-                                        </Typography>                                          
-                                        <List dense>
-                                            <ListItem >
-                                                <ListItemIcon className={classes.ListItemIcon} >
-                                                    <HomeWorkIcon />
-                                                </ListItemIcon>
-                                                <ListItemText primary="Homers" />
-                                            </ListItem>  
-                                        </List>
-                                    </Paper>
-                                </Grid>
-                                <Divider className={classes.divider} orientation="vertical" />
-                                <Grid item xs={false} sm={false} lg={false}>
-                                    <Paper className={classes.paper} elevation={0} style={{backgroundColor: "inherit"}}>
-                                        <Typography component="h4" variant="h6" color="primary" padding="12" display="inline" className={classes.title} align="center">
-                                        {item.packetSwitchAdminDefaultHeaderVO.roamers ? item.packetSwitchAdminDefaultHeaderVO.roamers : 'No Data Available'}
-                                        </Typography>
-                                        <List dense>
-                                            <ListItem >
-                                                <ListItemIcon className={classes.ListItemIcon} >
-                                                    <SignalCellular3BarOutlinedIcon/>
-                                                </ListItemIcon>
-                                                <ListItemText primary="Roamers" />
-                                            </ListItem>  
-                                        </List>                                        
-                                    </Paper>
-                                </Grid>
-                                <Divider className={classes.divider} orientation="vertical" />
-                                <Grid item xs={false} sm={false} lg={false}>
-                                <Paper className={classes.paper} elevation={0} style={{backgroundColor: "inherit"}}>
-                                        <Typography component="h4" variant="h6" color="primary" padding="12" display="inline" className={classes.title} align="center">
-                                        {item.packetSwitchAdminDefaultHeaderVO.visitors ? item.packetSwitchAdminDefaultHeaderVO.visitors : 'No Data Available'}
-                                        </Typography>
-                                        <List dense>
-                                            <ListItem >
-                                                <ListItemIcon className={classes.ListItemIcon} >
-                                                    <SignalCellularAltOutlinedIcon/>
-                                                </ListItemIcon>
-                                                <ListItemText primary="Visitors" />
-                                            </ListItem>  
-                                        </List>                                          
-                                    </Paper>
-                                </Grid>  
-                                <Divider className={classes.divider} orientation="vertical" />
-                                <Grid item xs={false} sm={false} lg={false}>
-                                <Paper className={classes.paper} elevation={0} style={{backgroundColor: "inherit"}}>
-                                        <Typography component="h4" variant="h6" color="primary" padding="12" display="inline" className={classes.title} align="center">
-                                        {item.packetSwitchAdminDefaultHeaderVO.gyCcrsBuffered ? item.packetSwitchAdminDefaultHeaderVO.gyCcrsBuffered : 'No Data Available'}
-                                        </Typography>
-                                        <List dense>
-                                            <ListItem >
-                                                <ListItemIcon className={classes.ListItemIcon} >
-                                                    <PublicOutlinedIcon/>
-                                                </ListItemIcon>
-                                                <ListItemText primary="Buffered Gy CCRs" />
-                                            </ListItem>  
-                                        </List>                                          
-                                    </Paper>
-                                </Grid> 
-                                <Divider className={classes.divider} orientation="vertical" />  
-                                <Grid item xs={false} sm={false} lg={false}>
-                                <Paper className={classes.paper} elevation={0} style={{backgroundColor: "inherit"}}>
-                                        <Typography component="h4" variant="h6" color="primary" padding="12" display="inline" className={classes.title} align="center">
-                                        {item.packetSwitchAdminDefaultHeaderVO.gACdrsBuffered ? item.packetSwitchAdminDefaultHeaderVO.gACdrsBuffered : 'No Data Available'}
-                                        </Typography>
-                                        <List dense>
-                                            <ListItem >
-                                                <ListItemIcon className={classes.ListItemIcon} >
-                                                    <AccessTimeOutlinedIcon/>
-                                                </ListItemIcon>
-                                                <ListItemText primary="Buffered Ga CDRs" />
-                                            </ListItem>  
-                                        </List>                                         
-                                    </Paper>
-                                </Grid>                                             
-                            </Grid>
-                        </CardContent>
-                    </Card>
-                </Grid>
-
 
                 {/* Hardware Summary Card */}
                 <Grid item xs={false} sm={false} lg={false}>
                     <Grid container spacing={1} alignContent="stretch" direction="row" alignItems="stretch" justify="space-between">
+                    <Grid item xs={3} sm={3} lg={6}>
+                        <Card className="customCard"  elevation={3} component="div">
+                            <CardHeader 
+                                //title={'Node'}
+                                subheader={'Hardware Details'}
+                            />
+                            <CardContent className={classes.cardContent}>
+                            <TableContainer component={Paper} className={classes.boaderlessTable}>
+                                    <Table  size="small" >
+                                        <TableHead>
+                                        <TableRow className={classes.boaderlessTh}>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Homers</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Roamers</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Visitors</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Buffered Gy CCRs</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Buffered Ga CDRs</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>NTP Admin Status</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Operational Status</TableCell>
+                                            </TableRow>                                                                                                                                                                  
+                                        </TableHead>
+                                        <TableBody>
+                                            <TableRow style={{boader: "none"}}>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.homers ? item.packetSwitchAdminDefaultHeaderVO.homers : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.roamers ? item.packetSwitchAdminDefaultHeaderVO.roamers : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.visitors ? item.packetSwitchAdminDefaultHeaderVO.visitors : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.gyCcrsBuffered ? item.packetSwitchAdminDefaultHeaderVO.gyCcrsBuffered : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.gACdrsBuffered ? item.packetSwitchAdminDefaultHeaderVO.gACdrsBuffered : 'No Data Available'}</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                            </TableRow>                                                                                                                                                                                                                                                                                                                          
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>                                            
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    <Grid item xs={3} sm={3} lg={6}>
+                        <Card className="customCard"  elevation={3} component="div">
+                            <CardHeader 
+                                //title={'Node'}
+                                subheader={'Sessions & Bearer Details'}
+                            />
+                            <CardContent className={classes.cardContent}>
+                            <TableContainer component={Paper} className={classes.boaderlessTable}>
+                                    <Table  size="small" >
+                                        <TableHead>
+                                        <TableRow className={classes.boaderlessTh}>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Ipv4 PDN Sessions</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Ipv6 PDN Sessions</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Ipv4v6 PDN Sessions</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Ipv4 Bearers</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Ipv6 Bearers</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Ipv4v6 Bearers</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Default Bearers</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Dedicated Bearers</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>Bearers</TableCell>
+                                            </TableRow>                                                                                                                                                                  
+                                        </TableHead>
+                                        <TableBody>
+                                            <TableRow style={{boader: "none"}}>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.ipv4PdnSessions ? item.packetSwitchAdminDefaultHeaderVO.ipv4PdnSessions : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.ipv6PdnSessions ? item.packetSwitchAdminDefaultHeaderVO.ipv6PdnSessions : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.ipv4v6PdnSessions ? item.packetSwitchAdminDefaultHeaderVO.ipv4v6PdnSessions : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.ipv4Bearers ? item.packetSwitchAdminDefaultHeaderVO.ipv4Bearers : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.ipv6Bearers ? item.packetSwitchAdminDefaultHeaderVO.ipv6Bearers : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.ipv4v6Bearers ? item.packetSwitchAdminDefaultHeaderVO.ipv4v6Bearers : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.defaultBearers ? item.packetSwitchAdminDefaultHeaderVO.defaultBearers : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.dedicatedBearers ? item.packetSwitchAdminDefaultHeaderVO.dedicatedBearers : 'No Data Available'}</TableCell>
+                                                <TableCell align="left">{item.packetSwitchAdminDefaultHeaderVO.bearers ? item.packetSwitchAdminDefaultHeaderVO.bearers : 'No Data Available'}</TableCell>
+                                            </TableRow>                                                                                                                                                                                                                                                                                                                          
+                                        </TableBody>
+                                    </Table>
+                                </TableContainer>                                            
+                            </CardContent>
+                        </Card>
+                    </Grid>
+
+                    
                         <Grid item xs={3} sm={3} lg={6}>                    
                             <Card className="customCard"  elevation={3} component="div">
                             <CardHeader 
                                 //title={'Node'}
-                                subheader={'Hardware Details'}
+                                subheader={'Card Summary'}
                             />
                             <CardContent className={classes.cardContent}>
                                 <TableContainer component={Paper} className={classes.boaderlessTable}>
@@ -593,6 +587,7 @@ export default function Summary(props) {
                                                 <TableCell align="left" className={classes.boaderlessTh}>Type</TableCell>
                                                 <TableCell align="left" className={classes.boaderlessTh}>Admin State</TableCell>
                                                 <TableCell align="left" className={classes.boaderlessTh}>Operational State</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>CPU Utilization</TableCell>
                                                 <TableCell align="left" className={classes.boaderlessTh}>Memory pool Utilization</TableCell>
                                             </TableRow>                                                                                                                                                              
                                         </TableHead>
@@ -600,30 +595,34 @@ export default function Summary(props) {
                                             <TableRow style={{boader: "none"}}>
                                                 <TableCell align="left">1</TableCell>
                                                 <TableCell align="left">iom-v</TableCell>
-                                                <TableCell align="left">up</TableCell>
-                                                <TableCell align="left">up</TableCell>
-                                                <TableCell align="left">up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
                                             </TableRow> 
                                             <TableRow style={{boader: "none"}}>
                                                 <TableCell align="left">3</TableCell>
                                                 <TableCell align="left">iom-v-mg</TableCell>
-                                                <TableCell align="left">up</TableCell>
-                                                <TableCell align="left">up</TableCell>
-                                                <TableCell align="left">up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
                                             </TableRow>    
                                             <TableRow style={{boader: "none"}}>
                                                 <TableCell align="left">A</TableCell>
                                                 <TableCell align="left">cpm-v</TableCell>
-                                                <TableCell align="left">up</TableCell>
-                                                <TableCell align="left">up</TableCell>
-                                                <TableCell align="left">up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
                                             </TableRow>    
                                             <TableRow style={{boader: "none"}}>
                                                 <TableCell align="left">B</TableCell>
                                                 <TableCell align="left">cpm-v</TableCell>
-                                                <TableCell align="left">up</TableCell>
-                                                <TableCell align="left">up</TableCell>
-                                                <TableCell align="left">up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
+                                                <TableCell align="left" style={{color: "green"}}>Up</TableCell>
                                             </TableRow>                                                                                                                                                                                                                                                                                                                           
                                         </TableBody>
                                     </Table>
@@ -636,7 +635,7 @@ export default function Summary(props) {
                         <Card className="customCard"  elevation={3} component="div">
                             <CardHeader 
                                 //title={'Node'}
-                                subheader={'Gy Statistics'}
+                                subheader={'Gy Connections'}
                             />
                             <CardContent className={classes.cardContent}>
                             <TableContainer component={Paper} className={classes.boaderlessTable}>
@@ -655,7 +654,7 @@ export default function Summary(props) {
                                         <TableRow key={index} style={{boader: "none"}}>
                                             <TableCell align="left">{gyStatistics.diaPeerProf ? gyStatistics.diaPeerProf : 'No Data Available'}</TableCell>
                                             <TableCell align="left">{gyStatistics.peerAddress ? gyStatistics.peerAddress : 'No Data Available'} </TableCell>
-                                            <TableCell align="left" style={{color: "red"}}>{gyStatistics.pathMgmtState ? gyStatistics.pathMgmtState : 'No Data Available'}</TableCell>
+                                            <TableCell align="left" style={{color: (gyStatistics.pathMgmtState === 'Inactive') ?  "red" : "green"}}>{gyStatistics.pathMgmtState ? gyStatistics.pathMgmtState : 'No Data Available'}</TableCell>
                                             <TableCell align="left">{gyStatistics.detailState ? gyStatistics.detailState : 'No Data Available'}</TableCell>
                                         </TableRow>
                                         )})
@@ -671,7 +670,7 @@ export default function Summary(props) {
                     <Card className="customCard"  elevation={3} component="div">
                             <CardHeader 
                                 //title={'Node'}
-                                subheader={'Gx Statistics'}
+                                subheader={'Gx Connections'}
                             />
                             <CardContent className={classes.cardContent}>
                             <TableContainer component={Paper} className={classes.boaderlessTable}>
@@ -690,7 +689,7 @@ export default function Summary(props) {
                                         <TableRow key={index} style={{boader: "none"}}>
                                             <TableCell align="left">{gxStatistics.diaPeerProf ? gxStatistics.diaPeerProf : 'No Data Available'}</TableCell>
                                             <TableCell align="left">{gxStatistics.peerAddress ? gxStatistics.peerAddress : 'No Data Available'}</TableCell>
-                                            <TableCell align="left" style={{color: "red"}}>{gxStatistics.pathMgmtState ? gxStatistics.pathMgmtState : 'No Data Available'}</TableCell>
+                                            <TableCell align="left" style={{color: (gxStatistics.pathMgmtState === 'Inactive') ?  "red" : "green"}}>{gxStatistics.pathMgmtState ? gxStatistics.pathMgmtState : 'No Data Available'}</TableCell>
                                             <TableCell align="left">{gxStatistics.detailState ? gxStatistics.detailState : 'No Data Available'}</TableCell>
                                         </TableRow>  
                                         )})
@@ -706,7 +705,7 @@ export default function Summary(props) {
                         <Card className="customCard"  elevation={3} component="div">
                         <CardHeader 
                             //title={'Node'}
-                            subheader={'Sx Statistics'}
+                            subheader={'Sx Associations'}
                         />
                         <CardContent className={classes.cardContent}>
                             <TableContainer component={Paper} className={classes.boaderlessTable}>
@@ -723,9 +722,9 @@ export default function Summary(props) {
                                         {(item.sxStatisticsList !== null) && item.sxStatisticsList.map((sxStatistics, index) => {
                                         return(
                                         <TableRow key={index} style={{boader: "none"}}>
-                                            <TableCell align="left">{sxStatistics.uPAssociation ? sxStatistics.uPAssociation : 'No Data Available'}</TableCell>
+                                            <TableCell align="left" style={{color: (sxStatistics.uPAssociation === 'Down') ?  "red" : "green"}}>{(sxStatistics.uPAssociation && sxStatistics.uPAssociation === 'down') ? 'Down' : (sxStatistics.uPAssociation && sxStatistics.uPAssociation === 'up') ? 'Up' : 'No Data Available'}</TableCell>
                                             <TableCell align="left">{sxStatistics.peerAddress ? sxStatistics.peerAddress : 'No Data Available'}</TableCell>
-                                            <TableCell align="left" style={{color: "green"}}>{sxStatistics.pathMgmtState ? sxStatistics.pathMgmtState : 'No Data Available'}</TableCell>
+                                            <TableCell align="left" style={{color: (sxStatistics.pathMgmtState === 'down') ?  "red" : "green"}}>{(sxStatistics.pathMgmtState && sxStatistics.pathMgmtState === 'down') ? 'Down' : (sxStatistics.pathMgmtState && sxStatistics.pathMgmtState === 'up') ? 'Up' : 'No Data Available'}</TableCell>
                                             <TableCell align="left">{sxStatistics.lastChangeTime ? sxStatistics.lastChangeTime : 'No Data Available'}</TableCell>
                                         </TableRow>
                                         )})
@@ -741,7 +740,7 @@ export default function Summary(props) {
                         <Card className="customCard" elevation={3} component="div">
                         <CardHeader 
                             //title={'Node'}
-                            subheader={'Ga Statistics'}
+                            subheader={'Ga Connections'}
                         />
                         <CardContent className={classes.cardContent}>
                         <TableContainer component={Paper} className={classes.boaderlessTable}>
@@ -760,7 +759,7 @@ export default function Summary(props) {
                                 <TableRow key={index} style={{boader: "none"}}>
                                     <TableCell align="left">{gaStatistics.gtpPrimGrp ? gaStatistics.gtpPrimGrp : 'No Data Available'}</TableCell>
                                     <TableCell align="left">{gaStatistics.peerAddress ? gaStatistics.peerAddress : 'No Data Available'}</TableCell>
-                                    <TableCell align="left" style={{color: "red"}}>{gaStatistics.operState ? gaStatistics.operState : 'No Data Available'}</TableCell>
+                                    <TableCell align="left" style={{color: "red"}}>{(gaStatistics.operState && gaStatistics.operState === 'down') ? 'Down' : (gaStatistics.operState && gaStatistics.operState === 'up') ? 'Up' : 'No Data Available'}</TableCell>
                                     <TableCell align="left">{gaStatistics.upTime ? gaStatistics.upTime : 'No Data Available'}</TableCell>
                                 </TableRow>  
                                 )})
@@ -796,7 +795,7 @@ export default function Summary(props) {
                                             <TableCell align="left">{radStatistics.groupName ? radStatistics.groupName : 'No Data Available'}</TableCell>
                                             <TableCell align="left">{radStatistics.peerAddress ? radStatistics.peerAddress : 'No Data Available'}</TableCell>
                                             <TableCell align="left" style={{color: "green"}}>{radStatistics.operationState ? radStatistics.operationState : 'No Data Available'}</TableCell>
-                                            <TableCell align="left" style={{color: "green"}}>{radStatistics.adminState ? radStatistics.adminState : 'No Data Available'}</TableCell>
+                                            <TableCell align="left" style={{color: "green"}}>{(radStatistics.adminState && radStatistics.adminState === 'up') ? 'Up' : (radStatistics.adminState && radStatistics.adminState === 'down') ? 'Down' : 'No Data Available'}</TableCell>
                                         </TableRow>
                                         )})
                                         }                                                                                                                                                                                                 

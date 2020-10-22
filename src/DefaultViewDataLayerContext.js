@@ -12,7 +12,8 @@ export class DefaultViewDataProvider extends Component {
     refresh: false,
     refreshStatus: false,
     timeInterval: 3000,
-    intervalID: null
+    intervalID: null,
+    time: Date().toLocaleString()
   }
 
   componentDidMount() {
@@ -44,7 +45,7 @@ componentDidUpdate(prevProps, prevState) {
   console.log(this.props);
  if(prevProps.refreshStatus !== this.props.refreshStatus) {
    //Perform some operation here
-   this.setState({refresh: prevProps.refresh, refreshStatus: prevState.refreshStatus, timeInterval: prevState.timeInterval});
+   this.setState({refresh: prevProps.refresh, refreshStatus: prevState.refreshStatus, timeInterval: prevState.timeInterval, time: new Date().toLocaleString()});
    if(this.state.refreshStatus === false) {
     this.getDefaultViewData(this.props.imsi, prevProps.refresh, prevState.refreshStatus, this.props.timeInterval);
   } else {
@@ -58,6 +59,7 @@ componentDidUpdate(prevProps, prevState) {
   this.setState({intervalId: id});
 }*/
 
+
 getDefaultViewData = (imsi, refresh, status, timeInterval) => {
   var self = this;
   imsi ="234500010400205";
@@ -70,7 +72,7 @@ getDefaultViewData = (imsi, refresh, status, timeInterval) => {
         "Content-Type": "application/xml; charset=utf-8"
      })
     .then(function(response) {
-        self.setState((state, props) => ({ loading: false, data: response.data, count: Object.keys(response.data).length, refresh: refresh, refreshStatus: status }));
+        self.setState((state, props) => ({ loading: false, data: response.data, count: Object.keys(response.data).length, refresh: refresh, refreshStatus: status, time: new Date().toLocaleString() + timeInterval }));
         if(status === true && refresh === true) {
             self.intervalID = setTimeout(self.getDefaultViewData.bind(this), timeInterval);
         }
@@ -81,10 +83,10 @@ getDefaultViewData = (imsi, refresh, status, timeInterval) => {
   }
 
   render() {
-    const {data, count, loading, refresh, refreshStatus, timeInterval} = this.state || {};
+    const {data, count, loading, refresh, refreshStatus, timeInterval, time} = this.state || {};
     const {componentDidMount} = this;
     return(
-      <DefaultViewDataLayerContext.Provider value = {{ data, count, loading, refresh, refreshStatus, timeInterval, componentDidMount }} > { this.props.children } 
+      <DefaultViewDataLayerContext.Provider value = {{ data, count, loading, refresh, refreshStatus, timeInterval, time, componentDidMount }} > { this.props.children } 
       </DefaultViewDataLayerContext.Provider>
     )
   }

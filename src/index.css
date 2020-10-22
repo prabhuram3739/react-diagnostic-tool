@@ -224,7 +224,7 @@ code {
 
 .customCard {
     height: 280px;
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
 }
 
 .MuiCardHeader-subheader {

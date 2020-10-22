@@ -22,6 +22,8 @@ import DefaultViewDataLayerContext, { DefaultViewDataProvider } from '../../Defa
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import { withRouter } from "react-router-dom";
+import InputLabel from '@material-ui/core/InputLabel';
+import Toolbar from '@material-ui/core/Toolbar';
 
 import Summary from './Summary';
 
@@ -137,13 +139,31 @@ export default function Dashboard() {
 
     return(
         <div>
-            <Box m={2}>
-                <Typography component="h1" variant="h6" color="inherit" padding="12" display="inline" className={classes.title}>
+          
+                
+                
+                <Toolbar>
+    <Grid
+      justify="space-between" // Add it here :)
+      container 
+      spacing={10}
+    >
+      <Grid item>
+      <Typography component="h1" variant="h6" color="inherit" padding="12" display="inline" className={classes.title}>
                 Diagnostics
-                </Typography>
-            </Box>
+      </Typography>
+      </Grid>
+
+      <Grid item>
+        <div>
+        <InputLabel>Current Date & Time: </InputLabel>{Date().toLocaleString()}
+        </div>
+      </Grid>
+    </Grid>
+  </Toolbar>
+           
             <Box m={1}>
-            <DefaultViewDataProvider imsi={queryString.parse(location.search).imsi}  refresh={refreshBoolean} refreshStatus={refreshStatus} timeInterval={timeInterval} >
+            <DefaultViewDataProvider time={Date().toLocaleString()} imsi={queryString.parse(location.search).imsi}  refresh={refreshBoolean} refreshStatus={refreshStatus} timeInterval={timeInterval} >
                 <TabContext value={value}>
                     <TabList onChange={handleChange} aria-label="simple tabs example">
                         <Tab label="AMS PROD CMG" value="1" />
@@ -154,6 +174,7 @@ export default function Dashboard() {
                     <TabPanel value="2"><Summary /></TabPanel>
                     <TabPanel value="3"><Summary /></TabPanel>
                 </TabContext>
+
             </DefaultViewDataProvider>           
             </Box>
         </div>
