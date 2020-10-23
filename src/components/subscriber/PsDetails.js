@@ -331,6 +331,10 @@ export default function PsDetails() {
                                   <TableCell align="right" className={classes.boaderlessTh}>PGW Data Addr:</TableCell>
                                   <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8PgwDataAddr ? item.packetSwitch.s8PgwDataAddr : 'No Data Available'}</TableCell>
                                 </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className="customRowClass"></TableCell>
+                                  <TableCell align="left" className="customRowClass"></TableCell>
+                                </TableRow>
                                 <TableRow style={{boader: "none"}}>
                                   <TableCell align="right" className={classes.boaderlessTh}>PCRF Local Hostname:</TableCell>
                                   <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.pcrfHostname ? item.packetSwitch.pcrfHostname : 'No Data Available'}</TableCell>
@@ -392,8 +396,16 @@ export default function PsDetails() {
                                   <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.s8SgwV4CtlAdr ? item.packetSwitch.s8SgwV4CtlAdr : 'No Data Available'}</TableCell>
                                 </TableRow>
                                 <TableRow>
+                                  <TableCell align="right" className="customRowClass"></TableCell>
+                                  <TableCell align="left" className="customRowClass"></TableCell>
+                                </TableRow>
+                                <TableRow>
                                   <TableCell align="right" className={classes.boaderlessTh}>PCRF IP Address:</TableCell>
                                   <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.pcrfAddress ? item.packetSwitch.pcrfAddress : 'No Data Available'}</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                  <TableCell align="right" className="customRowClass"></TableCell>
+                                  <TableCell align="left" className="customRowClass"></TableCell>
                                 </TableRow> 
                                 {item.packetSwitch.ratingGroupDataList.map((rating, index) => {
                                   return(

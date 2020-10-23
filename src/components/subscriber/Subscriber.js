@@ -305,8 +305,8 @@ export default function Subscriber() {
             <Box m={1}>             
                 <TabContext value={value}>
                     <TabList onChange={handleChange} aria-label="simple tabs example">
-                        <Tab label="Packet Core Data" value="1" />
-                        <Tab label="Circuit Core Data" value="2" />
+                        <Tab label="Packet Core Data" className="noUpperCaseTxt" value="1" />
+                        <Tab label="Circuit Core Data" className="noUpperCaseTxt" value="2" />
                     </TabList>
                     <TabPanel value="1"><PsDetails/></TabPanel>
                     <TabPanel value="2"><CsDetails/></TabPanel>

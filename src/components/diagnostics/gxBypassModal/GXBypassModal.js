@@ -77,7 +77,7 @@ function GXBypassModal(props) {
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
         ><form className={classes.form}>
-          <DialogTitle id="max-width-dialog-title">GX Bypass</DialogTitle>
+          <DialogTitle id="max-width-dialog-title">Gx Bypass</DialogTitle>
           <DialogContent>
             
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">

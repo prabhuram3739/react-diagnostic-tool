@@ -78,7 +78,7 @@ function GYBypassModal(props) {
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
         ><form className={classes.form}>
-          <DialogTitle id="max-width-dialog-title">GY Bypass</DialogTitle>
+          <DialogTitle id="max-width-dialog-title">Enable/Disable Realtime Policy - Gy Bypass</DialogTitle>
           <DialogContent>
             
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">

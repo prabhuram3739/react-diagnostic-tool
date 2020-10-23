@@ -179,7 +179,7 @@ function GYInlineModal(props) {
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
         ><form onSubmit={onSubmitClick} className={classes.form}>
-          <DialogTitle id="max-width-dialog-title">GX Inline
+          <DialogTitle id="max-width-dialog-title">Gx Inline
             { showSubmitOnlyAPNMsg ? <div className="headerMsgText mt-0">At least one of Primary or Secondary Diameter peer name required OR Diameter Peer Group name is required.</div> : null }
             { showSubmitOnlyAPNGXPriofileMsg ? <div className="headerMsgText mt-0">At least one of Primary or Secondary Diameter peer name required OR Diameter Peer Group name is required.</div> : null }</DialogTitle>
           <DialogContent>

@@ -79,7 +79,7 @@ function ApnEnableDisableModal(props) {
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
         ><form className={classes.form}>
-          <DialogTitle id="max-width-dialog-title">APN Enable/Disable</DialogTitle>
+          <DialogTitle id="max-width-dialog-title">Enable/Disable APN</DialogTitle>
           <DialogContent>
             
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">

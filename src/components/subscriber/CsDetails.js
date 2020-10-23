@@ -237,7 +237,7 @@ export default function CsDetails() {
                                 <TableBody>
                                 <TableRow style={{boader: "none"}}>
                                         <TableCell align="right" className={classes.boaderlessTh}>Subscriber Status</TableCell>
-                                        <TableCell align="left" style={{color: "green"}} className={classes.boaderlessTr}>{item.circuitSwitch.subscriberStatus === true ? 'IMSI Active' : 'IMSI Inactive'}</TableCell>
+                                        <TableCell align="left" style={{color: (item.circuitSwitch.subscriberStatus === true) ?  "green" : "red"}} className={classes.boaderlessTr}>{item.circuitSwitch.subscriberStatus === true ? 'IMSI Active' : 'IMSI Inactive'}</TableCell>
                                     </TableRow>
                                    { item.circuitSwitch.threeGApnDataList !== '' ? <React.Fragment>
                                     <TableRow>

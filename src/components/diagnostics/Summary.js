@@ -488,7 +488,7 @@ export default function Summary(props) {
                                                 <TableCell align="left" className={classes.boaderlessTh}>Buffered Gy CCRs</TableCell>
                                                 <TableCell align="left" className={classes.boaderlessTh}>Buffered Ga CDRs</TableCell>
                                                 <TableCell align="left" className={classes.boaderlessTh}>NTP Admin Status</TableCell>
-                                                <TableCell align="left" className={classes.boaderlessTh}>Operational Status</TableCell>
+                                                <TableCell align="left" className={classes.boaderlessTh}>NTP Operational Status</TableCell>
                                             </TableRow>                                                                                                                                                                  
                                         </TableHead>
                                         <TableBody>

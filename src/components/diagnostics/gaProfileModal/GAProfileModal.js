@@ -77,7 +77,7 @@ import React, {useRef} from "react";
             onClose={handleClose}
             aria-labelledby="max-width-dialog-title"
           ><form className={classes.form} >
-            <DialogTitle id="max-width-dialog-title">GA Profile - Add/Modify</DialogTitle>
+            <DialogTitle id="max-width-dialog-title">Add/Modify Ga Profile</DialogTitle>
             <DialogContent>
               
                   <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">

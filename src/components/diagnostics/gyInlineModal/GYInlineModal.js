@@ -149,7 +149,7 @@ function GYInlineModal(props) {
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
         ><form onSubmit={onSubmitClick} className={classes.form}>
-          <DialogTitle id="max-width-dialog-title">GY Inline { showSubmitMsg ? <div className="headerMsgText mt-0">At least one of Home, Visiting or Roaming should be entered.</div> : null }</DialogTitle>
+          <DialogTitle id="max-width-dialog-title">Enable/Disable Online Charging - Gy Inline { showSubmitMsg ? <div className="headerMsgText mt-0">At least one of Home, Visiting or Roaming should be entered.</div> : null }</DialogTitle>
           <DialogContent>
             
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">

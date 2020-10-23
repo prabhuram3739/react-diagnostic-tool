@@ -92,7 +92,7 @@ import React, {useRef} from "react";
             onClose={handleClose}
             aria-labelledby="max-width-dialog-title"
           ><form className={classes.form} onSubmit={onSubmitClick}>
-            <DialogTitle id="max-width-dialog-title">GI DNS Modify{ showSubmitOnlyAPNMsg ? <div className="msgText mt-0">At least one of Primary or Secondary IP required</div> : null }</DialogTitle>
+            <DialogTitle id="max-width-dialog-title">Add/Modify GI DNS { showSubmitOnlyAPNMsg ? <div className="msgText mt-0">At least one of Primary or Secondary IP required</div> : null }</DialogTitle>
             <DialogContent>
               
                   <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
