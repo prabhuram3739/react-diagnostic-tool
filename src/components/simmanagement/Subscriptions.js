@@ -47,10 +47,7 @@ import searchViewDataLayerContext, { DataProvider } from '../../searchViewDataLa
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import Loader from 'react-loader-spinner';
-import PsDetails from './PsDetails';
-import CsDetails from './CsDetails';
-import GeneralDetails from './GeneralDetails';
-import VoiceServicesModal from './voiceServicesModal/VoiceServicesModal';
+import SubscriptionDetails from './SubscriptionDetails';
 
 const drawerWidth = 240;
 
@@ -186,12 +183,21 @@ const options = [
   'SIM Purge',
 ];
 
-export default function Subscriber() {
+export default function Subscriptions() {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     
     const [value, setValue] = React.useState('1');
     const location = useLocation();
+    const columns = [
+        { name: 'id', title: 'ID' },
+        { name: 'product', title: 'Product' },
+        { name: 'owner', title: 'Owner' },
+      ];
+      const rows = [
+        { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
+        { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
+      ];
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
@@ -214,108 +220,14 @@ export default function Subscriber() {
           <DataProvider imsi={queryString.parse(location.search).imsi} >
             <Box m={2}>
                 <Typography component="h1" variant="h6" color="inherit" padding="12" display="inline" className={classes.title}>
-                Diagnostics &gt; Subscriber
+                SIM Management &gt; Subscriptions
                 </Typography>
             </Box>
-            <Box m={1}>
-            <Grid container spacing={1} direction="column" alignContent="center" alignItems="stretch" justify="space-around" >
-                <Grid item style={{width: "100%", padding: "0px"}}  xs={false} sm={false} lg={false} xl={false}>
-                <Card className={classes.card}  elevation={1} component="div">
-                  <CardHeader 
-                    //title={'Node'}
-                    subheader={'Subscriber Details'}
-                    action={<form className={classes.root} action="/dashboard/subscriber/" autoComplete="off" style={{float: "right"}}>
-                      <TextField id="outlined-basic" label="Search IMSI" name="imsi" variant="outlined" size="small" required />
-                      <Tooltip title="Search IMSI" placement="top">
-                      <Button type="submit" color="primary">
-                        <SearchOutlinedIcon />
-                      </Button>
-                      </Tooltip>
-                      <Divider className={classes.divider} orientation="vertical" />
-                      <Tooltip title="Voice Services" placement="top">
-                        <span onClick={() => setModalVoiceServicesShow(true)}>
-                        <VoiceServicesModal show={ModalVoiceServicesShow} onHide={() => setModalVoiceServicesShow(false)} />
-                        </span>   
-                      </Tooltip>
-                      <Tooltip title="SMS Services" placement="top">
-                      <IconButton type="submit" className={classes.iconButton} aria-label="SMS Services" >
-                          <SmsOutlinedIcon />
-                      </IconButton>  
-                      </Tooltip>       
-                      <Tooltip title="Data Services" placement="top">                 
-                      <IconButton type="submit" className={classes.iconButton} aria-label="Data Services" >
-                          <SignalCellular3BarOutlinedIcon />
-                      </IconButton>    
-                      </Tooltip> 
-                      <Tooltip title="Roaming Profile" placement="top">                 
-                      <IconButton type="submit" className={classes.iconButton} aria-label="Roaming Profile" >
-                          <BallotOutlinedIcon />
-                      </IconButton>    
-                      </Tooltip>                           
-                      <Tooltip title="SIM Swap" placement="top">                 
-                      <IconButton type="submit" className={classes.iconButton} aria-label="SIM Swap" >
-                        <SwapHorizontalCircleOutlinedIcon />                        
-                      </IconButton>    
-                      </Tooltip> 
-                      <Tooltip title="SIM Purge" placement="top">                 
-                      <IconButton type="submit" className={classes.iconButton} aria-label="SIM Purge" >
-                        <SignalCellularNoSimOutlinedIcon />
-                      </IconButton>    
-                      </Tooltip>                       
-                      <Tooltip title="Refresh" placement="top">                          
-                      <IconButton type="submit" className={classes.iconButton} aria-label="refresh">
-                          <RefreshOutlinedIcon />
-                      </IconButton>
-                      </Tooltip>
-                      <div>
-                              <IconButton
-                                  aria-label="more"
-                                  aria-controls="long-menu"
-                                  aria-haspopup="true"
-                                  onClick={handleClick}
-                              >
-                              <MoreVertOutlinedIcon />
-                          </IconButton>
-                          <Menu
-                              id="long-menu"
-                              anchorEl={anchorEl}
-                              keepMounted
-                              open={openMenu}
-                              onClose={handleClose}
-                              PaperProps={{
-                                  style: {
-                                      padding: '2px',
-                                  },
-                                  }}                                    
-                          >
-                              {options.map((option) => (
-                              <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
-                                  {option}
-                              </MenuItem>
-                              ))}
-                          </Menu>
-                      </div>
-                      </form>}
-                    >                          
-                  </CardHeader>
-                  <CardContent className={classes.cardContent}>
-                    <GeneralDetails />
-                  </CardContent>
-                  </Card>
-                </Grid>
-              </Grid>
-              </Box>
             <Box m={1}>             
-                <TabContext value={value}>
-                    <TabList onChange={handleChange} aria-label="simple tabs example">
-                        <Tab label="Packet Core Data" className="noUpperCaseTxt" value="1" />
-                        <Tab label="Circuit Core Data" className="noUpperCaseTxt" value="2" />
-                    </TabList>
-                    <TabPanel value="1"><PsDetails/></TabPanel>
-                    <TabPanel value="2"><CsDetails/></TabPanel>
-                </TabContext>            
+            <SubscriptionDetails />           
             </Box>
             </DataProvider>
         </div>
     );
 }
+

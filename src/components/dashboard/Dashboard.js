@@ -37,6 +37,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 
 import Diagnostics from '../diagnostics/Diagnostics';
 import Subscriber from '../subscriber/Subscriber';
+import Subscriptions from '../simmanagement/Subscriptions';
 
 import nokia_logo from '../../nokia_logo.jpg';
 
@@ -264,12 +265,14 @@ export default function Dashboard(match) {
               <ListItemText primary="Dashboard" />
             </ListItem>
           </Link>
+          <Link to="/simmanagement/Subscriptions"  className={classes.link}>
             <ListItem button>
               <ListItemIcon >
                 <SimCardOutlinedIcon style={{ color: '#001235' }}/>
               </ListItemIcon>
               <ListItemText primary="SIM Management" />
             </ListItem>
+            </Link>
             <ListItem button>
               <ListItemIcon>
                 <BusinessOutlinedIcon style={{ color: '#001235' }}/>
@@ -328,6 +331,7 @@ export default function Dashboard(match) {
           <Route exact path="/" render={ ({...match}) => (<div></div>) } />
           <Route path="/dashboard/diagnostics" render={match => <Diagnostics {...match} />} />
           <Route path="/dashboard/subscriber" render={match =>  <Subscriber {...match} />} />
+          <Route path="/simmanagement/Subscriptions" render={match =>  <Subscriptions {...match} />} />
         </Switch>      
       </main>
     </div>

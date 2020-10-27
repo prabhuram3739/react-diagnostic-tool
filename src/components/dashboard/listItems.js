@@ -20,12 +20,14 @@ import { Link } from 'react-router-dom';
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
+      <Link to="/simmanagement/Subscriptions">
       <ListItem button>
         <ListItemIcon >
           <SimCardOutlinedIcon style={{ color: '#001235' }}/>
         </ListItemIcon>
         <ListItemText primary="SIM Management" />
       </ListItem>
+      </Link>
       <ListItem button>
         <ListItemIcon>
           <BusinessOutlinedIcon style={{ color: '#001235' }}/>

@@ -3,5 +3,6 @@ export default {
     home: "/",
     // Nested Dashboard pages
     diagnostics: "/dashboard/diagnostics",
-    subscribers: "/dashboard/diagnostics/subscriber"
+    subscribers: "/dashboard/diagnostics/subscriber",
+    simmanagement: "/simmanagement/Subscriptions"
   };
