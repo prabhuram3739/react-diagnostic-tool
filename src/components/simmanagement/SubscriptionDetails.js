@@ -122,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
         color: '#094391',
         //color: "primary",
         fontWeight: "700",
-      },   
+      },
 }));
 
 const options = [

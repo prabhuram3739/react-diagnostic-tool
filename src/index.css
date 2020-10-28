@@ -26,6 +26,12 @@ code {
     left: 50%;
 }
 
+.MuiTableCell-head {
+    font-weight: 700 !important;
+    background-color: #f4f4f4 !important;
+    color: #000 !important;
+}
+
 .v-loading-indicator[style*="none"] {
     display: block !important;
     width: 100%;
