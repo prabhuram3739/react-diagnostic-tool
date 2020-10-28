@@ -52,126 +52,14 @@ import SubscriptionDetails from './SubscriptionDetails';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  toolbarIconHidden: {
-    display: 'none',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    background: '#001235',
-    //width: `calc(100%)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    background: '#001235',
-    //marginLeft: drawerWidth,
-    //width: `calc(100%)`,
-    //width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '0 8px',      
-    ...theme.mixins.toolbar,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    marginTop: '60px',
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    marginTop: '60px',
-    position: 'relative',
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
-    },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 200,
-  },
-  card: {
-    padding: '5px',
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  cardHeader: {
-    padding: '5px',
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  cardContent: {
-    padding: '5px',
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },  
-  boaderlessTable: {
-    border: 'none',
-    boxShadow: 'none',
-  },  
-  boaderlessTh: {
-    color: '#094391',
-    fontWeight: "500",
-    width: "160px",
-  },  
-  boaderlessTr: {
-    fontWeight: "700",
-    borderBottom: 'none',
-  },   
+    root: {
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+      },
+      title: {
+        flexGrow: 1,
+      },
 }));
 
 const options = [
@@ -189,15 +77,6 @@ export default function Subscriptions() {
     
     const [value, setValue] = React.useState('1');
     const location = useLocation();
-    const columns = [
-        { name: 'id', title: 'ID' },
-        { name: 'product', title: 'Product' },
-        { name: 'owner', title: 'Owner' },
-      ];
-      const rows = [
-        { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
-        { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
-      ];
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
@@ -220,11 +99,16 @@ export default function Subscriptions() {
           <DataProvider imsi={queryString.parse(location.search).imsi} >
             <Box m={2}>
                 <Typography component="h1" variant="h6" color="inherit" padding="12" display="inline" className={classes.title}>
-                SIM Management &gt; Subscriptions
+                SIM Management
                 </Typography>
             </Box>
-            <Box m={1}>             
-            <SubscriptionDetails />           
+            <Box m={1} style={{height: '100%'}}> 
+                <TabContext value={value}>
+                    <TabList onChange={handleChange} aria-label="simple tabs example">
+                        <Tab label="Subscriptions" value="1" />
+                    </TabList>
+                    <TabPanel value="1"><SubscriptionDetails /> </TabPanel>
+                </TabContext>            
             </Box>
             </DataProvider>
         </div>

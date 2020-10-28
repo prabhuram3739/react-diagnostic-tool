@@ -34,6 +34,7 @@ import StorageOutlinedIcon from '@material-ui/icons/StorageOutlined';
 import DnsOutlinedIcon from '@material-ui/icons/DnsOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
+import Chip from '@material-ui/core/Chip';
 import CallOutlinedIcon from '@material-ui/icons/CallOutlined';
 import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
 import SignalCellular3BarOutlinedIcon from '@material-ui/icons/SignalCellular3BarOutlined';
@@ -50,145 +51,77 @@ import {
     IntegratedSorting, PagingState,
     IntegratedPaging,  GroupingState,
     IntegratedGrouping, SelectionState,
-    IntegratedSelection,
+    IntegratedSelection,   FilteringState,
+    IntegratedFiltering, SearchState, EditingState, DataTypeProvider
   } from '@devexpress/dx-react-grid';
   import {
     Grid,
     Table,
-    TableHeaderRow, TableSelection, PagingPanel,   TableGroupRow,
+    Toolbar,
+    DragDropProvider,
+    SearchPanel,
+    TableHeaderRow, TableSelection, PagingPanel,   TableGroupRow,   TableFilterRow, TableEditRow,
+    TableEditColumn,TableColumnReordering,
   } from '@devexpress/dx-react-grid-material-ui';
+  import {PieChart, Pie, Sector, Cell, LabelList, Legend, Label} from 'recharts';
 
 const drawerWidth = 240;
-const columns = [
-    { name: 'id', title: 'ID' },
-    { name: 'product', title: 'Product' },
-    { name: 'owner', title: 'Owner' },
-  ];
-  const rows = [
-    { id: 0, product: 'DevExtreme', owner: 'DevExpress' },
-    { id: 1, product: 'DevExtreme Reactive', owner: 'DevExpress' },
-  ];
+
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  toolbarIconHidden: {
-    display: 'none',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    background: '#001235',
-    //width: `calc(100%)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    background: '#001235',
-    //marginLeft: drawerWidth,
-    //width: `calc(100%)`,
-    //width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '0 8px',      
-    ...theme.mixins.toolbar,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    marginTop: '60px',
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    marginTop: '60px',
-    position: 'relative',
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
-    },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 200,
-  },
-  card: {
-    padding: '5px',
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  cardHeader: {
-    padding: '5px',
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  cardContent: {
-    padding: '5px',
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },  
-  boaderlessTable: {
-    border: 'none',
-    boxShadow: 'none',
-  },  
-  boaderlessTh: {
-    color: '#094391',
-    fontWeight: "500",
-    width: "160px",
-  },  
-  boaderlessTr: {
-    fontWeight: "700",
-    borderBottom: 'none',
-  },   
+    root: {
+        display: 'flex',
+        width: '100%',
+        height: '100%',
+      },
+      ListItemIcon: {
+        minWidth: '36px',
+        color: 'secondary',     
+      },
+      title: {
+        flexGrow: 1,
+      },
+      container: {
+        paddingTop: theme.spacing(1),
+        paddingBottom: theme.spacing(1),
+      },
+      paper: {
+        padding: theme.spacing(1),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+      },
+      card: {
+        padding: '5px',
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+        //
+        backgroundColor: "primary.main",
+      },
+      cardHeader: {
+        padding: '5px',
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+      },
+      cardContent: {
+        padding: '5px',
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+      },  
+      fixedHeight: {
+        height: 200,
+      },
+      boaderlessTable: {
+        border: 'none',
+        boxShadow: 'none',
+      },  
+      boaderlessTh: {
+        color: '#094391',
+        //color: "primary",
+        fontWeight: "700",
+      },   
 }));
 
 const options = [
@@ -200,12 +133,135 @@ const options = [
   'SIM Purge',
 ];
 
+
+  const state_colors = {
+    "CSP-Inventory": "blue",
+    "Activated": "green",
+    "Suspended": "red",
+    "Retired": "red"
+  }
+    
+    const rows = [
+      { id: '8944500310184003050', imsi: '234500010400305', msisdn: '882362000300305', status: "CSP-Inventory", color: "blue", account: '', simver: '16.02', batch: 'Prod_Batch_1' },
+      { id: '8944500310184003051', imsi: '234500010400306', msisdn: '882362000300306', status: "Activated", color: "green", account: "Icomera", simver: '16.02', batch: 'Prod_Batch_1' },
+      { id: '8944500310184003052', imsi: '234500010400307', msisdn: '882362000300307', status: "Activated", color: "green", account: "Honda", simver: '16.02', batch: 'Prod_Batch_1'  },
+      { id: '8944500310184003053', imsi: '234500010400308', msisdn: '882362000300308', status: "Suspended", color: "orange", account: "Honda", simver: '16.02', batch: 'Prod_Batch_1'  },
+      { id: '8944500310184003054', imsi: '234500010400309', msisdn: '882362000300309', status: "CSP-Inventory", color: "blue", account: "", simver: '16.02', batch: 'Prod_Batch_1'  },
+      { id: '8944500310184003055', imsi: '234500010400310', msisdn: '882362000300310', status: "CSP-Inventory", color: "blue", account: "", simver: '16.02', batch: 'Prod_Batch_1'  },
+      { id: '8944500310184003056', imsi: '234500010400311', msisdn: '882362000300311', status: "Suspended", color: "orange", account: "BMW", simver: '16.02', batch: 'Prod_Batch_1'  },
+      { id: '8944500310184003057', imsi: '234500010400312', msisdn: '882362000300312', status: "Activated", color: "green", account: "Honda", simver: '16.02', batch: 'Prod_Batch_1'  },
+      { id: '8944500310184003058', imsi: '234500010400313', msisdn: '882362000300313', status: "Retired", color: "red", account: "BMW", simver: '16.02', batch: 'Prod_Batch_1'  },
+    ];
+
+  const getRowId = row => row.id;
+
+  const StatusFormatter = ({ value }) => (
+    (value === "CSP-Inventory") ? <b style={{ color: 'blue' }}>
+    {value}
+  </b> : (value === "Activated") ? <b style={{ color: 'green' }}>
+    {value}
+  </b> : (value === "Suspended") ? <b style={{ color: 'orange' }}>
+    {value}
+  </b> : (value === "Retired") ? <b style={{ color: 'red' }}>
+    {value}
+  </b> : <b style={{ color: 'black' }}>
+    {value}
+  </b>
+  );
+  
+  const StatusTypeProvider = props => (
+    <DataTypeProvider
+      formatterComponent={StatusFormatter}
+      {...props}
+    />
+  );
+
+  const AccountNameFormatter = ({ value }) => (
+    (value === "") ? <b style={{ color: 'red' }}>
+    No Account Name Available
+  </b> : <b>
+    {value}
+  </b>
+  );
+
+  const AccountNameProvider = props => (
+    <DataTypeProvider
+      formatterComponent={AccountNameFormatter}
+      {...props}
+    />
+  );
+
 export default function SubscriptionDetails() {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     
     const [value, setValue] = React.useState('1');
     const location = useLocation();
+    const [tableColumnExtensions] = React.useState([
+        { columnName: 'status', width: 200 },
+      ]);
+    const [editingRowIds, setEditingRowIds] = React.useState([]);
+    const [addedRows, setAddedRows] = React.useState([]);
+    const [rowChanges, setRowChanges] = React.useState({});
+
+
+
+    const columns = [
+        { name: 'id', title: 'ICCID', width: 180 },
+        { name: 'imsi', title: 'IMSI', width: 150 },
+        { name: 'msisdn', title: 'MSISDN', width: 160 },
+        {
+          name: 'status',
+          title: 'Status',
+          width: 150,
+
+        },    
+        {
+            name: 'account',
+            title: 'Account',
+            width: 150,
+          },
+          {
+            name: 'simver',
+            title: 'SIM Version',
+            width: 130,
+          },
+          {
+            name: 'batch',
+            title: 'SIM Batch',
+            width: 150,
+          }   
+      ];
+
+      const [statusColumn] = React.useState(['status']);
+      const [accountColumn] = React.useState(['account']);
+  
+    const changeAddedRows = (value) => {
+      const initialized = value.map(row => (Object.keys(row).length ? row : { imsi: '' }));
+      setAddedRows(initialized);
+    };
+  
+    const commitChanges = ({ added, changed, deleted }) => {
+      let changedRows;
+      if (added) {
+        const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
+        changedRows = [
+          ...rows,
+          ...added.map((row, index) => ({
+            id: startingAddedId + index,
+            ...row,
+          })),
+        ];
+      }
+      if (changed) {
+        changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+      }
+      if (deleted) {
+        const deletedSet = new Set(deleted);
+        changedRows = rows.filter(row => !deletedSet.has(row.id));
+      }
+      //setRows(changedRows);
+    };
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
@@ -231,10 +287,20 @@ export default function SubscriptionDetails() {
       </span>
         <Grid
           rows={rows}
-          columns={columns}
+          columns={columns} getRowId={getRowId} style={{ display: 'flex', height: '100%' }}
         >
+            <SearchState defaultValue="" />
+            <EditingState
+          editingRowIds={editingRowIds}
+          onEditingRowIdsChange={setEditingRowIds}
+          rowChanges={rowChanges}
+          onRowChangesChange={setRowChanges}
+          addedRows={addedRows}
+          onAddedRowsChange={changeAddedRows}
+          onCommitChanges={commitChanges}
+        />
           <SortingState
-          defaultSorting={[{ columnName: 'product', direction: 'asc' }]}
+          defaultSorting={[{ columnName: 'imsi', direction: 'asc' }]}
         />
         <IntegratedSorting />
         <SelectionState
@@ -243,20 +309,46 @@ export default function SubscriptionDetails() {
           />
         <PagingState
           defaultCurrentPage={0}
-          pageSize={1}
+          pageSize={10}
         />
         <IntegratedSelection />
         <IntegratedPaging />
         <GroupingState
-          grouping={[{ columnName: 'product' }]}
+          grouping={[{ columnName: 'imsi' }]}
         />
         <IntegratedGrouping />
-        <Table />
+        <FilteringState defaultFilters={[]} />
+        <IntegratedFiltering />
+        <DragDropProvider />
+        <StatusTypeProvider
+          for={statusColumn}
+        />
+        <AccountNameProvider
+          for={accountColumn}
+        />
+        <Table columnExtensions={tableColumnExtensions} />
+        <TableColumnReordering
+          defaultOrder={['id', 'msisdn', 'status', 'account', 'simver', 'batch', 'action']}
+        />
         <TableHeaderRow showSortingControls />
+        <TableEditRow />
+        <TableEditColumn
+          showAddCommand={!addedRows.length}
+          showEditCommand
+          showDeleteCommand
+        />
+        <Toolbar />
+        <SearchPanel />
+        <TableFilterRow />
         <TableSelection showSelectAll />
         <TableGroupRow />
 
         <PagingPanel />
         </Grid>
-      </Paper>);
+      </Paper>
+      
+      
+      
+      );
 }
+
