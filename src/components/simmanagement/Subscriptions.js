@@ -43,7 +43,7 @@ import BallotOutlinedIcon from '@material-ui/icons/BallotOutlined';
 import SignalCellularNoSimOutlinedIcon from '@material-ui/icons/SignalCellularNoSimOutlined';
 import SwapHorizontalCircleOutlinedIcon from '@material-ui/icons/SwapHorizontalCircleOutlined';
 import { Link } from 'react-router-dom';
-import searchViewDataLayerContext, { DataProvider } from '../../searchViewDataLayerContext';
+import simViewDataLayerContext, { DataProvider } from '../../simViewDataLayerContext';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import Loader from 'react-loader-spinner';

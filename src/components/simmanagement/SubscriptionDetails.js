@@ -46,6 +46,7 @@ import searchViewDataLayerContext, { DataProvider } from '../../searchViewDataLa
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import Loader from 'react-loader-spinner';
+import simViewDataLayerContext from '../../simViewDataLayerContext';
 import {
     SortingState,
     IntegratedSorting, PagingState,
@@ -61,7 +62,7 @@ import {
     DragDropProvider,
     SearchPanel,
     TableHeaderRow, TableSelection, PagingPanel,   TableGroupRow,   TableFilterRow, TableEditRow,
-    TableEditColumn,TableColumnReordering,
+    TableEditColumn,TableColumnReordering, GroupingPanel,
   } from '@devexpress/dx-react-grid-material-ui';
   import {PieChart, Pie, Sector, Cell, LabelList, Legend, Label} from 'recharts';
 
@@ -143,6 +144,7 @@ const options = [
     
     const rows = [
       { id: '8944500310184003050', imsi: '234500010400305', msisdn: '882362000300305', status: "CSP-Inventory", color: "blue", account: '', simver: '16.02', batch: 'Prod_Batch_1' },
+      { id: '8944500310184003059', imsi: '234500010400305', msisdn: '882362000300320', status: "Suspended", color: "blue", account: '', simver: '16.02', batch: 'Prod_Batch_1' },
       { id: '8944500310184003051', imsi: '234500010400306', msisdn: '882362000300306', status: "Activated", color: "green", account: "Icomera", simver: '16.02', batch: 'Prod_Batch_1' },
       { id: '8944500310184003052', imsi: '234500010400307', msisdn: '882362000300307', status: "Activated", color: "green", account: "Honda", simver: '16.02', batch: 'Prod_Batch_1'  },
       { id: '8944500310184003053', imsi: '234500010400308', msisdn: '882362000300308', status: "Suspended", color: "orange", account: "Honda", simver: '16.02', batch: 'Prod_Batch_1'  },
@@ -279,12 +281,22 @@ export default function SubscriptionDetails() {
       setAnchorEl(null);
     };
 
+    const { data, count, loading } = useContext(simViewDataLayerContext) || {};
+      const finalData = [];
+      finalData.push(data);
+      const authResult = new URLSearchParams(window.location.search); 
+      const imsi = authResult.get('imsi');
+      // Check if the count is zero or undefined to display the no records message
+      if(!loading) {
+      if((count === 0) || (count === undefined)) {
+       return (
+           <span className="ml-4">Sorry, No Sim Information available</span>
+       )
+      }
+   }
+
     return(<Paper>
-        <span>
-        Total rows selected:
-        {' '}
-        {selection.length}
-      </span>
+        
         <Grid
           rows={rows}
           columns={columns} getRowId={getRowId} style={{ display: 'flex', height: '100%' }}
@@ -300,9 +312,13 @@ export default function SubscriptionDetails() {
           onCommitChanges={commitChanges}
         />
           <SortingState
-          defaultSorting={[{ columnName: 'imsi', direction: 'asc' }]}
+          defaultSorting={[{ columnName: 'imsi', direction: 'asc' }, { columnName: 'msisdn', direction: 'desc' },]}
+        />
+        <GroupingState
+          grouping={[{ columnName: 'imsi' }]}
         />
         <IntegratedSorting />
+        <IntegratedGrouping />
         <SelectionState
             selection={selection}
             onSelectionChange={setSelection}
@@ -313,10 +329,7 @@ export default function SubscriptionDetails() {
         />
         <IntegratedSelection />
         <IntegratedPaging />
-        <GroupingState
-          grouping={[{ columnName: 'imsi' }]}
-        />
-        <IntegratedGrouping />
+        
         <FilteringState defaultFilters={[]} />
         <IntegratedFiltering />
         <DragDropProvider />
@@ -342,9 +355,14 @@ export default function SubscriptionDetails() {
         <TableFilterRow />
         <TableSelection showSelectAll />
         <TableGroupRow />
-
+        <GroupingPanel showSortingControls />
         <PagingPanel />
         </Grid>
+        {/*<span>
+        Total rows selected:
+        {' '}
+        {selection.length}
+        </span>*/}
       </Paper>
       
       
