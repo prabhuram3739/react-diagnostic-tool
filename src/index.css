@@ -32,6 +32,10 @@ code {
     color: #000 !important;
 }
 
+.MuiButton-containedSecondary {
+    background-color: #1976d2 !important;
+}
+
 .v-loading-indicator[style*="none"] {
     display: block !important;
     width: 100%;

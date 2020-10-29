@@ -32,6 +32,7 @@ import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
 import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
 import StorageOutlinedIcon from '@material-ui/icons/StorageOutlined';
 import DnsOutlinedIcon from '@material-ui/icons/DnsOutlined';
+import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
 import Chip from '@material-ui/core/Chip';
@@ -295,14 +296,37 @@ export default function SubscriptionDetails() {
       }
    }
 
-    return(<Paper>
-        
+    return(
+        <React.Fragment>       
+      <div style={{height: '100%', width: '100%'}}>
+      <Paper>
+        <Box className={classes.root} style={{height: '100%', width: '100%'}} display="flex" flexDirection="row" bgcolor="grey.300">
+        <Box bgcolor="background.paper" flexGrow={1}>
+        <form className={classes.root} noValidate autoComplete="off" style={{float: "left"}}>
+        <span>
+            Total rows selected:
+            {' '}
+            {selection.length}
+            </span>
+        </form>
+
+        </Box>
+        <Box bgcolor="background.paper">
+        <Divider component="span" className={classes.divider} orientation="vertical" />
+        <Tooltip component="span" title="Upload SIMs File" placement="top">                          
+        <Button variant="contained" startIcon={<CloudUploadOutlinedIcon />} color="secondary" aria-label="Upload SIMs File">
+            Upload SIMs File
+        </Button>
+        </Tooltip>
+        </Box>
+        </Box>
+        <Box className={classes.root} style={{height: '100%', width: '100%'}}  display="flex" >
         <Grid
-          rows={rows}
-          columns={columns} getRowId={getRowId} style={{ display: 'flex', height: '100%' }}
+        rows={rows}
+        columns={columns} getRowId={getRowId} style={{ display: 'inline', height: '100%' }}
         >
-            <SearchState defaultValue="" />
-            <EditingState
+        <SearchState defaultValue="" />
+        <EditingState
           editingRowIds={editingRowIds}
           onEditingRowIdsChange={setEditingRowIds}
           rowChanges={rowChanges}
@@ -311,7 +335,7 @@ export default function SubscriptionDetails() {
           onAddedRowsChange={changeAddedRows}
           onCommitChanges={commitChanges}
         />
-          <SortingState
+        <SortingState
           defaultSorting={[{ columnName: 'imsi', direction: 'asc' }, { columnName: 'msisdn', direction: 'desc' },]}
         />
         <GroupingState
@@ -358,15 +382,10 @@ export default function SubscriptionDetails() {
         <GroupingPanel showSortingControls />
         <PagingPanel />
         </Grid>
-        {/*<span>
-        Total rows selected:
-        {' '}
-        {selection.length}
-        </span>*/}
-      </Paper>
-      
-      
-      
+            </Box>
+            </Paper>
+      </div> 
+      </React.Fragment>
       );
 }
 
