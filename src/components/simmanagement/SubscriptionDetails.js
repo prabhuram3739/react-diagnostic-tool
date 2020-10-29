@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useCallback } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -51,6 +51,7 @@ import simViewDataLayerContext from '../../simViewDataLayerContext';
 import {
     Plugin, Template, TemplateConnector, TemplatePlaceholder, Action,
   } from '@devexpress/dx-react-core';
+  import { GridExporter } from '@devexpress/dx-react-grid-export';
 import {
     SortingState,
     IntegratedSorting, PagingState,
@@ -66,7 +67,7 @@ import {
     DragDropProvider,
     SearchPanel,
     TableHeaderRow, TableSelection, PagingPanel,   TableGroupRow,   TableFilterRow, TableEditRow,
-    TableEditColumn,TableColumnReordering, GroupingPanel,   TableRowDetail,
+    TableEditColumn,TableColumnReordering, GroupingPanel,   TableRowDetail, ExportPanel,
   } from '@devexpress/dx-react-grid-material-ui';
   import {PieChart, Pie, Sector, Cell, LabelList, Legend, Label} from 'recharts';
   import MuiGrid from '@material-ui/core/Grid';
@@ -77,6 +78,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from '@material-ui/core/styles';
+import saveAs from 'file-saver';
 
 const drawerWidth = 240;
 
@@ -161,7 +163,11 @@ const options = [
   'SIM Purge',
 ];
 
-
+const onSave = (workbook) => {
+    workbook.xlsx.writeBuffer().then((buffer) => {
+      saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'DataGrid.xlsx');
+    });
+  };
   const state_colors = {
     "CSP-Inventory": "blue",
     "Activated": "green",
@@ -450,7 +456,11 @@ export default function SubscriptionDetails() {
     const [editingRowIds, setEditingRowIds] = React.useState([]);
     const [addedRows, setAddedRows] = React.useState([]);
     const [rowChanges, setRowChanges] = React.useState({});
-
+    const exporterRef = useRef(null);
+  
+    const startExport = useCallback((options) => {
+      exporterRef.current.exportGrid(options);
+    }, [exporterRef]);
 
 
     const columns = [
@@ -660,7 +670,7 @@ export default function SubscriptionDetails() {
         />
         <Table columnExtensions={tableColumnExtensions} />
         <TableColumnReordering
-          defaultOrder={['id', 'msisdn', 'status', 'account', 'simver', 'batch', 'action']}
+          defaultOrder={['id', 'imsi', 'msisdn', 'status', 'account', 'simver', 'batch', 'action']}
         />
         <TableHeaderRow showSortingControls />
         <TableRowDetail
@@ -669,12 +679,10 @@ export default function SubscriptionDetails() {
           toggleCellComponent={ToggleCell}
         />
         <DetailEditCell />
-        {/*<TableEditRow />
+        {/*<TableEditRow />*/}
         <TableEditColumn
-          showAddCommand={!addedRows.length}
-          showEditCommand
           showDeleteCommand
-        />*/}
+        />
         <Toolbar />
         <SearchPanel />
         <TableFilterRow />
@@ -682,7 +690,15 @@ export default function SubscriptionDetails() {
         { /* <TableGroupRow />
         <GroupingPanel showSortingControls /> */}
         <PagingPanel />
+        <ExportPanel startExport={startExport} />
         </Grid>
+
+        <GridExporter
+        ref={exporterRef}
+        rows={rows}
+        columns={columns}
+        onSave={onSave}
+      />
             </Box>
             </Paper>
       </div> 
