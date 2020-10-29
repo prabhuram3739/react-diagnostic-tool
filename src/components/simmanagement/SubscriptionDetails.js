@@ -684,13 +684,14 @@ export default function SubscriptionDetails() {
           showDeleteCommand
         />
         <Toolbar />
+        <ExportPanel startExport={startExport} />
         <SearchPanel />
         <TableFilterRow />
         <TableSelection showSelectAll />
         { /* <TableGroupRow />
         <GroupingPanel showSortingControls /> */}
         <PagingPanel />
-        <ExportPanel startExport={startExport} />
+
         </Grid>
 
         <GridExporter
