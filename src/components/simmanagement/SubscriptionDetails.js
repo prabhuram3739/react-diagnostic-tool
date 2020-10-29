@@ -270,12 +270,12 @@ const onSave = (workbook) => {
         <MuiGrid item xs={12}>
           <MuiGrid container spacing={3} justify="flex-end">
             <MuiGrid item>
-              <Button onClick={applyChanges} variant="text" color="primary">
+              <Button onClick={applyChanges} variant="contained" color="primary" aria-label="Save">
                 Save
               </Button>
             </MuiGrid>
             <MuiGrid item>
-              <Button onClick={cancelChanges} color="secondary">
+              <Button onClick={cancelChanges} variant="contained" color="primary" aria-label="Save">
                 Cancel
               </Button>
             </MuiGrid>
