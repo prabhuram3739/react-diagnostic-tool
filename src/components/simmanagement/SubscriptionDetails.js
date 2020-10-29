@@ -49,12 +49,15 @@ import queryString from 'query-string';
 import Loader from 'react-loader-spinner';
 import simViewDataLayerContext from '../../simViewDataLayerContext';
 import {
+    Plugin, Template, TemplateConnector, TemplatePlaceholder, Action,
+  } from '@devexpress/dx-react-core';
+import {
     SortingState,
     IntegratedSorting, PagingState,
     IntegratedPaging,  GroupingState,
     IntegratedGrouping, SelectionState,
     IntegratedSelection,   FilteringState,
-    IntegratedFiltering, SearchState, EditingState, DataTypeProvider
+    IntegratedFiltering, SearchState, EditingState, DataTypeProvider, RowDetailState,
   } from '@devexpress/dx-react-grid';
   import {
     Grid,
@@ -63,9 +66,17 @@ import {
     DragDropProvider,
     SearchPanel,
     TableHeaderRow, TableSelection, PagingPanel,   TableGroupRow,   TableFilterRow, TableEditRow,
-    TableEditColumn,TableColumnReordering, GroupingPanel,
+    TableEditColumn,TableColumnReordering, GroupingPanel,   TableRowDetail,
   } from '@devexpress/dx-react-grid-material-ui';
   import {PieChart, Pie, Sector, Cell, LabelList, Legend, Label} from 'recharts';
+  import MuiGrid from '@material-ui/core/Grid';
+import FormGroup from '@material-ui/core/FormGroup';
+import Edit from '@material-ui/icons/Edit';
+import Cancel from '@material-ui/icons/Close';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import { withStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
 
@@ -126,6 +137,21 @@ const useStyles = makeStyles((theme) => ({
       },
 }));
 
+const styles = theme => ({
+    toggleCell: {
+      textAlign: 'center',
+      textOverflow: 'initial',
+      paddingTop: 0,
+      paddingBottom: 0,
+      paddingLeft: theme.spacing(1),
+    },
+    toggleCellButton: {
+      verticalAlign: 'middle',
+      display: 'inline-block',
+      padding: theme.spacing(1),
+    },
+  });
+
 const options = [
   'Voice Services',
   'SMS Services',
@@ -145,7 +171,6 @@ const options = [
     
     const rows = [
       { id: '8944500310184003050', imsi: '234500010400305', msisdn: '882362000300305', status: "CSP-Inventory", color: "blue", account: '', simver: '16.02', batch: 'Prod_Batch_1' },
-      { id: '8944500310184003059', imsi: '234500010400305', msisdn: '882362000300320', status: "Suspended", color: "blue", account: '', simver: '16.02', batch: 'Prod_Batch_1' },
       { id: '8944500310184003051', imsi: '234500010400306', msisdn: '882362000300306', status: "Activated", color: "green", account: "Icomera", simver: '16.02', batch: 'Prod_Batch_1' },
       { id: '8944500310184003052', imsi: '234500010400307', msisdn: '882362000300307', status: "Activated", color: "green", account: "Honda", simver: '16.02', batch: 'Prod_Batch_1'  },
       { id: '8944500310184003053', imsi: '234500010400308', msisdn: '882362000300308', status: "Suspended", color: "orange", account: "Honda", simver: '16.02', batch: 'Prod_Batch_1'  },
@@ -157,6 +182,225 @@ const options = [
     ];
 
   const getRowId = row => row.id;
+
+  const DetailContent = ({ row, ...rest }) => {
+    const {
+      processValueChange,
+      applyChanges,
+      cancelChanges,
+    } = rest;
+    return (
+      <MuiGrid container spacing={3}>
+        <MuiGrid item xs={6}>
+          <FormGroup>
+            <TextField
+              margin="normal"
+              name="IMSI"
+              label="IMSI"
+              value={row.imsi}
+              onChange={processValueChange}
+            />
+            <TextField
+              margin="normal"
+              name="msisdn"
+              label="MSISDN"
+              value={row.msisdn}
+              onChange={processValueChange}
+            />
+            <TextField
+              margin="normal"
+              name="account"
+              label="Account"
+              value={row.account}
+              onChange={processValueChange}
+            />
+            <TextField
+              margin="normal"
+              name="batch"
+              label="SIM Batch"
+              value={row.batch}
+              onChange={processValueChange}
+            />
+          </FormGroup>
+        </MuiGrid>
+        <MuiGrid item xs={6}>
+          <FormGroup>
+          <TextField
+              margin="normal"
+              name="iccid"
+              label="ICCID"
+              value={row.id}
+              onChange={processValueChange}
+            />
+            <TextField
+              margin="normal"
+              name="status"
+              label="Status"
+              value={row.status}
+              onChange={processValueChange}
+            />
+            <TextField
+              margin="normal"
+              name="simver"
+              label="SIM Version"
+              value={row.simver}
+              onChange={processValueChange}
+            />
+          </FormGroup>
+        </MuiGrid>
+        {/*<MuiGrid item xs={12}>
+          <FormGroup>
+            <TextField
+              margin="normal"
+              name="Notes"
+              label="Notes"
+              multiline
+              rowsMax={4}
+              value={row.Notes}
+              onChange={processValueChange}
+            />
+          </FormGroup>
+        </MuiGrid>*/}
+        <MuiGrid item xs={12}>
+          <MuiGrid container spacing={3} justify="flex-end">
+            <MuiGrid item>
+              <Button onClick={applyChanges} variant="text" color="primary">
+                Save
+              </Button>
+            </MuiGrid>
+            <MuiGrid item>
+              <Button onClick={cancelChanges} color="secondary">
+                Cancel
+              </Button>
+            </MuiGrid>
+          </MuiGrid>
+        </MuiGrid>
+      </MuiGrid>
+    );
+  };
+
+  const ToggleCellBase = ({
+    style, expanded, classes, onToggle,
+    tableColumn, tableRow, row,
+    className,
+    ...restProps
+  }) => {
+    const handleClick = (e) => {
+      e.stopPropagation();
+      onToggle();
+    };
+    return (
+      <TableCell
+        className={clsx(classes.toggleCell, className)}
+        style={style}
+        {...restProps}
+      >
+        <IconButton
+          className={classes.toggleCellButton}
+          onClick={handleClick}
+        >
+          {
+            expanded
+              ? <Cancel />
+              : <Edit />
+          }
+        </IconButton>
+      </TableCell>
+    );
+  };
+  
+  const ToggleCell = withStyles(styles, { name: 'ToggleCell' })(ToggleCellBase);
+
+  const DetailEditCell = () => (
+    <Plugin name="detailEdit">
+      <Action
+        name="toggleDetailRowExpanded"
+        action={({ rowId }, { expandedDetailRowIds }, { startEditRows, stopEditRows }) => {
+          const rowIds = [rowId];
+          const isCollapsing = expandedDetailRowIds.indexOf(rowId) > -1;
+          if (isCollapsing) {
+            stopEditRows({ rowIds });
+          } else {
+            startEditRows({ rowIds });
+          }
+        }}
+      />
+      <Template
+        name="tableCell"
+        predicate={({ tableRow }) => tableRow.type === TableRowDetail.ROW_TYPE}
+      >
+        {params => (
+          <TemplateConnector>
+            {({
+              tableColumns,
+              createRowChange,
+              rowChanges,
+            }, {
+              changeRow,
+              commitChangedRows,
+              cancelChangedRows,
+              toggleDetailRowExpanded,
+            }) => {
+              if (tableColumns.indexOf(params.tableColumn) !== 0) {
+                return null;
+              }
+              const { tableRow: { rowId } } = params;
+              const row = { ...params.tableRow.row, ...rowChanges[rowId] };
+  
+              const processValueChange = ({ target: { name, value } }) => {
+                const changeArgs = {
+                  rowId,
+                  change: createRowChange(row, value, name),
+                };
+                changeRow(changeArgs);
+              };
+  
+              const applyChanges = () => {
+                toggleDetailRowExpanded({ rowId });
+                commitChangedRows({ rowIds: [rowId] });
+              };
+              const cancelChanges = () => {
+                toggleDetailRowExpanded({ rowId });
+                cancelChangedRows({ rowIds: [rowId] });
+              };
+  
+              return (
+                <TemplatePlaceholder params={{
+                  ...params,
+                  row,
+                  tableRow: {
+                    ...params.tableRow,
+                    row,
+                  },
+                  changeRow,
+                  processValueChange,
+                  applyChanges,
+                  cancelChanges,
+                }}
+                />
+              );
+            }}
+          </TemplateConnector>
+        )}
+      </Template>
+    </Plugin>
+  );
+  
+  const DetailCell = ({
+    children, changeRow, editingRowIds, addedRows, processValueChange,
+    applyChanges, cancelChanges,
+    ...restProps
+  }) => {
+    const { row } = restProps;
+  
+    return (
+      <TableRowDetail.Cell {...restProps}>
+        {React.cloneElement(children, {
+          row, changeRow, processValueChange, applyChanges, cancelChanges,
+        })}
+      </TableRowDetail.Cell>
+    );
+  };
 
   const StatusFormatter = ({ value }) => (
     (value === "CSP-Inventory") ? <b style={{ color: 'blue' }}>
@@ -233,11 +477,17 @@ export default function SubscriptionDetails() {
             name: 'batch',
             title: 'SIM Batch',
             width: 150,
+          },
+          {
+            name: 'action',
+            title: 'Action',
+            width: 150,
           }   
       ];
 
       const [statusColumn] = React.useState(['status']);
       const [accountColumn] = React.useState(['account']);
+      const [actionColumn] = React.useState(['action']);
   
     const changeAddedRows = (value) => {
       const initialized = value.map(row => (Object.keys(row).length ? row : { imsi: '' }));
@@ -282,6 +532,44 @@ export default function SubscriptionDetails() {
       setAnchorEl(null);
     };
 
+    const ActionFormatter = (params) => (
+        <div>
+                  <IconButton
+                      aria-label="more"
+                      aria-controls="long-menu"
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                  >
+                  <MoreVertOutlinedIcon />
+                  </IconButton>
+                  <Menu
+                      id="long-menu"
+                      anchorEl={anchorEl}
+                      keepMounted
+                      open={openMenu}
+                      onClose={handleClose}
+                      PaperProps={{
+                          style: {
+                              padding: '2px',
+                          },
+                          }}                                    
+                  >
+                      {options.map((option) => (
+                      <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
+                          {option}
+                      </MenuItem>
+                      ))}
+                  </Menu>
+              </div>
+      );
+    
+      const ActionProvider = props => (
+        <DataTypeProvider
+          formatterComponent={ActionFormatter}
+          {...props}
+        />
+      );
+
     const { data, count, loading } = useContext(simViewDataLayerContext) || {};
       const finalData = [];
       finalData.push(data);
@@ -320,13 +608,17 @@ export default function SubscriptionDetails() {
         </Tooltip>
         </Box>
         </Box>
-        <Box className={classes.root} style={{height: '100%', width: '100%'}}  display="flex" >
+        <Box className={classes.root} style={{height: '100%', overflowX: 'scroll', width: '100%'}}  display="flex" >
         <Grid
         rows={rows}
         columns={columns} getRowId={getRowId} style={{ display: 'inline', height: '100%' }}
         >
+            <RowDetailState
+          defaultExpandedRowIds={[1]}
+        />
         <SearchState defaultValue="" />
         <EditingState
+          defaultEditingRowIds={[1]}
           editingRowIds={editingRowIds}
           onEditingRowIdsChange={setEditingRowIds}
           rowChanges={rowChanges}
@@ -338,11 +630,11 @@ export default function SubscriptionDetails() {
         <SortingState
           defaultSorting={[{ columnName: 'imsi', direction: 'asc' }, { columnName: 'msisdn', direction: 'desc' },]}
         />
-        <GroupingState
+        { /*<GroupingState
           grouping={[{ columnName: 'imsi' }]}
-        />
+        />*/}
         <IntegratedSorting />
-        <IntegratedGrouping />
+        { /*<IntegratedGrouping /> */}
         <SelectionState
             selection={selection}
             onSelectionChange={setSelection}
@@ -363,23 +655,32 @@ export default function SubscriptionDetails() {
         <AccountNameProvider
           for={accountColumn}
         />
+        <ActionProvider
+          for={actionColumn}
+        />
         <Table columnExtensions={tableColumnExtensions} />
         <TableColumnReordering
           defaultOrder={['id', 'msisdn', 'status', 'account', 'simver', 'batch', 'action']}
         />
         <TableHeaderRow showSortingControls />
-        <TableEditRow />
+        <TableRowDetail
+          contentComponent={DetailContent}
+          cellComponent={DetailCell}
+          toggleCellComponent={ToggleCell}
+        />
+        <DetailEditCell />
+        {/*<TableEditRow />
         <TableEditColumn
           showAddCommand={!addedRows.length}
           showEditCommand
           showDeleteCommand
-        />
+        />*/}
         <Toolbar />
         <SearchPanel />
         <TableFilterRow />
         <TableSelection showSelectAll />
-        <TableGroupRow />
-        <GroupingPanel showSortingControls />
+        { /* <TableGroupRow />
+        <GroupingPanel showSortingControls /> */}
         <PagingPanel />
         </Grid>
             </Box>
