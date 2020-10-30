@@ -620,7 +620,7 @@ export default function SubscriptionDetails() {
         </Tooltip>
         </Box>
         </Box>
-        <Box className={classes.root} style={{height: '100%', overflowX: 'scroll', width: '100%'}}  display="flex" >
+        <Box className={classes.root} style={{height: '100%', overflow: 'auto', width: '100%'}}  display="flex" >
         <Grid
         rows={rows}
         columns={columns} getRowId={getRowId} style={{ display: 'inline', height: '100%' }}
