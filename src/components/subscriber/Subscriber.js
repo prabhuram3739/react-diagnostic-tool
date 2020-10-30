@@ -50,7 +50,11 @@ import Loader from 'react-loader-spinner';
 import PsDetails from './PsDetails';
 import CsDetails from './CsDetails';
 import GeneralDetails from './GeneralDetails';
+import SIMActivateModal from './simActivateModal/SIMActivateModal';
 import VoiceServicesModal from './voiceServicesModal/VoiceServicesModal';
+import SMSServicesModal from './smsServicesModal/SMSServicesModal';
+import SIMSwapModal from './simSwapModal/SIMSwapModal';
+import SIMPurgeModal from './simPurgeModal/SIMPurgeModal';
 
 const drawerWidth = 240;
 
@@ -178,6 +182,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const options = [
+  'Activate/Deactivate SIM',
   'Voice Services',
   'SMS Services',
   'Data Services',
@@ -200,6 +205,10 @@ export default function Subscriber() {
     const openMenu = Boolean(anchorEl);
 
     const [ ModalVoiceServicesShow, setModalVoiceServicesShow ] = React.useState(false);
+    const [ ModalSMSServicesShow, setModalSMSServicesShow ] = React.useState(false);
+    const [ ModalSIMSwapShow, setModalSIMSwapShow ] = React.useState(false);
+    const [ ModalSIMPurgeShow, setModalSIMPurgeShow ] = React.useState(false);
+    const [ ModalSIMActivateShow, setModalSIMActivateShow ] = React.useState(false);
   
     const handleClick = (event) => {
       setAnchorEl(event.currentTarget);
@@ -232,15 +241,20 @@ export default function Subscriber() {
                       </Button>
                       </Tooltip>
                       <Divider className={classes.divider} orientation="vertical" />
+                      <Tooltip title="Activate/Deactivate SIM" placement="top">
+                        <span onClick={() => setModalSIMActivateShow(true)}>
+                        <SIMActivateModal show={ModalSIMActivateShow} onHide={() => setModalSIMActivateShow(false)} />
+                        </span>   
+                      </Tooltip>
                       <Tooltip title="Voice Services" placement="top">
                         <span onClick={() => setModalVoiceServicesShow(true)}>
                         <VoiceServicesModal show={ModalVoiceServicesShow} onHide={() => setModalVoiceServicesShow(false)} />
                         </span>   
                       </Tooltip>
                       <Tooltip title="SMS Services" placement="top">
-                      <IconButton type="submit" className={classes.iconButton} aria-label="SMS Services" >
-                          <SmsOutlinedIcon />
-                      </IconButton>  
+                      <span onClick={() => setModalSMSServicesShow(true)}>
+                        <SMSServicesModal show={ModalSMSServicesShow} onHide={() => setModalSMSServicesShow(false)} />
+                        </span>   
                       </Tooltip>       
                       <Tooltip title="Data Services" placement="top">                 
                       <IconButton type="submit" className={classes.iconButton} aria-label="Data Services" >
@@ -253,21 +267,21 @@ export default function Subscriber() {
                       </IconButton>    
                       </Tooltip>                           
                       <Tooltip title="SIM Swap" placement="top">                 
-                      <IconButton type="submit" className={classes.iconButton} aria-label="SIM Swap" >
-                        <SwapHorizontalCircleOutlinedIcon />                        
-                      </IconButton>    
+                      <span onClick={() => setModalSIMSwapShow(true)}>
+                        <SIMSwapModal show={ModalSIMSwapShow} onHide={() => setModalSIMSwapShow(false)} />
+                        </span>   
                       </Tooltip> 
                       <Tooltip title="SIM Purge" placement="top">                 
-                      <IconButton type="submit" className={classes.iconButton} aria-label="SIM Purge" >
-                        <SignalCellularNoSimOutlinedIcon />
-                      </IconButton>    
+                      <span onClick={() => setModalSIMPurgeShow(true)}>
+                        <SIMPurgeModal show={ModalSIMPurgeShow} onHide={() => setModalSIMPurgeShow(false)} />
+                        </span> 
                       </Tooltip>                       
                       <Tooltip title="Refresh" placement="top">                          
                       <IconButton type="submit" className={classes.iconButton} aria-label="refresh">
                           <RefreshOutlinedIcon />
                       </IconButton>
                       </Tooltip>
-                      <div>
+                      {/*<div>
                               <IconButton
                                   aria-label="more"
                                   aria-controls="long-menu"
@@ -294,7 +308,7 @@ export default function Subscriber() {
                               </MenuItem>
                               ))}
                           </Menu>
-                      </div>
+                      </div>*/}
                       </form>}
                     >                          
                   </CardHeader>

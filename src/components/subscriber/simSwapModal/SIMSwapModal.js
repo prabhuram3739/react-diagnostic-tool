@@ -3,7 +3,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
-import CallOutlinedIcon from '@material-ui/icons/CallOutlined';
+import SwapHorizontalCircleOutlinedIcon from '@material-ui/icons/SwapHorizontalCircleOutlined';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -53,13 +53,11 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function VoiceServicesModal(props) {
+function SIMSwapModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
   const [maxWidth, setMaxWidth] = React.useState('md');
-  const [moBarChecked, setMOBarChecked] = React.useState(true);
-  const [mtBarChecked, setMTBarChecked] = React.useState(true);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -72,7 +70,7 @@ function VoiceServicesModal(props) {
       
         <React.Fragment>
         <Button className="iconBtn" onClick={handleClickOpen}>
-        <CallOutlinedIcon/>
+        <SwapHorizontalCircleOutlinedIcon/>
         </Button>
         <Dialog
           fullWidth={fullWidth}
@@ -81,7 +79,7 @@ function VoiceServicesModal(props) {
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
         ><form className={classes.form}>
-          <DialogTitle id="max-width-dialog-title">Voice Services</DialogTitle>
+          <DialogTitle id="max-width-dialog-title">SIM Swap</DialogTitle>
           <DialogContent>
             
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
@@ -91,27 +89,10 @@ function VoiceServicesModal(props) {
                         <TableBody>
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="MSISDN" id="standard-full-width" style={{ margin: 8 }} placeholder="MSISDN" fullWidth margin="normal" required />
+                                <TextField label="Old IMSI" id="standard-full-width" style={{ margin: 8 }} placeholder="Old IMSI" fullWidth margin="normal" required />
                             </TableCell>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                            <FormControlLabel
-                                value="MO Bar"
-                                control={<Switch color="primary" />}
-                                checked={moBarChecked}
-                                label={moBarChecked === true ? "MO Bar Enable" : "MO Bar Disable"}
-                                labelPlacement="start" onChange={(checked) => {moBarChecked === true ? setMOBarChecked(false) : setMOBarChecked(true)}}
-                                style={{paddingTop: 20, marginLeft: 101}}
-                            />
-                            </TableCell>
-                            <TableCell align="left" className={classes.boaderlessTr}>
-                            <FormControlLabel
-                                value="MT Bar"
-                                control={<Switch color="primary" />}
-                                checked={mtBarChecked}
-                                label={mtBarChecked === true ? "MT Bar Enable" : "MT Bar Disable"}
-                                labelPlacement="start" onChange={(checked) => {mtBarChecked === true ? setMTBarChecked(false) : setMTBarChecked(true)}}
-                                style={{paddingTop: 20}}
-                            />
+                                <TextField label="New IMSI" id="standard-full-width" style={{ margin: 8 }} placeholder="New IMSI" fullWidth margin="normal" required />
                             </TableCell>
                         </TableRow>                                                                                                                                                                                                                                                                                                                                                                                                                                                              
                         </TableBody>
@@ -124,13 +105,7 @@ function VoiceServicesModal(props) {
           </DialogContent>
           <DialogActions>
           <Button type="submit" color="primary" variant="contained">
-            De-Provision
-          </Button>
-          <Button type="submit" color="primary" variant="contained">
             Submit
-          </Button>
-          <Button type="submit" color="primary" variant="contained">
-            Update
           </Button>
           <Button onClick={handleClose} color="primary" variant="contained">
             Cancel
@@ -142,4 +117,4 @@ function VoiceServicesModal(props) {
     );
   }
 
-  export default VoiceServicesModal;
+  export default SIMSwapModal;

@@ -3,7 +3,7 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { makeStyles } from '@material-ui/core/styles';
-import CallOutlinedIcon from '@material-ui/icons/CallOutlined';
+import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-function VoiceServicesModal(props) {
+function SMSServicesModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [fullWidth, setFullWidth] = React.useState(true);
@@ -72,7 +72,7 @@ function VoiceServicesModal(props) {
       
         <React.Fragment>
         <Button className="iconBtn" onClick={handleClickOpen}>
-        <CallOutlinedIcon/>
+        <SmsOutlinedIcon/>
         </Button>
         <Dialog
           fullWidth={fullWidth}
@@ -81,10 +81,10 @@ function VoiceServicesModal(props) {
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
         ><form className={classes.form}>
-          <DialogTitle id="max-width-dialog-title">Voice Services</DialogTitle>
+          <DialogTitle id="max-width-dialog-title">SMS Services</DialogTitle>
           <DialogContent>
-            
-                <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
+          <DialogTitle id="max-width-dialog-title">MO SMS</DialogTitle>
+          <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
                 <Grid item xs={12} sm={12} lg={12}>
                     <TableContainer component={Paper} className={classes.boaderlessTable}>
                     <Table size="medium" style={{ width: 900 }} >
@@ -102,6 +102,23 @@ function VoiceServicesModal(props) {
                                 labelPlacement="start" onChange={(checked) => {moBarChecked === true ? setMOBarChecked(false) : setMOBarChecked(true)}}
                                 style={{paddingTop: 20, marginLeft: 101}}
                             />
+                            </TableCell>
+                        </TableRow>                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+                        </TableBody>
+                    </Table>
+                    </TableContainer>                                            
+                </Grid>                   
+                </Grid>
+            
+                <DialogTitle id="max-width-dialog-title">MT SMS</DialogTitle>
+                <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
+                <Grid item xs={12} sm={12} lg={12}>
+                    <TableContainer component={Paper} className={classes.boaderlessTable}>
+                    <Table size="medium" style={{ width: 900 }} >
+                        <TableBody>
+                        <TableRow>
+                            <TableCell align="left" className={classes.boaderlessTr}>
+                                <TextField label="MSISDN" id="standard-full-width" style={{ margin: 8 }} placeholder="MSISDN" fullWidth margin="normal" required />
                             </TableCell>
                             <TableCell align="left" className={classes.boaderlessTr}>
                             <FormControlLabel
@@ -124,7 +141,10 @@ function VoiceServicesModal(props) {
           </DialogContent>
           <DialogActions>
           <Button type="submit" color="primary" variant="contained">
-            De-Provision
+            De-Provision MO SMS
+          </Button>
+          <Button type="submit" color="primary" variant="contained">
+            De-Provision MT SMS
           </Button>
           <Button type="submit" color="primary" variant="contained">
             Submit
@@ -142,4 +162,4 @@ function VoiceServicesModal(props) {
     );
   }
 
-  export default VoiceServicesModal;
+  export default SMSServicesModal;
