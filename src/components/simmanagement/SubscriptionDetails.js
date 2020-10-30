@@ -431,7 +431,7 @@ const onSave = (workbook) => {
 
   const AccountNameFormatter = ({ value }) => (
     (value === "") ? <b style={{ color: 'red' }}>
-    No Account Name Available
+    No Acct Available
   </b> : <b>
     {value}
   </b>
@@ -451,7 +451,14 @@ export default function SubscriptionDetails() {
     const [value, setValue] = React.useState('1');
     const location = useLocation();
     const [tableColumnExtensions] = React.useState([
-        { columnName: 'status', width: 200 },
+        { columnName: 'id', width: '15%' },
+        { columnName: 'imsi', width: '15%' },
+        { columnName: 'msisdn', width: '15%' },
+        { columnName: 'status', width: '10%' },
+        { columnName: 'account', width: '10%' },
+        { columnName: 'simver', width: '9%' },
+        { columnName: 'batch', width: '9%' },
+        { columnName: 'action', width: '8%' },
       ]);
     const [editingRowIds, setEditingRowIds] = React.useState([]);
     const [addedRows, setAddedRows] = React.useState([]);
@@ -464,34 +471,29 @@ export default function SubscriptionDetails() {
 
 
     const columns = [
-        { name: 'id', title: 'ICCID', width: 180 },
-        { name: 'imsi', title: 'IMSI', width: 150 },
-        { name: 'msisdn', title: 'MSISDN', width: 160 },
+        { name: 'id', title: 'ICCID', },
+        { name: 'imsi', title: 'IMSI', },
+        { name: 'msisdn', title: 'MSISDN', },
         {
           name: 'status',
           title: 'Status',
-          width: 150,
 
         },    
         {
             name: 'account',
             title: 'Account',
-            width: 150,
           },
           {
             name: 'simver',
             title: 'SIM Version',
-            width: 130,
           },
           {
             name: 'batch',
             title: 'SIM Batch',
-            width: 150,
           },
           {
             name: 'action',
             title: 'Action',
-            width: 150,
           }   
       ];
 
@@ -680,9 +682,9 @@ export default function SubscriptionDetails() {
         />
         <DetailEditCell />
         {/*<TableEditRow />*/}
-        <TableEditColumn
+        {/*<TableEditColumn
           showDeleteCommand
-        />
+        />*/}
         <Toolbar />
         <ExportPanel startExport={startExport} />
         <SearchPanel />
