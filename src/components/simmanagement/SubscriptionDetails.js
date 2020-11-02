@@ -612,7 +612,7 @@ export default function SubscriptionDetails() {
       const finalData = [];
       finalData.push(data);
       console.log("Final API Data:", finalData);
-
+      //let rows = finalData;
       let rows = [
         {
           iccid: 3436456456456616,
