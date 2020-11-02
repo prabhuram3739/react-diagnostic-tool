@@ -165,6 +165,9 @@ const styles = theme => ({
       display: 'inline-block',
       padding: theme.spacing(1),
     },
+    testMenu: {
+      position: 'absolute'
+  }
   });
 
 const options = [
@@ -582,10 +585,12 @@ export default function SubscriptionDetails() {
                       onClose={handleClose}
                       PaperProps={{
                           style: {
-                              padding: '2px',
+                              padding: '2px'
                           },
                           }}
-                          TransitionComponent={Fade}                                    
+                      style={{top: '46%',
+                        left: '84%'}}
+                      TransitionComponent={Fade}                                    
                   >
                       {options.map((option) => (
                       <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
@@ -635,7 +640,61 @@ export default function SubscriptionDetails() {
           lastUpdated: "10/07/2020",
           accountNumber: "645645645",
           accountName: "3M Tech"
-        }
+        },
+        {
+          iccid: 3436456456456617,
+          simStateId: 53465645645673,
+          iccid: 3436456456456617,
+          currentSimState: "ACTIVATED",
+          simTransitionsId: null,
+          factoryReady: "DISABLED",
+          dispatched: "DISABLED",
+          cspInventory: "DISABLED",
+          enterpriseInventory: "DISABLED",
+          trial: "DISABLED",
+          activated: "DISABLED",
+          suspended: "DISABLED",
+          regulatoryHold: "DISABLED",
+          cspHold: "DISABLED",
+          conditionalSuspend: "DISABLED",
+          deactivated: "DISABLED",
+          purged: "DISABLED",
+          retired: null,
+          transferred: "DISABLED",
+          imsi: "567658",
+          msisdn: "78768435459",
+          identityVendor: null,
+          lastUpdated: "10/07/2020",
+          accountNumber: "645645645",
+          accountName: "Honda"
+        },
+        {
+          iccid: 3436456456456618,
+          simStateId: 53465645645676,
+          iccid: 3436456456456618,
+          currentSimState: "SUSPENDED",
+          simTransitionsId: null,
+          factoryReady: "DISABLED",
+          dispatched: "DISABLED",
+          cspInventory: "DISABLED",
+          enterpriseInventory: "DISABLED",
+          trial: "DISABLED",
+          activated: "DISABLED",
+          suspended: "DISABLED",
+          regulatoryHold: "DISABLED",
+          cspHold: "DISABLED",
+          conditionalSuspend: "DISABLED",
+          deactivated: "DISABLED",
+          purged: "DISABLED",
+          retired: null,
+          transferred: "DISABLED",
+          imsi: "567662",
+          msisdn: "78768435460",
+          identityVendor: null,
+          lastUpdated: "10/07/2020",
+          accountNumber: "645645645",
+          accountName: ""
+        },
       ];
       console.log("Rows:", rows);
       // Check if the count is zero or undefined to display the no records message
@@ -723,7 +782,7 @@ export default function SubscriptionDetails() {
         />
         <Table columnExtensions={tableColumnExtensions} />
         <TableColumnReordering
-          defaultOrder={['id', 'imsi', 'msisdn', 'status', 'account', 'simver', 'batch', 'action']}
+          defaultOrder={['iccid', 'imsi', 'msisdn', 'currentSimState', 'accountName', 'simver', 'batch', 'action']}
         />
         <TableHeaderRow showSortingControls />
         <TableRowDetail
