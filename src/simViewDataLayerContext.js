@@ -13,7 +13,7 @@ export class DataProvider extends Component {
 
   componentDidMount() {
     this.setState({ loading: true }, () => {
-      this.getSimViewData(this.props.imsi);
+      this.getSimViewData();
     });
   }
 
@@ -27,11 +27,10 @@ export class DataProvider extends Component {
     //clearTimeout(this.intervalID);
   }
 
-  getSimViewData = (imsi) => {
+  getSimViewData = () => {
     var self = this;
-    imsi = 234500010400305;
     axios
-    .get(authEndpoint + "/api/viewSim/" + imsi, {
+    .get(authEndpoint + "/api/getSim/", {
         "Content-Type": "application/xml; charset=utf-8"
      })
     .then(function(response) {

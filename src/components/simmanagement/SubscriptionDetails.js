@@ -48,6 +48,7 @@ import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import Loader from 'react-loader-spinner';
 import simViewDataLayerContext from '../../simViewDataLayerContext';
+import Fade from '@material-ui/core/Fade';
 import {
     Plugin, Template, TemplateConnector, TemplatePlaceholder, Action,
   } from '@devexpress/dx-react-core';
@@ -137,6 +138,18 @@ const useStyles = makeStyles((theme) => ({
         //color: "primary",
         fontWeight: "700",
       },
+      menuButton: {
+        display: 'flex',
+        alignItems: 'center',
+        padding: '0 8px',      
+        ...theme.mixins.toolbar,
+      },
+      menuButtonHidden: {
+        display: 'none',
+      },
+      testMenu: {
+        top: '60%'
+    }
 }));
 
 const styles = theme => ({
@@ -175,7 +188,7 @@ const onSave = (workbook) => {
     "Retired": "red"
   }
     
-    const rows = [
+    /*const rows = [
       { id: '8944500310184003050', imsi: '234500010400305', msisdn: '882362000300305', status: "CSP-Inventory", color: "blue", account: '', simver: '16.02', batch: 'Prod_Batch_1' },
       { id: '8944500310184003051', imsi: '234500010400306', msisdn: '882362000300306', status: "Activated", color: "green", account: "Icomera", simver: '16.02', batch: 'Prod_Batch_1' },
       { id: '8944500310184003052', imsi: '234500010400307', msisdn: '882362000300307', status: "Activated", color: "green", account: "Honda", simver: '16.02', batch: 'Prod_Batch_1'  },
@@ -185,9 +198,14 @@ const onSave = (workbook) => {
       { id: '8944500310184003056', imsi: '234500010400311', msisdn: '882362000300311', status: "Suspended", color: "orange", account: "BMW", simver: '16.02', batch: 'Prod_Batch_1'  },
       { id: '8944500310184003057', imsi: '234500010400312', msisdn: '882362000300312', status: "Activated", color: "green", account: "Honda", simver: '16.02', batch: 'Prod_Batch_1'  },
       { id: '8944500310184003058', imsi: '234500010400313', msisdn: '882362000300313', status: "Retired", color: "red", account: "BMW", simver: '16.02', batch: 'Prod_Batch_1'  },
-    ];
+    ];*/
 
-  const getRowId = row => row.id;
+
+
+  
+    
+
+  const getRowId = row => row.iccid;
 
   const DetailContent = ({ row, ...rest }) => {
     const {
@@ -217,7 +235,7 @@ const onSave = (workbook) => {
               margin="normal"
               name="account"
               label="Account"
-              value={row.account}
+              value={row.accountName}
               onChange={processValueChange}
             />
             <TextField
@@ -235,14 +253,14 @@ const onSave = (workbook) => {
               margin="normal"
               name="iccid"
               label="ICCID"
-              value={row.id}
+              value={row.iccid}
               onChange={processValueChange}
             />
             <TextField
               margin="normal"
-              name="status"
+              name="currentSimState"
               label="Status"
-              value={row.status}
+              value={row.currentSimState}
               onChange={processValueChange}
             />
             <TextField
@@ -409,13 +427,13 @@ const onSave = (workbook) => {
   };
 
   const StatusFormatter = ({ value }) => (
-    (value === "CSP-Inventory") ? <b style={{ color: 'blue' }}>
+    (value.toLocaleLowerCase() === "csp-inventory") ? <b style={{ color: 'blue' }}>
     {value}
-  </b> : (value === "Activated") ? <b style={{ color: 'green' }}>
+  </b> : (value.toLocaleLowerCase() === "activated") ? <b style={{ color: 'green' }}>
     {value}
-  </b> : (value === "Suspended") ? <b style={{ color: 'orange' }}>
+  </b> : (value.toLocaleLowerCase() === "suspended") ? <b style={{ color: 'orange' }}>
     {value}
-  </b> : (value === "Retired") ? <b style={{ color: 'red' }}>
+  </b> : (value.toLocaleLowerCase() === "retired") ? <b style={{ color: 'red' }}>
     {value}
   </b> : <b style={{ color: 'black' }}>
     {value}
@@ -451,7 +469,7 @@ export default function SubscriptionDetails() {
     const [value, setValue] = React.useState('1');
     const location = useLocation();
     const [tableColumnExtensions] = React.useState([
-        { columnName: 'id', width: '15%' },
+        { columnName: 'iccid', width: '15%' },
         { columnName: 'imsi', width: '15%' },
         { columnName: 'msisdn', width: '15%' },
         { columnName: 'status', width: '10%' },
@@ -471,16 +489,16 @@ export default function SubscriptionDetails() {
 
 
     const columns = [
-        { name: 'id', title: 'ICCID', },
+        { name: 'iccid', title: 'ICCID', },
         { name: 'imsi', title: 'IMSI', },
         { name: 'msisdn', title: 'MSISDN', },
         {
-          name: 'status',
+          name: 'currentSimState',
           title: 'Status',
 
         },    
         {
-            name: 'account',
+            name: 'accountName',
             title: 'Account',
           },
           {
@@ -497,8 +515,8 @@ export default function SubscriptionDetails() {
           }   
       ];
 
-      const [statusColumn] = React.useState(['status']);
-      const [accountColumn] = React.useState(['account']);
+      const [statusColumn] = React.useState(['currentSimState']);
+      const [accountColumn] = React.useState(['accountName']);
       const [actionColumn] = React.useState(['action']);
   
     const changeAddedRows = (value) => {
@@ -519,11 +537,11 @@ export default function SubscriptionDetails() {
         ];
       }
       if (changed) {
-        changedRows = rows.map(row => (changed[row.id] ? { ...row, ...changed[row.id] } : row));
+        changedRows = rows.map(row => (changed[row.iccid] ? { ...row, ...changed[row.iccid] } : row));
       }
       if (deleted) {
         const deletedSet = new Set(deleted);
-        changedRows = rows.filter(row => !deletedSet.has(row.id));
+        changedRows = rows.filter(row => !deletedSet.has(row.iccid));
       }
       //setRows(changedRows);
     };
@@ -545,17 +563,19 @@ export default function SubscriptionDetails() {
     };
 
     const ActionFormatter = (params) => (
-        <div>
+      <React.Fragment>
                   <IconButton
                       aria-label="more"
-                      aria-controls="long-menu"
+                      aria-controls="fade-menu"
                       aria-haspopup="true"
                       onClick={handleClick}
                   >
+                    <Tooltip title="Action" placement="top">            
                   <MoreVertOutlinedIcon />
+                  </Tooltip>
                   </IconButton>
                   <Menu
-                      id="long-menu"
+                      id="fade-menu"
                       anchorEl={anchorEl}
                       keepMounted
                       open={openMenu}
@@ -564,7 +584,8 @@ export default function SubscriptionDetails() {
                           style: {
                               padding: '2px',
                           },
-                          }}                                    
+                          }}
+                          TransitionComponent={Fade}                                    
                   >
                       {options.map((option) => (
                       <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
@@ -572,7 +593,7 @@ export default function SubscriptionDetails() {
                       </MenuItem>
                       ))}
                   </Menu>
-              </div>
+                  </React.Fragment>   
       );
     
       const ActionProvider = props => (
@@ -585,8 +606,38 @@ export default function SubscriptionDetails() {
     const { data, count, loading } = useContext(simViewDataLayerContext) || {};
       const finalData = [];
       finalData.push(data);
-      const authResult = new URLSearchParams(window.location.search); 
-      const imsi = authResult.get('imsi');
+      console.log("Final API Data:", finalData);
+
+      let rows = [
+        {
+          iccid: 3436456456456616,
+          simStateId: 53465645645672,
+          iccid: 3436456456456616,
+          currentSimState: "CSP-INVENTORY",
+          simTransitionsId: null,
+          factoryReady: "DISABLED",
+          dispatched: "DISABLED",
+          cspInventory: "DISABLED",
+          enterpriseInventory: "DISABLED",
+          trial: "DISABLED",
+          activated: "DISABLED",
+          suspended: "DISABLED",
+          regulatoryHold: "DISABLED",
+          cspHold: "DISABLED",
+          conditionalSuspend: "DISABLED",
+          deactivated: "DISABLED",
+          purged: "DISABLED",
+          retired: null,
+          transferred: "DISABLED",
+          imsi: "567659",
+          msisdn: "78768435458",
+          identityVendor: null,
+          lastUpdated: "10/07/2020",
+          accountNumber: "645645645",
+          accountName: "3M Tech"
+        }
+      ];
+      console.log("Rows:", rows);
       // Check if the count is zero or undefined to display the no records message
       if(!loading) {
       if((count === 0) || (count === undefined)) {

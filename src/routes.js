@@ -1,6 +1,7 @@
 export default {
     // Roots
-    home: "/",
+    login: "/",
+    home: "/home",
     // Nested Dashboard pages
     diagnostics: "/dashboard/diagnostics",
     subscribers: "/dashboard/diagnostics/subscriber",

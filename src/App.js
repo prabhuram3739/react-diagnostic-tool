@@ -6,6 +6,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import Subscriber from './components/subscriber/Subscriber';
 import Diagnostics from './components/diagnostics/Diagnostics';
 import Subscriptions from './components/simmanagement/Subscriptions';
+import Login from './components/login/Login';
 
 
 export default function App() {
