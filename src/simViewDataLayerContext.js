@@ -30,7 +30,7 @@ export class DataProvider extends Component {
   getSimViewData = () => {
     var self = this;
     axios
-    .get(authEndpoint + "/api/getSim/", {
+    .get(authEndpoint + "/api/viewAllSim/", {
         "Content-Type": "application/xml; charset=utf-8"
      })
     .then(function(response) {

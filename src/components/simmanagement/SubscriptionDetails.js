@@ -611,29 +611,32 @@ export default function SubscriptionDetails() {
     const { data, count, loading } = useContext(simViewDataLayerContext) || {};
       const finalData = [];
       finalData.push(data);
-      console.log("Final API Data:", finalData);
-      //let rows = finalData;
-      let rows = [
+      let simLcStatesArr=[];
+      let rows=[];
+      //let rowsToBeModified = finalData;
+      let rowsToBeModified = [
         {
           iccid: 3436456456456616,
-          simStateId: 53465645645672,
-          iccid: 3436456456456616,
-          currentSimState: "CSP-INVENTORY",
-          simTransitionsId: null,
-          factoryReady: "DISABLED",
-          dispatched: "DISABLED",
-          cspInventory: "DISABLED",
-          enterpriseInventory: "DISABLED",
-          trial: "DISABLED",
-          activated: "DISABLED",
-          suspended: "DISABLED",
-          regulatoryHold: "DISABLED",
-          cspHold: "DISABLED",
-          conditionalSuspend: "DISABLED",
-          deactivated: "DISABLED",
-          purged: "DISABLED",
-          retired: null,
-          transferred: "DISABLED",
+          simLcStates: {
+            simStateId: 53465645645672,
+            iccid: 3436456456456616,
+            currentSimState: "CSP-INVENTORY",
+            simTransitionsId: null,
+            factoryReady: "DISABLED",
+            dispatched: "DISABLED",
+            cspInventory: "DISABLED",
+            enterpriseInventory: "DISABLED",
+            trial: "DISABLED",
+            activated: "DISABLED",
+            suspended: "DISABLED",
+            regulatoryHold: "DISABLED",
+            cspHold: "DISABLED",
+            conditionalSuspend: "DISABLED",
+            deactivated: "DISABLED",
+            purged: "DISABLED",
+            retired: null,
+            transferred: "DISABLED"
+          },
           imsi: "567659",
           msisdn: "78768435458",
           identityVendor: null,
@@ -643,6 +646,7 @@ export default function SubscriptionDetails() {
         },
         {
           iccid: 3436456456456617,
+          simLcStates: {
           simStateId: 53465645645673,
           iccid: 3436456456456617,
           currentSimState: "ACTIVATED",
@@ -661,6 +665,7 @@ export default function SubscriptionDetails() {
           purged: "DISABLED",
           retired: null,
           transferred: "DISABLED",
+        },
           imsi: "567658",
           msisdn: "78768435459",
           identityVendor: null,
@@ -670,6 +675,7 @@ export default function SubscriptionDetails() {
         },
         {
           iccid: 3436456456456618,
+          simLcStates: {
           simStateId: 53465645645676,
           iccid: 3436456456456618,
           currentSimState: "SUSPENDED",
@@ -688,6 +694,7 @@ export default function SubscriptionDetails() {
           purged: "DISABLED",
           retired: null,
           transferred: "DISABLED",
+          },
           imsi: "567662",
           msisdn: "78768435460",
           identityVendor: null,
@@ -696,7 +703,35 @@ export default function SubscriptionDetails() {
           accountName: ""
         },
       ];
-      console.log("Rows:", rows);
+      rowsToBeModified.map((ele, index) => {
+       let rowObj = {};
+       rowObj['iccid'] = ele.iccid;
+       rowObj['simStateId'] = ele.simLcStates.simStateId;
+       rowObj['currentSimState'] = ele.simLcStates.currentSimState;
+       rowObj['simTransitionsId'] = ele.simLcStates.simTransitionsId;
+       rowObj['factoryReady'] = ele.simLcStates.factoryReady;
+       rowObj['dispatched'] = ele.simLcStates.dispatched;
+       rowObj['cspInventory'] = ele.simLcStates.cspInventory;
+       rowObj['enterpriseInventory'] = ele.simLcStates.enterpriseInventory;
+       rowObj['trial'] = ele.simLcStates.trial;
+       rowObj['activated'] = ele.simLcStates.activated;
+       rowObj['suspended'] = ele.simLcStates.suspended;
+       rowObj['regulatoryHold'] = ele.simLcStates.regulatoryHold;
+       rowObj['cspHold'] = ele.simLcStates.cspHold;
+       rowObj['conditionalSuspend'] = ele.simLcStates.conditionalSuspend;
+       rowObj['deactivated'] = ele.simLcStates.deactivated;
+       rowObj['purged'] = ele.simLcStates.purged;
+       rowObj['retired'] = ele.simLcStates.retired;
+       rowObj['transferred'] = ele.simLcStates.transferred;
+       rowObj['imsi'] = ele.imsi;
+       rowObj['msisdn'] = ele.msisdn;
+       rowObj['identityVendor'] = ele.identityVendor;
+       rowObj['lastUpdated'] = ele.lastUpdated;
+       rowObj['accountNumber'] = ele.accountNumber;
+       rowObj['accountName'] = ele.accountName;
+       rows.push(rowObj);
+      });
+
       // Check if the count is zero or undefined to display the no records message
       if(!loading) {
       if((count === 0) || (count === undefined)) {
