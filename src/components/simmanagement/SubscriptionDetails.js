@@ -648,13 +648,12 @@ export default function SubscriptionDetails() {
         />
       );
 
-    const { data, count } = useContext(simViewDataLayerContext) || {};
-      const finalData = [];
-      finalData.push(data);
+    const { data, loading, count } = useContext(simViewDataLayerContext) || {};
       let simLcStatesArr=[];
+      console.log(data);
       let rows=[];
       
-      let rowsToBeModified = finalData;
+      let rowsToBeModified = data;
       /*let rowsToBeModified = [
         {
           iccid: 3436456456456616,
@@ -745,11 +744,11 @@ export default function SubscriptionDetails() {
         },
       ];*/
 
-      const loading = rowsToBeModified.length > 0 ? true : false;
+      //const loading = rowsToBeModified.length > 0 ? true : false;
 
        // Check if the count is zero or undefined to display the no records message
        if(!loading) {
-        if((count === 0) || (count === undefined)) {
+       if((count === 0) || (count === undefined)) {
          return (
              <span className="ml-4">Sorry, No Sim Information available</span>
          )
@@ -778,6 +777,8 @@ export default function SubscriptionDetails() {
        rowObj['retired'] = ele.simLcStates.retired;
        rowObj['transferred'] = ele.simLcStates.transferred;
        rowObj['imsi'] = ele.imsi;
+       rowObj['batch'] = ele.simBatchId;
+       rowObj['simver'] = ele.simVersion;
        rowObj['msisdn'] = ele.msisdn;
        rowObj['identityVendor'] = ele.identityVendor;
        rowObj['lastUpdated'] = ele.lastUpdated;
