@@ -30,7 +30,7 @@ export class DataProvider extends Component {
   getSimViewData = () => {
     var self = this;
     axios
-    .get(authEndpoint + "/api/viewAllSim/", {
+    .get(authEndpoint + "http://18.185.117.167:8086/api/sims/", {
         "Content-Type": "application/xml; charset=utf-8"
      })
     .then(function(response) {

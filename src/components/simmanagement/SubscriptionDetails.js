@@ -547,7 +547,7 @@ export default function SubscriptionDetails() {
               const newSim = { "iccid": iccid, "imsi": imsi, "msisdn": msisdn, "currentSimState": status, "account": account, "simver": simVersion, "batch": batch };
               simList.push(newSim);
     
-              fetch('http://18.185.117.167:8080/sims.json', {
+              fetch('http://18.185.117.1676:8086/sims.json', {
                 method: 'POST',
                 headers: {
                   'Accept': 'application/json',
@@ -807,7 +807,7 @@ export default function SubscriptionDetails() {
         </Box>
         <Box bgcolor="background.paper">
         <Divider component="span" className={classes.divider} orientation="vertical" />
-        <form id='uploadForm' action='http://18.185.117.167:8080/upload' method='post' encType="multipart/form-data">
+        <form id='uploadForm' action='http://18.185.117.167:8086/upload' method='post' encType="multipart/form-data">
         <Tooltip component="span" title="Upload SIMs File" placement="top">
         <Button htmlFor="sampleFile" variant="contained" component="label" startIcon={<CloudUploadOutlinedIcon />} color="secondary" aria-label="Upload SIMs File">Upload SIMs File
         <input id="sampleFile" type="file" style={{ display: "none" }} />
