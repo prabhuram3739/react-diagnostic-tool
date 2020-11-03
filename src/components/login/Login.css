@@ -14133,7 +14133,7 @@ div.v-layout.v-horizontal.v-widget {
 }
 
 .nokia .userImage-window .v-slot-img-editor-photo {
-    border: 1px solid $v-text-color
+    border: 1px solid;
 }
 
 .nokia .userImage-window .h2 {

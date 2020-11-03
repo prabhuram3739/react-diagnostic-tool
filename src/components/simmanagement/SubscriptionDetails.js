@@ -758,11 +758,13 @@ export default function SubscriptionDetails() {
         </Box>
         <Box bgcolor="background.paper">
         <Divider component="span" className={classes.divider} orientation="vertical" />
-        <Tooltip component="span" title="Upload SIMs File" placement="top">                          
-        <Button variant="contained" startIcon={<CloudUploadOutlinedIcon />} color="secondary" aria-label="Upload SIMs File">
-            Upload SIMs File
+        <form id='uploadForm' action='http://18.185.117.167:8080/upload' method='post' encType="multipart/form-data">
+        <Tooltip component="span" title="Upload SIMs File" placement="top">
+        <Button htmlFor="sampleFile" variant="contained" component="label" startIcon={<CloudUploadOutlinedIcon />} color="secondary" aria-label="Upload SIMs File">Upload SIMs File
+        <input id="sampleFile" type="file" style={{ display: "none" }} />
         </Button>
         </Tooltip>
+        </form>
         </Box>
         </Box>
         <Box className={classes.root} style={{height: '100%', overflow: 'auto', width: '100%'}}  display="flex" >
