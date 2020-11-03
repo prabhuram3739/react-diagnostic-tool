@@ -648,11 +648,12 @@ export default function SubscriptionDetails() {
         />
       );
 
-    const { data, count, loading } = useContext(simViewDataLayerContext) || {};
+    const { data, count } = useContext(simViewDataLayerContext) || {};
       const finalData = [];
       finalData.push(data);
       let simLcStatesArr=[];
       let rows=[];
+      
       //let rowsToBeModified = finalData;
       let rowsToBeModified = [
         {
@@ -743,7 +744,20 @@ export default function SubscriptionDetails() {
           accountName: ""
         },
       ];
-      rowsToBeModified.map((ele, index) => {
+
+      const loading = rowsToBeModified.length > 0 ? true : false;
+
+       // Check if the count is zero or undefined to display the no records message
+       if(!loading) {
+        if((count === 0) || (count === undefined)) {
+         return (
+             <span className="ml-4">Sorry, No Sim Information available</span>
+         )
+        }
+     }
+
+      (rowsToBeModified && rowsToBeModified.length > 0) && rowsToBeModified.map((ele, index) => {
+        if(ele &&  ele.simLcStates) {
        let rowObj = {};
        rowObj['iccid'] = ele.iccid;
        rowObj['simStateId'] = ele.simLcStates.simStateId;
@@ -770,16 +784,8 @@ export default function SubscriptionDetails() {
        rowObj['accountNumber'] = ele.accountNumber;
        rowObj['accountName'] = ele.accountName;
        rows.push(rowObj);
-      });
-
-      // Check if the count is zero or undefined to display the no records message
-      if(!loading) {
-      if((count === 0) || (count === undefined)) {
-       return (
-           <span className="ml-4">Sorry, No Sim Information available</span>
-       )
       }
-   }
+      });
 
    const wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
     const fontSize = 5;
@@ -826,7 +832,9 @@ export default function SubscriptionDetails() {
         </form>
         </Box>
         </Box>
+        
         <Box className={classes.root} style={{height: '100%', overflow: 'auto', width: '100%'}}  display="flex" >
+        { loading && rows.length === 0 ? <div><div className="v-loading-indicator second v-loading-indicator-delay v-loading-indicator-wait" ></div><Loader className="centerDisplayDefaultView mt-5" type="Circles" color="#00BFFF" height={40} width={40} /></div>  :
         <Grid
         rows={rows}
         columns={columns} getRowId={getRowId} style={{ display: 'inline', height: '100%' }}
@@ -901,14 +909,16 @@ export default function SubscriptionDetails() {
         <PagingPanel />
 
         </Grid>
-
+      }
         <GridExporter
         ref={exporterRef}
         rows={rows}
         columns={columns}
         onSave={onSave}
       />
+    
             </Box>
+
             </Paper>
       </div> 
       </React.Fragment>
