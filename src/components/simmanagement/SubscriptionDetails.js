@@ -544,7 +544,7 @@ export default function SubscriptionDetails() {
               const account = data[i][4];
               const simVersion = data[i][5];
               const batch = data[i][6];
-              const newSim = { "iccid": iccid, "imsi": imsi, "msisdn": msisdn, "currentSimState": status, "account": account, "simVersion": simVersion, "batch": batch };
+              const newSim = { "iccid": iccid, "imsi": imsi, "msisdn": msisdn, "currentSimState": status, "account": account, "simver": simVersion, "batch": batch };
               simList.push(newSim);
     
               fetch('http://18.185.117.167:8080/sims.json', {
