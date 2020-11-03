@@ -80,6 +80,8 @@ import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from '@material-ui/core/styles';
 import saveAs from 'file-saver';
+import Dropzone from 'react-dropzone';
+import csv from 'csv';
 
 const drawerWidth = 240;
 
@@ -521,6 +523,44 @@ export default function SubscriptionDetails() {
       const [statusColumn] = React.useState(['currentSimState']);
       const [accountColumn] = React.useState(['accountName']);
       const [actionColumn] = React.useState(['action']);
+
+      const onDrop = (files) => {
+
+        this.setState({ files });
+    
+        var file = files[0];
+    
+        const reader = new FileReader();
+        reader.onload = () => {
+          csv.parse(reader.result, (err, data) => {
+    
+            var simList = [];
+    
+            for (var i = 0; i < data.length; i++) {
+              const iccid = data[i][0];
+              const imsi = data[i][1];
+              const msisdn = data[i][2];
+              const status = data[i][3];
+              const account = data[i][4];
+              const simVersion = data[i][5];
+              const batch = data[i][6];
+              const newSim = { "iccid": iccid, "imsi": imsi, "msisdn": msisdn, "currentSimState": status, "account": account, "simVersion": simVersion, "batch": batch };
+              simList.push(newSim);
+    
+              fetch('http://18.185.117.167:8080/sims.json', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newSim)
+              })
+            };
+          });
+        };
+    
+        reader.readAsBinaryString(file);
+      }
   
     const changeAddedRows = (value) => {
       const initialized = value.map(row => (Object.keys(row).length ? row : { imsi: '' }));
@@ -741,6 +781,9 @@ export default function SubscriptionDetails() {
       }
    }
 
+   const wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
+    const fontSize = 5;
+
     return(
         <React.Fragment>       
       <div style={{height: '100%', width: '100%'}}>
@@ -764,6 +807,22 @@ export default function SubscriptionDetails() {
         <input id="sampleFile" type="file" style={{ display: "none" }} />
         </Button>
         </Tooltip>
+        {/*<div align="center" oncontextmenu="return false">
+        <br /><br /><br />
+        <div className="dropzone">
+          <Dropzone accept=".csv" onDropAccepted={onDrop.bind(this)}>
+  {dropzoneProps => {
+    return (
+      <div>
+        <h2>Upload or drop your <font size={fontSize} color="#00A4FF">CSV</font><br /> file here.</h2>
+      </div>
+    );
+  }}
+</Dropzone>;
+          <br /><br /><br />
+        </div>
+        
+</div>*/}
         </form>
         </Box>
         </Box>
