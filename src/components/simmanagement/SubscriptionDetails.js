@@ -654,8 +654,8 @@ export default function SubscriptionDetails() {
       let simLcStatesArr=[];
       let rows=[];
       
-      //let rowsToBeModified = finalData;
-      let rowsToBeModified = [
+      let rowsToBeModified = finalData;
+      /*let rowsToBeModified = [
         {
           iccid: 3436456456456616,
           simLcStates: {
@@ -743,7 +743,7 @@ export default function SubscriptionDetails() {
           accountNumber: "645645645",
           accountName: ""
         },
-      ];
+      ];*/
 
       const loading = rowsToBeModified.length > 0 ? true : false;
 
