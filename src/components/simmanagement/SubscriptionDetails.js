@@ -216,6 +216,16 @@ export default function SubscriptionDetails() {
       const [actionColumn] = React.useState(['action']);
 
       const getRowId = row => row.iccid;
+      function getKey(objArr) {
+        const arr = [],
+        obj = Object.keys(objArr);
+        for (var x in obj) {
+          if(objArr[obj[x]] === "ENABLED"){
+            arr.push(obj[x]);
+          }
+        }
+        return arr;
+      }
 
   const DetailContent = ({ row, ...rest }) => {
     const {
@@ -223,6 +233,7 @@ export default function SubscriptionDetails() {
       applyChanges,
       cancelChanges,
     } = rest;
+    let arr = getKey(row);
     return (
       <MuiGrid container spacing={3}>
         <MuiGrid item xs={6}>
@@ -290,14 +301,20 @@ export default function SubscriptionDetails() {
           className="statusDrpDown"
           inputProps={{ 'aria-label': 'Status' }}
           >
-          <option value={row.currentSimState}>{row.currentSimState}</option>
-          <option value="CSP-INVENTORY">CSP-INVENTORY</option>
+          
+          {/*<option value="CSP-INVENTORY">CSP-INVENTORY</option>
           <option value="ACTIVATED">ACTIVATED</option>
           <option value="IN-BILLING">IN-BILLING</option>
           <option value="TRIAL">TRIAL</option>
           <option value="SUSPENDED">SUSPENDED</option>
           <option value="RETIRED">RETIRED</option>
-          <option value="PURGED">PURGED</option>
+          <option value="PURGED">PURGED</option>*/}
+          <option value={row.currentSimState}>{row.currentSimState}</option>
+          {
+          arr.map((ele, index) => { 
+            return(<React.Fragment key={index}><option value={ele}>{ele}</option></React.Fragment>);
+          })
+          }
           </NativeSelect>
             <TextField
               margin="normal"
@@ -656,14 +673,14 @@ export default function SubscriptionDetails() {
             iccid: 3436456456456616,
             currentSimState: "CSP-INVENTORY",
             simTransitionsId: null,
-            factoryReady: "DISABLED",
+            factoryReady: "ENABLED",
             dispatched: "DISABLED",
             cspInventory: "DISABLED",
             enterpriseInventory: "DISABLED",
-            trial: "DISABLED",
+            trial: "ENABLED",
             activated: "DISABLED",
             suspended: "DISABLED",
-            regulatoryHold: "DISABLED",
+            regulatoryHold: "ENABLED",
             cspHold: "DISABLED",
             conditionalSuspend: "DISABLED",
             deactivated: "DISABLED",
@@ -737,8 +754,7 @@ export default function SubscriptionDetails() {
           accountName: ""
         },
       ];*/
-
-      //const loading = rowsToBeModified.length > 0 ? true : false;
+      
 
        // Check if the count is zero or undefined to display the no records message
        if(!loading) {
