@@ -273,6 +273,11 @@ code {
     border-bottom: none !important;
 }
 
+.statusDrpDown {
+    margin-top: 31px;
+    margin-bottom: 8px;
+}
+
 .noUpperCaseTxt {
     font-size: 1rem !important;
     font-family: NokiaPureHeadlineLight, NokiaThemeIcons, NokiaPureHeadline, Helvetica, Arial;

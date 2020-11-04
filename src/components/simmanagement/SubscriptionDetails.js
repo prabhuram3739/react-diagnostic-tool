@@ -1,4 +1,5 @@
-import React, { useContext, useRef, useCallback } from 'react';
+import React, { useContext, useState, useRef, useCallback, useEffect } from 'react';
+import axios from 'axios';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -82,6 +83,7 @@ import { withStyles } from '@material-ui/core/styles';
 import saveAs from 'file-saver';
 import Dropzone from 'react-dropzone';
 import csv from 'csv';
+import NativeSelect from '@material-ui/core/NativeSelect';
 
 const drawerWidth = 240;
 
@@ -169,7 +171,7 @@ const styles = theme => ({
     },
     testMenu: {
       position: 'absolute'
-  }
+    }
   });
 
 const options = [
@@ -205,12 +207,68 @@ const onSave = (workbook) => {
       { id: '8944500310184003058', imsi: '234500010400313', msisdn: '882362000300313', status: "Retired", color: "red", account: "BMW", simver: '16.02', batch: 'Prod_Batch_1'  },
     ];*/
 
-
-
+export default function SubscriptionDetails() {
+    const classes = useStyles();
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    const [value, setValue] = React.useState('1');
+    const location = useLocation();
+    const [refreshGrid, setRefreshGrid] = React.useState(false);
+    const [tableColumnExtensions] = React.useState([
+        { columnName: 'iccid', width: '15%' },
+        { columnName: 'imsi', width: '15%' },
+        { columnName: 'msisdn', width: '15%' },
+        { columnName: 'status', width: '10%' },
+        { columnName: 'account', width: '10%' },
+        { columnName: 'simver', width: '9%' },
+        { columnName: 'batch', width: '9%' },
+        { columnName: 'action', width: '8%' },
+      ]);
+      const [state, setState] = React.useState({
+        age: '',
+        name: 'hai',
+      });
+    const [editingRowIds, setEditingRowIds] = React.useState([]);
+    const [addedRows, setAddedRows] = React.useState([]);
+    const [rowChanges, setRowChanges] = React.useState({});
+    const exporterRef = useRef(null);
   
-    
+    const startExport = useCallback((options) => {
+      exporterRef.current.exportGrid(options);
+    }, [exporterRef]);
 
-  const getRowId = row => row.iccid;
+
+    const columns = [
+        { name: 'iccid', title: 'ICCID', },
+        { name: 'imsi', title: 'IMSI', },
+        { name: 'msisdn', title: 'MSISDN', },
+        {
+          name: 'currentSimState',
+          title: 'Status',
+
+        },    
+        {
+            name: 'accountName',
+            title: 'Account',
+          },
+          {
+            name: 'simver',
+            title: 'SIM Version',
+          },
+          {
+            name: 'batch',
+            title: 'SIM Batch',
+          },
+          {
+            name: 'action',
+            title: 'Action',
+          }   
+      ];
+
+      const [statusColumn] = React.useState(['currentSimState']);
+      const [accountColumn] = React.useState(['accountName']);
+      const [actionColumn] = React.useState(['action']);
+
+      const getRowId = row => row.iccid;
 
   const DetailContent = ({ row, ...rest }) => {
     const {
@@ -228,6 +286,8 @@ const onSave = (workbook) => {
               label="IMSI"
               value={row.imsi}
               onChange={processValueChange}
+              readOnly
+              disabled
             />
             <TextField
               margin="normal"
@@ -235,6 +295,8 @@ const onSave = (workbook) => {
               label="MSISDN"
               value={row.msisdn}
               onChange={processValueChange}
+              readOnly
+              disabled
             />
             <TextField
               margin="normal"
@@ -242,6 +304,8 @@ const onSave = (workbook) => {
               label="Account"
               value={row.accountName}
               onChange={processValueChange}
+              readOnly
+              disabled
             />
             <TextField
               margin="normal"
@@ -249,6 +313,8 @@ const onSave = (workbook) => {
               label="SIM Batch"
               value={row.batch}
               onChange={processValueChange}
+              readOnly
+              disabled
             />
           </FormGroup>
         </MuiGrid>
@@ -260,20 +326,40 @@ const onSave = (workbook) => {
               label="ICCID"
               value={row.iccid}
               onChange={processValueChange}
+              readOnly
+              disabled
             />
-            <TextField
+            {/*<TextField
               margin="normal"
               name="currentSimState"
               label="Status"
               value={row.currentSimState}
               onChange={processValueChange}
-            />
+            />*/}
+          <NativeSelect
+          value={row.currentSimState}
+          name="currentSimState"
+          onChange={processValueChange}
+          className="statusDrpDown"
+          inputProps={{ 'aria-label': 'Status' }}
+          >
+          <option value={row.currentSimState}>{row.currentSimState}</option>
+          <option value="CSP-INVENTORY">CSP-INVENTORY</option>
+          <option value="ACTIVATED">ACTIVATED</option>
+          <option value="IN-BILLING">IN-BILLING</option>
+          <option value="TRIAL">TRIAL</option>
+          <option value="SUSPENDED">SUSPENDED</option>
+          <option value="RETIRED">RETIRED</option>
+          <option value="PURGED">PURGED</option>
+          </NativeSelect>
             <TextField
               margin="normal"
               name="simver"
               label="SIM Version"
               value={row.simver}
               onChange={processValueChange}
+              readOnly
+              disabled
             />
           </FormGroup>
         </MuiGrid>
@@ -308,6 +394,11 @@ const onSave = (workbook) => {
     );
   };
 
+  const simStatusChange = () => 
+  {
+    //console.log(currentSimState);
+  }
+
   const ToggleCellBase = ({
     style, expanded, classes, onToggle,
     tableColumn, tableRow, row,
@@ -341,7 +432,7 @@ const onSave = (workbook) => {
   const ToggleCell = withStyles(styles, { name: 'ToggleCell' })(ToggleCellBase);
 
   const DetailEditCell = () => (
-    <Plugin name="detailEdit">
+    <Plugin name="DetailEditCell">
       <Action
         name="toggleDetailRowExpanded"
         action={({ rowId }, { expandedDetailRowIds }, { startEditRows, stopEditRows }) => {
@@ -386,8 +477,37 @@ const onSave = (workbook) => {
   
               const applyChanges = () => {
                 toggleDetailRowExpanded({ rowId });
+                UpdateRecord();
+                console.log(refreshGrid);
                 commitChangedRows({ rowIds: [rowId] });
               };
+
+              const UpdateRecord = () => {
+                let params = {
+                  id: row.iccid,
+                  imsi: row.imsi,
+                  msisdn: row.msisdn,
+                  account: row.accountName,
+                  batch: row.batch,
+                  status: row.currentSimState,
+                  simver: row.simver
+                }
+
+                console.log(params);
+                console.log('http://18.185.117.167:8086/api/simlcstates/' + params.id + '/' + params.status);
+          
+              axios.put('http://18.185.117.167:8086/api/simlcstates/' + params.id + '/' + params.status , params).then(response => {
+              window.location.reload();
+
+              //setRefreshGrid(true);
+              console.log(refreshGrid);
+              console.log(response.data);
+              })
+              .catch(function(error) {
+                  console.log(error);
+              });
+
+              }
               const cancelChanges = () => {
                 toggleDetailRowExpanded({ rowId });
                 cancelChangedRows({ rowIds: [rowId] });
@@ -405,6 +525,7 @@ const onSave = (workbook) => {
                   processValueChange,
                   applyChanges,
                   cancelChanges,
+                  UpdateRecord
                 }}
                 />
               );
@@ -417,7 +538,8 @@ const onSave = (workbook) => {
   
   const DetailCell = ({
     children, changeRow, editingRowIds, addedRows, processValueChange,
-    applyChanges, cancelChanges,
+    applyChanges, cancelChanges, 
+    UpdateRecord,
     ...restProps
   }) => {
     const { row } = restProps;
@@ -467,62 +589,11 @@ const onSave = (workbook) => {
     />
   );
 
-export default function SubscriptionDetails() {
-    const classes = useStyles();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    
-    const [value, setValue] = React.useState('1');
-    const location = useLocation();
-    const [tableColumnExtensions] = React.useState([
-        { columnName: 'iccid', width: '15%' },
-        { columnName: 'imsi', width: '15%' },
-        { columnName: 'msisdn', width: '15%' },
-        { columnName: 'status', width: '10%' },
-        { columnName: 'account', width: '10%' },
-        { columnName: 'simver', width: '9%' },
-        { columnName: 'batch', width: '9%' },
-        { columnName: 'action', width: '8%' },
-      ]);
-    const [editingRowIds, setEditingRowIds] = React.useState([]);
-    const [addedRows, setAddedRows] = React.useState([]);
-    const [rowChanges, setRowChanges] = React.useState({});
-    const exporterRef = useRef(null);
-  
-    const startExport = useCallback((options) => {
-      exporterRef.current.exportGrid(options);
-    }, [exporterRef]);
-
-
-    const columns = [
-        { name: 'iccid', title: 'ICCID', },
-        { name: 'imsi', title: 'IMSI', },
-        { name: 'msisdn', title: 'MSISDN', },
-        {
-          name: 'currentSimState',
-          title: 'Status',
-
-        },    
-        {
-            name: 'accountName',
-            title: 'Account',
-          },
-          {
-            name: 'simver',
-            title: 'SIM Version',
-          },
-          {
-            name: 'batch',
-            title: 'SIM Batch',
-          },
-          {
-            name: 'action',
-            title: 'Action',
-          }   
-      ];
-
-      const [statusColumn] = React.useState(['currentSimState']);
-      const [accountColumn] = React.useState(['accountName']);
-      const [actionColumn] = React.useState(['action']);
+  //create your forceUpdate hook
+const  useForceUpdate = () => {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue(value => ++value); // update the state to force render
+}
 
       const onDrop = (files) => {
 
@@ -570,7 +641,7 @@ export default function SubscriptionDetails() {
     const commitChanges = ({ added, changed, deleted }) => {
       let changedRows;
       if (added) {
-        const startingAddedId = rows.length > 0 ? rows[rows.length - 1].id + 1 : 0;
+        const startingAddedId = rows.length > 0 ? rows[rows.length - 1].iccid + 1 : 0;
         changedRows = [
           ...rows,
           ...added.map((row, index) => ({
@@ -590,6 +661,11 @@ export default function SubscriptionDetails() {
     };
     const handleChange = (event, newValue) => {
       setValue(newValue);
+      const name = event.target.name;
+    setState({
+      ...state,
+      [name]: event.target.value,
+    });
     };
 
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -650,7 +726,6 @@ export default function SubscriptionDetails() {
 
     const { data, loading, count } = useContext(simViewDataLayerContext) || {};
       let simLcStatesArr=[];
-      console.log(data);
       let rows=[];
       
       let rowsToBeModified = data;
