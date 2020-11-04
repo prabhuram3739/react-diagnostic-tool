@@ -301,14 +301,6 @@ export default function SubscriptionDetails() {
           className="statusDrpDown"
           inputProps={{ 'aria-label': 'Status' }}
           >
-          
-          {/*<option value="CSP-INVENTORY">CSP-INVENTORY</option>
-          <option value="ACTIVATED">ACTIVATED</option>
-          <option value="IN-BILLING">IN-BILLING</option>
-          <option value="TRIAL">TRIAL</option>
-          <option value="SUSPENDED">SUSPENDED</option>
-          <option value="RETIRED">RETIRED</option>
-          <option value="PURGED">PURGED</option>*/}
           <option value={row.currentSimState}>{row.currentSimState}</option>
           {
           arr.map((ele, index) => { 
@@ -467,11 +459,8 @@ export default function SubscriptionDetails() {
                     window.location.reload();
                   }, 2000);
               //setRefreshGrid(true);
-                }
-              })
-              .catch(function(error) {
-                if(error.status === 500) {
-                  toast.error("State transition not allowed", {
+                } else if(response.status === 409) {
+                  toast.error(response.message, {
                     position: "top-right",
                     autoClose: 5000,
                     hideProgressBar: false,
@@ -480,7 +469,29 @@ export default function SubscriptionDetails() {
                     draggable: true,
                     progress: undefined,
                   });
-                } else {
+                } else if(response.status === 500) {
+                  toast.error(response.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                } else if(response.status === 400) {
+                  toast.error(response.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                }
+              })
+              .catch(function(error) {
                 toast.error('Sorry, Not Updated', {
                   position: "top-right",
                   autoClose: 5000,
@@ -491,7 +502,7 @@ export default function SubscriptionDetails() {
                   progress: undefined,
                   });
                   console.log(error);
-                }
+                
               });
 
               }
