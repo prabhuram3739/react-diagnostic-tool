@@ -84,6 +84,8 @@ import saveAs from 'file-saver';
 import Dropzone from 'react-dropzone';
 import csv from 'csv';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const drawerWidth = 240;
 
@@ -478,6 +480,7 @@ export default function SubscriptionDetails() {
               const applyChanges = () => {
                 toggleDetailRowExpanded({ rowId });
                 UpdateRecord();
+                
                 commitChangedRows({ rowIds: [rowId] });
               };
 
@@ -492,10 +495,30 @@ export default function SubscriptionDetails() {
                   simver: row.simver
                 }
               axios.put('http://18.185.117.167:8086/api/simlcstates/' + params.id + '/' + params.status , params).then(response => {
-              window.location.reload();
+                toast.success('Successfully Updated', {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  });
+                  setTimeout(() => {
+                    window.location.reload();
+                  }, 2000);
               //setRefreshGrid(true);
               })
               .catch(function(error) {
+                toast.error('Sorry, Not Updated', {
+                  position: "top-right",
+                  autoClose: 2000,
+                  hideProgressBar: false,
+                  closeOnClick: true,
+                  pauseOnHover: true,
+                  draggable: true,
+                  progress: undefined,
+                  });
                   console.log(error);
               });
 
@@ -862,6 +885,15 @@ const  useForceUpdate = () => {
         <React.Fragment>       
       <div style={{height: '100%', width: '100%'}}>
       <Paper>
+      <ToastContainer position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover />
         <Box className={classes.root} style={{height: '100%', width: '100%'}} display="flex" flexDirection="row" bgcolor="grey.300">
         <Box bgcolor="background.paper" flexGrow={1}>
         <form className={classes.root} noValidate autoComplete="off" style={{float: "left"}}>
