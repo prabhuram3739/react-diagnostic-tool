@@ -868,11 +868,43 @@ export default function SubscriptionDetails() {
         const ws = wb.Sheets[wsname];
         /* Convert array of arrays */
         const csvData = XLSX.utils.sheet_to_csv(ws, { header: 1 });
-        axios.post(csvData, {
+       /*axios.post(csvData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
+      });*/
+
+      axios({
+        method: "post",
+        url: `https://digitalfleet.eu/api/1/costs/upload/`,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        csvData
+      }).then(res => {
+        toast.success('Successfully Uploaded the SIMs File', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
       })
+      .catch(err => {
+        console.log(err);
+        toast.error('Sorry, File have not been uploaded', {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          });
+      });;
         //processData(csvData);
       };
       reader.readAsBinaryString(file);
