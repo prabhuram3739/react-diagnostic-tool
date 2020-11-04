@@ -920,7 +920,7 @@ export default function SubscriptionDetails() {
         <Box className={classes.root} style={{height: '100%', width: '100%'}} display="flex" flexDirection="row" bgcolor="grey.300">
         <Box bgcolor="background.paper" flexGrow={1}>
         <form className={classes.root} noValidate autoComplete="off" style={{float: "left"}}>
-        <span>
+        <span className="topAlign">
             Total rows selected:
             {' '}
             {selection.length}

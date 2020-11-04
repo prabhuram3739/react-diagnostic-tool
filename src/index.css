@@ -278,6 +278,11 @@ code {
     margin-bottom: 8px;
 }
 
+.topAlign {
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
 .noUpperCaseTxt {
     font-size: 1rem !important;
     font-family: NokiaPureHeadlineLight, NokiaThemeIcons, NokiaPureHeadline, Helvetica, Arial;
