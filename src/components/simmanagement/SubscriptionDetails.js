@@ -243,7 +243,7 @@ export default function SubscriptionDetails() {
         { name: 'msisdn', title: 'MSISDN', },
         {
           name: 'currentSimState',
-          title: 'Status',
+          title: 'State',
 
         },    
         {
@@ -478,7 +478,6 @@ export default function SubscriptionDetails() {
               const applyChanges = () => {
                 toggleDetailRowExpanded({ rowId });
                 UpdateRecord();
-                console.log(refreshGrid);
                 commitChangedRows({ rowIds: [rowId] });
               };
 
@@ -492,16 +491,9 @@ export default function SubscriptionDetails() {
                   status: row.currentSimState,
                   simver: row.simver
                 }
-
-                console.log(params);
-                console.log('http://18.185.117.167:8086/api/simlcstates/' + params.id + '/' + params.status);
-          
               axios.put('http://18.185.117.167:8086/api/simlcstates/' + params.id + '/' + params.status , params).then(response => {
               window.location.reload();
-
               //setRefreshGrid(true);
-              console.log(refreshGrid);
-              console.log(response.data);
               })
               .catch(function(error) {
                   console.log(error);
