@@ -17,7 +17,6 @@ export class DefaultViewDataProvider extends Component {
   }
 
   componentDidMount() {
-    console.log(this.state.timeInterval);
     this.setState({ loading: true }, () => {
       this.getDefaultViewData(this.props.imsi, this.state.refresh, this.state.refreshStatus, this.state.timeInterval);
     });
@@ -42,7 +41,6 @@ static getDerivedStateFromProps(nextProps, prevState) {
 }
 
 componentDidUpdate(prevProps, prevState) {
-  console.log(this.props);
  if(prevProps.refreshStatus !== this.props.refreshStatus) {
    //Perform some operation here
    this.setState({refresh: prevProps.refresh, refreshStatus: prevState.refreshStatus, timeInterval: prevState.timeInterval, time: new Date().toLocaleString()});
@@ -66,7 +64,6 @@ getDefaultViewData = (imsi, refresh, status, timeInterval) => {
   refresh = this.state.refresh;
   status = this.state.refreshStatus;
   timeInterval = this.props.timeInterval;
-  console.log("Time Interval Selected:", timeInterval);
   axios
     .get(authEndpoint + "/api/diagnosticData/defaultView/" + imsi, {
         "Content-Type": "application/xml; charset=utf-8"

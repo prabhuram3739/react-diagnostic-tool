@@ -1,8 +1,5 @@
 import React, { useContext, useState } from 'react';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Card from '@material-ui/core/Card';
@@ -11,7 +8,6 @@ import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import Icon from '@material-ui/core/Icon';
 import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import PhoneAndroidOutlinedIcon from '@material-ui/icons/PhoneAndroidOutlined';
 import List from '@material-ui/core/List';
@@ -20,10 +16,8 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SignalCellular3BarOutlinedIcon from '@material-ui/icons/SignalCellular3BarOutlined';
 import SignalCellularAltOutlinedIcon from '@material-ui/icons/SignalCellularAltOutlined';
-import CloudQueueIcon from '@material-ui/icons/CloudQueue';
 import AccessTimeOutlinedIcon from '@material-ui/icons/AccessTimeOutlined';
 import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
-import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -32,18 +26,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
-import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import StorageOutlinedIcon from '@material-ui/icons/StorageOutlined';
-import DnsOutlinedIcon from '@material-ui/icons/DnsOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Link } from 'react-router-dom';
-import DefaultViewDataLayerContext, { DefaultViewDataProvider } from '../../DefaultViewDataLayerContext';
+import DefaultViewDataLayerContext from '../../DefaultViewDataLayerContext';
 import Loader from 'react-loader-spinner';
-import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import Button from '@material-ui/core/Button';
 import Fade from '@material-ui/core/Fade';
 import ApnEnableDisableModal from './apnEnableDisableModal/ApnEnableDisableModal';
@@ -56,20 +43,6 @@ import ApnShutdownGXInlineModal from './apnShutdownGXInlineModal/APNShutdownGXIn
 import APNShutdownGXBypassModal from './apnShutdownGXBypassModal/APNShutdownGXBypassModal';
 
 const drawerWidth = 240;
-
-const options = [
-    'Clear Subscriber',
-    'APN Enable/Disable',
-    'GI DNS - Add/Modify',
-    'GY Inline',
-    'GY Bypass',
-    'GX Inline',
-    'GX Bypass',
-    'Ga Profile - Add/Modify',
-  ];
-
-const ITEM_HEIGHT = 48;
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -193,8 +166,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Summary(props) {
     const classes = useStyles();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    const [open, setOpen] = React.useState(true);
+    //const [open, setOpen] = React.useState(true);
     const [ ModalAPNEnableDisableShow, setModalAPNEnableDisableShow ] = React.useState(false);
     const [ ModalGIDNSShow, setModalGIDNSShow ] = React.useState(false);
     const [ ModalGYInlineShow, setModalGYInlineShow ] = React.useState(false);
@@ -203,24 +175,24 @@ export default function Summary(props) {
     const [ ModalGXBypassShow, setModalGXBypassShow ] = React.useState(false);
     const [ ModalGAModifyShow, setModalGAModifyShow ] = React.useState(false);
     const [ ModalClearSubscriberShow, setModalClearSubscriberShow ] = React.useState(false);
-    const handleDrawerOpen = () => {
+    /*const handleDrawerOpen = () => {
         setOpen(true);
       };
       const handleDrawerClose = () => {
         setOpen(false);
-      };
+      };*/
       
-      const [anchorEl, setAnchorEl] = React.useState(null);
-      const openMenu = Boolean(anchorEl);
+      //const [anchorEl, setAnchorEl] = React.useState(null);
+      //const openMenu = Boolean(anchorEl);
       const [refreshAnchorEl, setRefreshAnchorEl] = React.useState(null);
       const openRefreshMenu = Boolean(refreshAnchorEl);
-      const handleClick = (event) => {
+      /*const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
       };
     
-      const handleClose = () => {
+        const handleClose = () => {
         setAnchorEl(null);
-      };
+      };*/
       const handleRefreshClick = (event) => {
         setRefreshAnchorEl(event.currentTarget);
       };
@@ -228,10 +200,10 @@ export default function Summary(props) {
       const handleRefreshClose = () => {
         setRefreshAnchorEl(null);
       };
-      const toCamelCase = (str) => {
+      /*const toCamelCase = (str) => {
           console.log(str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase()));
           return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
-    }
+    }*/
       let [refreshBoolean, setRefreshBoolean] = useState(false);
     let [refreshStatus, setRefreshStatus] = useState(false);
     let [buttonText, setButtonText] = useState("Enable");
@@ -277,7 +249,7 @@ export default function Summary(props) {
                         </Tooltip>       
                         <Tooltip title="Enable/Disable Online Charging" placement="top">                 
                         <span onClick={() => setModalGYInlineShow(true)}>
-                        <GYInlineModal show={ModalGIDNSShow} onHide={() => setModalGYInlineShow(false)} />
+                        <GYInlineModal show={ModalGYInlineShow} onHide={() => setModalGYInlineShow(false)} />
                         </span>   
                         </Tooltip>     
                         <Tooltip title="Enable/Disable Realtime Policy" placement="top">                                     

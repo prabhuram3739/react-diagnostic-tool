@@ -1,61 +1,16 @@
-import React, { useState, useContext }  from 'react';
-import clsx from 'clsx';
+import React, { useContext }  from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
-import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import Icon from '@material-ui/core/Icon';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import PhoneAndroidOutlinedIcon from '@material-ui/icons/PhoneAndroidOutlined';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import SignalCellular3BarOutlinedIcon from '@material-ui/icons/SignalCellular3BarOutlined';
-import SignalCellularAltOutlinedIcon from '@material-ui/icons/SignalCellularAltOutlined';
-import CloudQueueIcon from '@material-ui/icons/CloudQueue';
-import AccessTimeOutlinedIcon from '@material-ui/icons/AccessTimeOutlined';
-import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
-import ExpandMoreOutlinedIcon from '@material-ui/icons/ExpandMoreOutlined';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import IconButton from '@material-ui/core/IconButton';
-import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
-import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import StorageOutlinedIcon from '@material-ui/icons/StorageOutlined';
-import DnsOutlinedIcon from '@material-ui/icons/DnsOutlined';
-import Tooltip from '@material-ui/core/Tooltip';
 import Loader from 'react-loader-spinner';
 import searchViewDataLayerContext from '../../searchViewDataLayerContext';
 
 const drawerWidth = 240;
-
-const options = [
-    'Enable/Disable APN',
-    'Add/Modify Gi DNS',
-    'Enable/Disable Online Charging',
-    //'Disable Online Charging',
-    'Enable/Disable Realtime Policy',
-    //'Disable Realtime Policy',
-    'Add/Modify Ga Profile',
-  ];
-
-const ITEM_HEIGHT = 48;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -188,17 +143,17 @@ const useStyles = makeStyles((theme) => ({
 
 export default function CsDetails() {
     const classes = useStyles();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    /*const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
         setOpen(true);
       };
       const handleDrawerClose = () => {
         setOpen(false);
-      };
+      };*/
       
-      const [anchorEl, setAnchorEl] = React.useState(null);
-      const openMenu = Boolean(anchorEl);
+      //const [anchorEl, setAnchorEl] = React.useState(null);
+     /* const openMenu = Boolean(anchorEl);
     
       const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -206,13 +161,13 @@ export default function CsDetails() {
     
       const handleClose = () => {
         setAnchorEl(null);
-      };
+      };*/
 
       const { data, count, loading } = useContext(searchViewDataLayerContext) || {};
       const finalData = [];
       finalData.push(data);
-      const authResult = new URLSearchParams(window.location.search); 
-      const imsi = authResult.get('imsi');
+      //const authResult = new URLSearchParams(window.location.search); 
+      //const imsi = authResult.get('imsi');
       // Check if the count is zero or undefined to display the no records message
       if(!loading) {
       if((count === 0) || (count === undefined)) {

@@ -1,27 +1,15 @@
 import React, { useState } from 'react';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
-import AppBar from '@material-ui/core/AppBar';
 import Tab from '@material-ui/core/Tab';
 import TabContext from '@material-ui/lab/TabContext';
 import TabList from '@material-ui/lab/TabList';
 import TabPanel from '@material-ui/lab/TabPanel';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
-import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
-import DefaultViewDataLayerContext, { DefaultViewDataProvider } from '../../DefaultViewDataLayerContext';
+import { DefaultViewDataProvider } from '../../DefaultViewDataLayerContext';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
-import { withRouter } from "react-router-dom";
 import InputLabel from '@material-ui/core/InputLabel';
 import Toolbar from '@material-ui/core/Toolbar';
 
@@ -123,15 +111,11 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
     const classes = useStyles();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    
     const [value, setValue] = React.useState('1');
     const location = useLocation();
     let [refreshBoolean, setRefreshBoolean] = useState(false);
     let [refreshStatus, setRefreshStatus] = useState(false);
-    let [buttonText, setButtonText] = useState("Enable");
     let [timeInterval, setTimeInterval] = useState(3000);
-    let [autoRefresh, setAutoRefresh] = useState("Disable");
     
     const handleChange = (event, newValue) => {
       setValue(newValue);

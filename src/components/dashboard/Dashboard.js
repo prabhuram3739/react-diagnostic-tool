@@ -41,19 +41,6 @@ import Subscriptions from '../simmanagement/Subscriptions';
 
 import nokia_logo from '../../nokia_logo.jpg';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -190,14 +177,12 @@ export default function Dashboard(match) {
     setTenant(event.target.value);
   };
 
-  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-            <img src={nokia_logo} /> 
+            <img src={nokia_logo} alt="Nokia Logo"/> 
           <Typography component="h1" variant="h6" color="inherit" padding="12" noWrap className={classes.title}>
           &nbsp;&nbsp;WING&nbsp;Elektra Platform
           </Typography>

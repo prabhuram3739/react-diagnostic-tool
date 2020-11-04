@@ -1,55 +1,23 @@
-import React, { useContext, useState, useRef, useCallback, useEffect } from 'react';
+import React, { useContext, useRef, useCallback } from 'react';
 import axios from 'axios';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Container from '@material-ui/core/Container';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardContent from '@material-ui/core/CardContent';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
-import AppBar from '@material-ui/core/AppBar';
-import Tab from '@material-ui/core/Tab';
-import TabContext from '@material-ui/lab/TabContext';
-import TabList from '@material-ui/lab/TabList';
-import TabPanel from '@material-ui/lab/TabPanel';
-import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
-import RefreshOutlinedIcon from '@material-ui/icons/RefreshOutlined';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
-import PolicyOutlinedIcon from '@material-ui/icons/PolicyOutlined';
-import MonetizationOnOutlinedIcon from '@material-ui/icons/MonetizationOnOutlined';
-import StorageOutlinedIcon from '@material-ui/icons/StorageOutlined';
-import DnsOutlinedIcon from '@material-ui/icons/DnsOutlined';
 import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
-import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
-import Chip from '@material-ui/core/Chip';
-import CallOutlinedIcon from '@material-ui/icons/CallOutlined';
-import SmsOutlinedIcon from '@material-ui/icons/SmsOutlined';
-import SignalCellular3BarOutlinedIcon from '@material-ui/icons/SignalCellular3BarOutlined';
-import BallotOutlinedIcon from '@material-ui/icons/BallotOutlined';
-import SignalCellularNoSimOutlinedIcon from '@material-ui/icons/SignalCellularNoSimOutlined';
-import SwapHorizontalCircleOutlinedIcon from '@material-ui/icons/SwapHorizontalCircleOutlined';
-import { Link } from 'react-router-dom';
-import searchViewDataLayerContext, { DataProvider } from '../../searchViewDataLayerContext';
-import { useLocation } from 'react-router';
-import queryString from 'query-string';
 import Loader from 'react-loader-spinner';
 import simViewDataLayerContext from '../../simViewDataLayerContext';
 import Fade from '@material-ui/core/Fade';
+import * as XLSX from 'xlsx';
 import {
     Plugin, Template, TemplateConnector, TemplatePlaceholder, Action,
   } from '@devexpress/dx-react-core';
@@ -57,8 +25,7 @@ import {
 import {
     SortingState,
     IntegratedSorting, PagingState,
-    IntegratedPaging,  GroupingState,
-    IntegratedGrouping, SelectionState,
+    IntegratedPaging, SelectionState,
     IntegratedSelection,   FilteringState,
     IntegratedFiltering, SearchState, EditingState, DataTypeProvider, RowDetailState,
   } from '@devexpress/dx-react-grid';
@@ -68,26 +35,18 @@ import {
     Toolbar,
     DragDropProvider,
     SearchPanel,
-    TableHeaderRow, TableSelection, PagingPanel,   TableGroupRow,   TableFilterRow, TableEditRow,
-    TableEditColumn,TableColumnReordering, GroupingPanel,   TableRowDetail, ExportPanel,
+    TableHeaderRow, TableSelection, PagingPanel, TableFilterRow,
+    TableColumnReordering, TableRowDetail, ExportPanel,
   } from '@devexpress/dx-react-grid-material-ui';
-  import {PieChart, Pie, Sector, Cell, LabelList, Legend, Label} from 'recharts';
   import MuiGrid from '@material-ui/core/Grid';
 import FormGroup from '@material-ui/core/FormGroup';
 import Edit from '@material-ui/icons/Edit';
 import Cancel from '@material-ui/icons/Close';
-import Select from '@material-ui/core/Select';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
 import { withStyles } from '@material-ui/core/styles';
 import saveAs from 'file-saver';
-import Dropzone from 'react-dropzone';
-import csv from 'csv';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -190,12 +149,6 @@ const onSave = (workbook) => {
       saveAs(new Blob([buffer], { type: 'application/octet-stream' }), 'DataGrid.xlsx');
     });
   };
-  const state_colors = {
-    "CSP-Inventory": "blue",
-    "Activated": "green",
-    "Suspended": "red",
-    "Retired": "red"
-  }
     
     /*const rows = [
       { id: '8944500310184003050', imsi: '234500010400305', msisdn: '882362000300305', status: "CSP-Inventory", color: "blue", account: '', simver: '16.02', batch: 'Prod_Batch_1' },
@@ -211,10 +164,6 @@ const onSave = (workbook) => {
 
 export default function SubscriptionDetails() {
     const classes = useStyles();
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    const [value, setValue] = React.useState('1');
-    const location = useLocation();
-    const [refreshGrid, setRefreshGrid] = React.useState(false);
     const [tableColumnExtensions] = React.useState([
         { columnName: 'iccid', width: '15%' },
         { columnName: 'imsi', width: '15%' },
@@ -225,10 +174,6 @@ export default function SubscriptionDetails() {
         { columnName: 'batch', width: '9%' },
         { columnName: 'action', width: '8%' },
       ]);
-      const [state, setState] = React.useState({
-        age: '',
-        name: 'hai',
-      });
     const [editingRowIds, setEditingRowIds] = React.useState([]);
     const [addedRows, setAddedRows] = React.useState([]);
     const [rowChanges, setRowChanges] = React.useState({});
@@ -396,11 +341,6 @@ export default function SubscriptionDetails() {
     );
   };
 
-  const simStatusChange = () => 
-  {
-    //console.log(currentSimState);
-  }
-
   const ToggleCellBase = ({
     style, expanded, classes, onToggle,
     tableColumn, tableRow, row,
@@ -495,6 +435,8 @@ export default function SubscriptionDetails() {
                   simver: row.simver
                 }
               axios.put('http://18.185.117.167:8086/api/simlcstates/' + params.id + '/' + params.status , params).then(response => {
+                console.log("Response Status:", response.status);
+                if(response.status === 200) {
                 toast.success('Successfully Updated', {
                   position: "top-right",
                   autoClose: 2000,
@@ -508,11 +450,23 @@ export default function SubscriptionDetails() {
                     window.location.reload();
                   }, 2000);
               //setRefreshGrid(true);
+                }
               })
               .catch(function(error) {
+                if(error.status === 500) {
+                  toast.error("State transition not allowed", {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                } else {
                 toast.error('Sorry, Not Updated', {
                   position: "top-right",
-                  autoClose: 2000,
+                  autoClose: 5000,
                   hideProgressBar: false,
                   closeOnClick: true,
                   pauseOnHover: true,
@@ -520,6 +474,7 @@ export default function SubscriptionDetails() {
                   progress: undefined,
                   });
                   console.log(error);
+                }
               });
 
               }
@@ -604,57 +559,13 @@ export default function SubscriptionDetails() {
     />
   );
 
-  //create your forceUpdate hook
-const  useForceUpdate = () => {
-  const [value, setValue] = useState(0); // integer state
-  return () => setValue(value => ++value); // update the state to force render
-}
-
-      const onDrop = (files) => {
-
-        this.setState({ files });
-    
-        var file = files[0];
-    
-        const reader = new FileReader();
-        reader.onload = () => {
-          csv.parse(reader.result, (err, data) => {
-    
-            var simList = [];
-    
-            for (var i = 0; i < data.length; i++) {
-              const iccid = data[i][0];
-              const imsi = data[i][1];
-              const msisdn = data[i][2];
-              const status = data[i][3];
-              const account = data[i][4];
-              const simVersion = data[i][5];
-              const batch = data[i][6];
-              const newSim = { "iccid": iccid, "imsi": imsi, "msisdn": msisdn, "currentSimState": status, "account": account, "simver": simVersion, "batch": batch };
-              simList.push(newSim);
-    
-              fetch('http://18.185.117.1676:8086/sims.json', {
-                method: 'POST',
-                headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(newSim)
-              })
-            };
-          });
-        };
-    
-        reader.readAsBinaryString(file);
-      }
-  
     const changeAddedRows = (value) => {
       const initialized = value.map(row => (Object.keys(row).length ? row : { imsi: '' }));
       setAddedRows(initialized);
     };
   
     const commitChanges = ({ added, changed, deleted }) => {
-      let changedRows;
+      let changedRows = [];
       if (added) {
         const startingAddedId = rows.length > 0 ? rows[rows.length - 1].iccid + 1 : 0;
         changedRows = [
@@ -674,18 +585,12 @@ const  useForceUpdate = () => {
       }
       //setRows(changedRows);
     };
-    const handleChange = (event, newValue) => {
-      setValue(newValue);
-      const name = event.target.name;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
-    };
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openMenu = Boolean(anchorEl);
     const [selection, setSelection] = React.useState([]);
+    const [csvColumns, setCSVColumns] = React.useState([]);
+    const [setCSVData] = React.useState([]);
 
   
     const handleClick = (event) => {
@@ -740,7 +645,6 @@ const  useForceUpdate = () => {
       );
 
     const { data, loading, count } = useContext(simViewDataLayerContext) || {};
-      let simLcStatesArr=[];
       let rows=[];
       
       let rowsToBeModified = data;
@@ -846,7 +750,7 @@ const  useForceUpdate = () => {
      }
 
       (rowsToBeModified && rowsToBeModified.length > 0) && rowsToBeModified.map((ele, index) => {
-        if(ele &&  ele.simLcStates) {
+      if(ele &&  ele.simLcStates) {
        let rowObj = {};
        rowObj['iccid'] = ele.iccid;
        rowObj['simStateId'] = ele.simLcStates.simStateId;
@@ -876,24 +780,98 @@ const  useForceUpdate = () => {
        rowObj['accountName'] = ele.accountName;
        rows.push(rowObj);
       }
+      return rows;
       });
 
-   const wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
-    const fontSize = 5;
+   /*const wellStyles = { maxWidth: 400, margin: '0 auto 10px' };
+    const fontSize = 5;*/
+
+    // process CSV data
+  const processData = dataString => {
+    const dataStringLines = dataString.split(/\r\n|\n/);
+    const headers = dataStringLines[0].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
+
+    const list = [];
+    for (let i = 1; i < dataStringLines.length; i++) {
+      const row = dataStringLines[i].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
+      if (headers && row.length === headers.length) {
+        const obj = {};
+        for (let j = 0; j < headers.length; j++) {
+          let d = row[j];
+          if (d.length > 0) {
+            if (d[0] === '"')
+              d = d.substring(1, d.length - 1);
+            if (d[d.length - 1] === '"')
+              d = d.substring(d.length - 2, 1);
+          }
+          if (headers[j]) {
+            obj[headers[j]] = d;
+          }
+        }
+
+        // remove the blank rows
+        if (Object.values(obj).filter(x => x).length > 0) {
+          list.push(obj);
+        }
+      }
+    }
+
+    // prepare columns list from headers
+    const csvColumns = headers.map(c => ({
+      name: c,
+      selector: c,
+    }));
+    console.log("CSV Data:", list);
+    setCSVData(list);
+    setCSVColumns(csvColumns);
+    /*fetch('https://[FIREBASE_URL]/users.json', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(list)
+          })*/
+  }
+
+  // handle file upload
+  const handleFileUpload = e => {
+    const file = e.target.files[0];
+    console.log(file);
+    if ( /\.(csv?)$/i.test(file.name) === false ) { 
+      //alert("not a csv File!");
+      toast.error('Please upload only a CSV file', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        });
+    } else {
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        /* Parse data */
+        const bstr = evt.target.result;
+        const wb = XLSX.read(bstr, { type: 'binary' });
+        /* Get first worksheet */
+        const wsname = wb.SheetNames[0];
+        const ws = wb.Sheets[wsname];
+        /* Convert array of arrays */
+        const csvData = XLSX.utils.sheet_to_csv(ws, { header: 1 });
+        processData(csvData);
+      };
+      reader.readAsBinaryString(file);
+    }
+  }
+
 
     return(
         <React.Fragment>       
       <div style={{height: '100%', width: '100%'}}>
       <Paper>
-      <ToastContainer position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover />
+      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
         <Box className={classes.root} style={{height: '100%', width: '100%'}} display="flex" flexDirection="row" bgcolor="grey.300">
         <Box bgcolor="background.paper" flexGrow={1}>
         <form className={classes.root} noValidate autoComplete="off" style={{float: "left"}}>
@@ -910,7 +888,7 @@ pauseOnHover />
         <form id='uploadForm' action='http://18.185.117.167:8086/upload' method='post' encType="multipart/form-data">
         <Tooltip component="span" title="Upload SIMs File" placement="top">
         <Button htmlFor="sampleFile" variant="contained" component="label" startIcon={<CloudUploadOutlinedIcon />} color="secondary" aria-label="Upload SIMs File">Upload SIMs File
-        <input id="sampleFile" type="file" style={{ display: "none" }} />
+        <input id="sampleFile" type="file" style={{ display: "none" }} accept=".csv,.xlsx,.xls" onChange={handleFileUpload} />
         </Button>
         </Tooltip>
         {/*<div align="center" oncontextmenu="return false">
@@ -937,7 +915,7 @@ pauseOnHover />
         { loading && rows.length === 0 ? <div><div className="v-loading-indicator second v-loading-indicator-delay v-loading-indicator-wait" ></div><Loader className="centerDisplayDefaultView mt-5" type="Circles" color="#00BFFF" height={40} width={40} /></div>  :
         <Grid
         rows={rows}
-        columns={columns} getRowId={getRowId} style={{ display: 'inline', height: '100%' }}
+        columns={columns ? columns : csvColumns} getRowId={getRowId} style={{ display: 'inline', height: '100%' }}
         >
             <RowDetailState
           defaultExpandedRowIds={[1]}

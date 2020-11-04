@@ -1,25 +1,17 @@
 import React, {useRef} from "react";
-  import Modal from '@material-ui/core/Modal';
-  import Backdrop from '@material-ui/core/Backdrop';
-  import Fade from '@material-ui/core/Fade';
   import { makeStyles } from '@material-ui/core/styles';
   import DnsOutlinedIcon from '@material-ui/icons/DnsOutlined';
   import Button from '@material-ui/core/Button';
   import Dialog from '@material-ui/core/Dialog';
   import DialogActions from '@material-ui/core/DialogActions';
   import DialogContent from '@material-ui/core/DialogContent';
-  import DialogContentText from '@material-ui/core/DialogContentText';
   import DialogTitle from '@material-ui/core/DialogTitle';
-  import FormControl from '@material-ui/core/FormControl';
-  import FormControlLabel from '@material-ui/core/FormControlLabel';
-  import InputLabel from '@material-ui/core/InputLabel';
   import Grid from '@material-ui/core/Grid';
   import Paper from '@material-ui/core/Paper';
   import Table from '@material-ui/core/Table';
   import TableBody from '@material-ui/core/TableBody';
   import TableCell from '@material-ui/core/TableCell';
   import TableContainer from '@material-ui/core/TableContainer';
-  import TableHead from '@material-ui/core/TableHead';
   import TableRow from '@material-ui/core/TableRow';
   import TextField from '@material-ui/core/TextField';
   
@@ -52,11 +44,10 @@ import React, {useRef} from "react";
     }));
   
   function GIDNSModal(props) {
-    const [APNDisableModalShow, setAPNDisableModalShow] = React.useState(false);
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
-    const [fullWidth, setFullWidth] = React.useState(true);
-    const [maxWidth, setMaxWidth] = React.useState('md');
+    const [fullWidth] = React.useState(true);
+    const [maxWidth] = React.useState('md');
   
   const [showSubmitOnlyAPNMsg, setShowSubmitOnlyAPNMsg] = React.useState(false);
   const apnInputRef = useRef();
