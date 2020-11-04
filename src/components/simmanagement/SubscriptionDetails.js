@@ -565,7 +565,7 @@ export default function SubscriptionDetails() {
     };
   
     const commitChanges = ({ added, changed, deleted }) => {
-      let changedRows = [];
+     /*let changedRows;
       if (added) {
         const startingAddedId = rows.length > 0 ? rows[rows.length - 1].iccid + 1 : 0;
         changedRows = [
@@ -582,15 +582,15 @@ export default function SubscriptionDetails() {
       if (deleted) {
         const deletedSet = new Set(deleted);
         changedRows = rows.filter(row => !deletedSet.has(row.iccid));
-      }
+      }*/
       //setRows(changedRows);
     };
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const openMenu = Boolean(anchorEl);
     const [selection, setSelection] = React.useState([]);
-    const [csvColumns, setCSVColumns] = React.useState([]);
-    const [setCSVData] = React.useState([]);
+    //const [csvColumns, setCSVColumns] = React.useState([]);
+    //const [setCSVData] = React.useState([]);
 
   
     const handleClick = (event) => {
@@ -787,7 +787,7 @@ export default function SubscriptionDetails() {
     const fontSize = 5;*/
 
     // process CSV data
-  const processData = dataString => {
+  /*const processData = dataString => {
     const dataStringLines = dataString.split(/\r\n|\n/);
     const headers = dataStringLines[0].split(/,(?![^"]*"(?:(?:[^"]*"){2})*[^"]*$)/);
 
@@ -824,15 +824,7 @@ export default function SubscriptionDetails() {
     console.log("CSV Data:", list);
     setCSVData(list);
     setCSVColumns(csvColumns);
-    /*fetch('https://[FIREBASE_URL]/users.json', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(list)
-          })*/
-  }
+  }*/
 
   // handle file upload
   const handleFileUpload = e => {
@@ -860,7 +852,12 @@ export default function SubscriptionDetails() {
         const ws = wb.Sheets[wsname];
         /* Convert array of arrays */
         const csvData = XLSX.utils.sheet_to_csv(ws, { header: 1 });
-        processData(csvData);
+        axios.post(csvData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+      })
+        //processData(csvData);
       };
       reader.readAsBinaryString(file);
     }
@@ -915,7 +912,7 @@ export default function SubscriptionDetails() {
         { loading && rows.length === 0 ? <div><div className="v-loading-indicator second v-loading-indicator-delay v-loading-indicator-wait" ></div><Loader className="centerDisplayDefaultView mt-5" type="Circles" color="#00BFFF" height={40} width={40} /></div>  :
         <Grid
         rows={rows}
-        columns={columns ? columns : csvColumns} getRowId={getRowId} style={{ display: 'inline', height: '100%' }}
+        columns={columns} getRowId={getRowId} style={{ display: 'inline', height: '100%' }}
         >
             <RowDetailState
           defaultExpandedRowIds={[1]}
