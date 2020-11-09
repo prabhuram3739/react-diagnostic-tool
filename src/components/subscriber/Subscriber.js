@@ -31,97 +31,14 @@ import SMSServicesModal from './smsServicesModal/SMSServicesModal';
 import SIMSwapModal from './simSwapModal/SIMSwapModal';
 import SIMPurgeModal from './simPurgeModal/SIMPurgeModal';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
-  },
-  toolbar: {
-    paddingRight: 24, // keep right padding when drawer closed
-  },
-  toolbarIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  toolbarIconHidden: {
-    display: 'none',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    background: '#001235',
-    //width: `calc(100%)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  },
-  appBarShift: {
-    background: '#001235',
-    //marginLeft: drawerWidth,
-    //width: `calc(100%)`,
-    //width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '0 8px',      
-    ...theme.mixins.toolbar,
-  },
-  menuButtonHidden: {
-    display: 'none',
-  },
-  title: {
-    flexGrow: 1,
-  },
-  drawerPaper: {
-    marginTop: '60px',
-    position: 'relative',
-    whiteSpace: 'nowrap',
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerPaperClose: {
-    marginTop: '60px',
-    position: 'relative',
-    overflowX: 'hidden',
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    width: theme.spacing(7),
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(9),
-    },
-  },
-  appBarSpacer: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    height: '100vh',
-    overflow: 'auto',
-  },
-  container: {
-    paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1),
-  },
-  paper: {
-    padding: theme.spacing(2),
-    display: 'flex',
-    overflow: 'auto',
-    flexDirection: 'column',
-  },
-  fixedHeight: {
-    height: 200,
   },
   card: {
     padding: '5px',
@@ -151,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
     width: "160px",
   },  
   boaderlessTr: {
-    fontWeight: "700",
+    fontWeight: "500",
     borderBottom: 'none',
   },   
 }));
@@ -297,11 +214,11 @@ export default function Subscriber() {
             <Box m={1}>             
                 <TabContext value={value}>
                     <TabList onChange={handleChange} aria-label="simple tabs example">
-                        <Tab label="Packet Core Data" className="noUpperCaseTxt" value="1" />
-                        <Tab label="Circuit Core Data" className="noUpperCaseTxt" value="2" />
+                        <Tab label="Circuit Core Data" className="noUpperCaseTxt" value="1" />
+                        <Tab label="Packet Core Data" className="noUpperCaseTxt" value="2" />
                     </TabList>
-                    <TabPanel value="1"><PsDetails/></TabPanel>
-                    <TabPanel value="2"><CsDetails/></TabPanel>
+                    <TabPanel value="1"><CsDetails/></TabPanel>
+                    <TabPanel value="2"><PsDetails/></TabPanel>
                 </TabContext>            
             </Box>
             </DataProvider>

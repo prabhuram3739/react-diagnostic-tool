@@ -8,6 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Loader from 'react-loader-spinner';
+import Chip from '@material-ui/core/Chip';
 import searchViewDataLayerContext from '../../searchViewDataLayerContext';
 
 const drawerWidth = 240;
@@ -135,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '6px',
   },   
   boaderlessTr: {
-    fontWeight: "700",
+    fontWeight: "500",
     borderBottom: 'none',
     padding: '6px',
   },  
@@ -183,6 +184,7 @@ export default function CsDetails() {
           { loading ? <div><div className="v-loading-indicator second v-loading-indicator-delay v-loading-indicator-wait" ></div><Loader className="centerDisplayDefaultView mt-5" type="Circles" color="#00BFFF" height={40} width={40} /></div>  :
                 (finalData && finalData.length > 0) &&
                 finalData.map((item, index) => {
+                    if(item.circuitSwitch.iccId) {
                     return(
                     <React.Fragment key={item.id}>
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
@@ -192,7 +194,7 @@ export default function CsDetails() {
                                 <TableBody>
                                 <TableRow style={{boader: "none"}}>
                                         <TableCell align="right" className={classes.boaderlessTh}>Subscriber Status</TableCell>
-                                        <TableCell align="left" style={{color: (item.circuitSwitch.subscriberStatus === true) ?  "green" : "red"}} className={classes.boaderlessTr}>{item.circuitSwitch.subscriberStatus === true ? 'IMSI Active' : 'IMSI Inactive'}</TableCell>
+                                        <TableCell align="left" style={{color: (item.circuitSwitch.subscriberStatus === "true") ?  "green" : "red"}} className={classes.boaderlessTr}>{item.circuitSwitch.subscriberStatus === "true" ? <Chip style={{ color: "green"}} size="small" label='ACTIVE' /> : <Chip style={{ color: "red"}} size="small" label='INACTIVE' />}</TableCell>
                                     </TableRow>
                                    { item.circuitSwitch.threeGApnDataList !== '' ? <React.Fragment>
                                     <TableRow>
@@ -298,6 +300,10 @@ export default function CsDetails() {
             </Grid>
             </React.Fragment>
             )
+             } else {
+                 return
+             }
+
           })
           }
         </div>

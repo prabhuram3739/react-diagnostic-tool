@@ -146,7 +146,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '6px',
   },   
   boaderlessTr: {
-    fontWeight: "700",
+    fontWeight: "500",
     borderBottom: 'none',
     padding: '6px',
   },  
@@ -194,6 +194,7 @@ export default function PsDetails() {
           { loading ? <div><div className="v-loading-indicator second v-loading-indicator-delay v-loading-indicator-wait" ></div><Loader className="centerDisplayDefaultView mt-5" type="Circles" color="#00BFFF" height={40} width={40} /></div>  :
                 (finalData && finalData.length > 0) &&
                 finalData.map((item, index) => {
+                    if(item.circuitSwitch.iccId) {
                     return(
                     <React.Fragment key={item.id}>
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
@@ -398,6 +399,9 @@ export default function PsDetails() {
             </Grid>
             </React.Fragment>
             )
+             } else {
+                 return
+             }
           })
           }
         </div>

@@ -2,6 +2,7 @@ import React from "react";
   import { makeStyles } from '@material-ui/core/styles';
   import PhoneAndroidOutlinedIcon from '@material-ui/icons/PhoneAndroidOutlined';
   import Button from '@material-ui/core/Button';
+  import IconButton from '@material-ui/core/IconButton';
   import Dialog from '@material-ui/core/Dialog';
   import DialogActions from '@material-ui/core/DialogActions';
   import DialogContent from '@material-ui/core/DialogContent';
@@ -59,9 +60,9 @@ import React from "react";
       return (
         
           <React.Fragment>
-          <Button className="iconBtn" onClick={handleClickOpen}>
+          <IconButton className="iconBtn" onClick={handleClickOpen}>
           <PhoneAndroidOutlinedIcon />
-          </Button>
+          </IconButton>
           <Dialog
             fullWidth={fullWidth}
             maxWidth={maxWidth}

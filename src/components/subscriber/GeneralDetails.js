@@ -136,7 +136,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '6px',
   },   
   boaderlessTr: {
-    fontWeight: "700",
+    fontWeight: "500",
     borderBottom: 'none',
     padding: '6px',
   },  
@@ -165,26 +165,25 @@ export default function GeneralDetails() {
           { loading ? <div><div className="v-loading-indicator second v-loading-indicator-delay v-loading-indicator-wait" ></div><Loader className="centerDisplayDefaultView mt-5" type="Circles" color="#00BFFF" height={40} width={40} /></div>  :
                 (finalData && finalData.length > 0) &&
                 finalData.map((item, index) => {
+                    if(item.circuitSwitch.iccId) {
                     return(
                     <React.Fragment key={item.id}>
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
                     <Grid item xs={4} sm={4} lg={4}>                    
                     <TableContainer component={Paper} className={classes.boaderlessTable}>
                       <Table size="small">
-                              <TableHead>
+                              <TableBody>
                                   <TableRow className={classes.boaderlessTh}>
                                       <TableCell align="right" className={classes.boaderlessTh}>IMSI:</TableCell>
                                       <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.id ? item.circuitSwitch.id : 'No Data Available'}</TableCell>
                                   </TableRow>                                                                                                                                                              
-                              </TableHead>
-                              <TableBody>
                                   <TableRow style={{boader: "none"}}>
                                       <TableCell align="right" className={classes.boaderlessTh}>ICCID:</TableCell>
-                                      <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.imei ? item.packetSwitch.imei : 'No Data Available'}</TableCell>
+                                      <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.iccId ? item.circuitSwitch.iccId : 'No Data Available'}</TableCell>
                                   </TableRow>  
                                   <TableRow style={{boader: "none"}}>
                                       <TableCell align="right" className={classes.boaderlessTh}>MSISDN:</TableCell>
-                                      <TableCell align="left" className={classes.boaderlessTr}>{item.packetSwitch.msisdn ? item.packetSwitch.msisdn : 'No Data Available'}</TableCell>
+                                      <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.msisdn ? item.circuitSwitch.msisdn : 'No Data Available'}</TableCell>
                                   </TableRow> 
                               </TableBody>
                           </Table>
@@ -193,6 +192,9 @@ export default function GeneralDetails() {
             </Grid>
             </React.Fragment>
             )
+            } else {
+                return
+            }
           })
           }
         </div>

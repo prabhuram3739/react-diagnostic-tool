@@ -1,6 +1,8 @@
 import React, { createContext, Component } from "react";
 import axios from 'axios';
 import { authEndpoint } from './environment';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const searchViewDataLayerContext = createContext();
 
@@ -34,11 +36,35 @@ export class DataProvider extends Component {
         "Content-Type": "application/xml; charset=utf-8"
      })
     .then(function(response) {
-        self.setState((state, props) => ({ loading: false, data: response.data, count: Object.keys(response.data).length }));
+        if(!response.data.circuitSwitch.iccId) {
+            toast.error('Subscriber Not Found', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        }
+
+        self.setState((state, props) => ({ 
+            loading: false, data: response.data, count: Object.keys(response.data).length 
+        })
+        );
         //self.intervalID = setTimeout(self.getSearchViewData.bind(this), 60000);
     })
     .catch(function(error) {
         console.log(error);
+        toast.error('Error while getting subscriber.', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
     });
 
   }

@@ -18,6 +18,7 @@ import SignalCellular3BarOutlinedIcon from '@material-ui/icons/SignalCellular3Ba
 import SignalCellularAltOutlinedIcon from '@material-ui/icons/SignalCellularAltOutlined';
 import AccessTimeOutlinedIcon from '@material-ui/icons/AccessTimeOutlined';
 import PublicOutlinedIcon from '@material-ui/icons/PublicOutlined';
+import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -146,7 +147,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   cardContent: {
-    padding: '5px',
+    padding: '20px',
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
@@ -450,8 +451,9 @@ export default function Summary(props) {
                                 subheader={'Hardware Details'}
                             />
                             <CardContent className={classes.cardContent}>
+                            <Box>
                             <TableContainer component={Paper} className={classes.boaderlessTable}>
-                                    <Table  size="small" >
+                                    <Table size="small" >
                                         <TableHead>
                                         <TableRow className={classes.boaderlessTh}>
                                                 <TableCell align="left" className={classes.boaderlessTh}>Homers</TableCell>
@@ -476,6 +478,7 @@ export default function Summary(props) {
                                         </TableBody>
                                     </Table>
                                 </TableContainer>                                            
+                                </Box>
                             </CardContent>
                         </Card>
                     </Grid>
@@ -610,6 +613,7 @@ export default function Summary(props) {
                                 subheader={'Gy Connections'}
                             />
                             <CardContent className={classes.cardContent}>
+                            <Box>
                             <TableContainer component={Paper} className={classes.boaderlessTable}>
                                     <Table  size="small" >
                                         <TableHead>
@@ -634,6 +638,7 @@ export default function Summary(props) {
                                         </TableBody>
                                     </Table>
                                 </TableContainer>                                            
+                                </Box>
                             </CardContent>
                         </Card>
                     </Grid> 

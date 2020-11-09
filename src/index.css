@@ -28,7 +28,7 @@ code {
 
 .MuiTableCell-head {
     font-weight: 700 !important;
-    background-color: #f4f4f4 !important;
+    background-color: rgb(179, 229, 252) !important;
     color: #000 !important;
 }
 
@@ -274,8 +274,12 @@ code {
 }
 
 .statusDrpDown {
-    margin-top: 31px;
+    margin-top: -2px;
     margin-bottom: 8px;
+}
+
+.dx-field-label {
+    margin-top: 14px;
 }
 
 .topAlign {

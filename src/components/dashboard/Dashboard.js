@@ -33,11 +33,15 @@ import PeopleOutlineOutlinedIcon from '@material-ui/icons/PeopleOutlineOutlined'
 import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { Link, Route, Switch } from 'react-router-dom';
 
 import Diagnostics from '../diagnostics/Diagnostics';
 import Subscriber from '../subscriber/Subscriber';
 import Subscriptions from '../simmanagement/Subscriptions';
+import AnalyticsDashboard from './AnalyticsDashboard';
 
 import nokia_logo from '../../nokia_logo.jpg';
 
@@ -156,7 +160,8 @@ const useStyles = makeStyles((theme) => ({
   },  
   link: {
     textDecoration: 'none',
-    color: 'rgb(0, 0, 0, 0.87)',
+    //color: 'rgb(0, 0, 0, 0.87)',
+    color: 'inherit',
   },     
 }));
 
@@ -181,6 +186,7 @@ export default function Dashboard(match) {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={classes.appBar}>
+        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
         <Toolbar className={classes.toolbar}>
             <img src={nokia_logo} alt="Nokia Logo"/> 
           <Typography component="h1" variant="h6" color="inherit" padding="12" noWrap className={classes.title}>
@@ -313,7 +319,7 @@ export default function Dashboard(match) {
       <main className={classes.content}>
         <div className={classes.appBarSpacer}/>
         <Switch>
-          <Route exact path="/" render={ ({...match}) => (<div></div>) } />
+          <Route exact path="/" render={ ({...match}) => (<AnalyticsDashboard {...match} />) } />
           <Route path="/dashboard/diagnostics" render={match => <Diagnostics {...match} />} />
           <Route path="/dashboard/subscriber" render={match =>  <Subscriber {...match} />} />
           <Route path="/simmanagement/Subscriptions" render={match =>  <Subscriptions {...match} />} />

@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import theme from './theme';
 import './index.css';
+import './assets/base.css';
 
 ReactDOM.render(
   <BrowserRouter>
