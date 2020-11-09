@@ -11,14 +11,12 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
 import Menu from '@material-ui/core/Menu';
 import Button from '@material-ui/core/Button';
-import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
 import CloudUploadOutlinedIcon from '@material-ui/icons/CloudUploadOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
 import Loader from 'react-loader-spinner';
 import simViewDataLayerContext from '../../simViewDataLayerContext';
 import Fade from '@material-ui/core/Fade';
-import * as XLSX from 'xlsx';
 import {
   Plugin, Template, TemplateConnector, TemplatePlaceholder, Action,
 } from '@devexpress/dx-react-core';
@@ -37,7 +35,7 @@ import {
   DragDropProvider,
   SearchPanel,
   TableHeaderRow, TableSelection, PagingPanel, TableFilterRow,
-  TableColumnReordering, TableRowDetail, ExportPanel, TableEditRow
+  TableColumnReordering, TableRowDetail, ExportPanel
 } from '@devexpress/dx-react-grid-material-ui';
 import MuiGrid from '@material-ui/core/Grid';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -46,7 +44,7 @@ import Cancel from '@material-ui/icons/Close';
 import { withStyles } from '@material-ui/core/styles';
 import saveAs from 'file-saver';
 import NativeSelect from '@material-ui/core/NativeSelect';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 window.tempRows = []; 
 const useStyles = makeStyles((theme) => ({
@@ -174,7 +172,7 @@ export default function SubscriptionDetails() {
   const [editingRowIds, setEditingRowIds] = React.useState([]);
   const [addedRows, setAddedRows] = React.useState([]);
   const [rowChanges, setRowChanges] = React.useState({});
-  const [tempRows, setTempRows] = React.useState([]);
+  const [tempRows] = React.useState([]);
   const [rows, setRows] = React.useState([]);
   const [currentPage, setCurrentPage] = React.useState(0);
   const [pageSize, setPageSize] = React.useState(25);
@@ -213,10 +211,6 @@ export default function SubscriptionDetails() {
       }
     }
     return arr;
-  }
-
-  const updateRowContent = () => {
-    console.log("rOW SELECTED", tempRows);
   }
 
   const DetailContent = ({ row, ...rest }) => {
