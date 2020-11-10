@@ -33,7 +33,7 @@ import PeopleOutlineOutlinedIcon from '@material-ui/icons/PeopleOutlineOutlined'
 import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import HomeWorkOutlinedIcon from '@material-ui/icons/HomeWorkOutlined';
 
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { Link, Route, Switch } from 'react-router-dom';

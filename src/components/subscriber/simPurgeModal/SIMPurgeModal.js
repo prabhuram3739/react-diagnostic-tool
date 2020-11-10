@@ -15,7 +15,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
-
+import { CUSTOM_ERROR_MSG, HANDLE_ERROR, HTTP_CALL,HANDLE_SUCCESS} from "../../../hooks/http";
+import {POST , SIM_PURGE} from "../../../hooks/api"
 const useStyles = makeStyles((theme) => ({
     form: {
       display: 'flex',
@@ -49,14 +50,32 @@ function SIMPurgeModal(props) {
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState('md');
-
+  const [imsi, imsiValue] = React.useState(props.imsi);
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
+  const handleIMSIChange = (event)  =>{
+    imsiValue(event.target.value);
+   }
+   const handleFormSubmit = async (event) =>{
+    event.preventDefault();
+    let requestData = {"id": imsi }
+        console.log(requestData);
+        let response = '';    
+        try {
+          response = await HTTP_CALL("/"+imsi+SIM_PURGE, POST,requestData)
+          if (response && response.data.code === 200) {
+            HANDLE_SUCCESS(response.data.message ? response.data.message : response.statusText);
+          } else {
+            CUSTOM_ERROR_MSG(response.data.message ? response.data.message : response.statusText);
+          }
+      } catch (error) {
+        HANDLE_ERROR(error);
+      }
+  }
     return (
       
         <React.Fragment>
@@ -69,7 +88,7 @@ function SIMPurgeModal(props) {
           open={open}
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
-        ><form className={classes.form}>
+        ><form className={classes.form} onSubmit={handleFormSubmit}>
           <DialogTitle id="max-width-dialog-title">SIM Purge</DialogTitle>
           <DialogContent>
             
@@ -80,7 +99,7 @@ function SIMPurgeModal(props) {
                         <TableBody>
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="IMSI" id="standard-full-width" style={{ margin: 8 }} placeholder="IMSI" fullWidth margin="normal" required />
+                                <TextField label="IMSI" id="standard-full-width" style={{ margin: 8 }} placeholder="IMSI" fullWidth margin="normal" required disabled value={imsi}  onChange={handleIMSIChange} />
                             </TableCell>
                         </TableRow>                                                                                                                                                                                                                                                                                                                                                                                                                                                              
                         </TableBody>

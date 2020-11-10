@@ -17,7 +17,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
-
+import { CUSTOM_ERROR_MSG, HANDLE_ERROR, HTTP_CALL} from "../../../hooks/http";
+import {POST , SIM_ACTIVATE , SIM_DEACTIVATE} from "../../../hooks/api";
 const useStyles = makeStyles((theme) => ({
     form: {
       display: 'flex',
@@ -52,7 +53,8 @@ function SIMActivateModal(props) {
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState('md');
   const [simActivateChecked, setsimActivateChecked] = React.useState(true);
-
+  const [imsi, imsiValue] = React.useState(props.imsi);
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -60,10 +62,36 @@ function SIMActivateModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleIMSIChange = (event)  =>{
+    imsiValue(event.target.value);
+   }
+
+   const handleFormSubmit = async (event) =>{
+    event.preventDefault();
+    let requestData = {"id": imsi}
+    let response = '';    
+        try {
+        if(simActivateChecked){
+          response = await HTTP_CALL("/"+imsi+SIM_ACTIVATE, POST,requestData)
+        }else{
+          response = await HTTP_CALL("/"+imsi+SIM_DEACTIVATE, POST,requestData)
+        }
+        console.log(response);
+        if (response && response.data.code === 200) {
+          CUSTOM_ERROR_MSG(response.data.message ? response.data.message : response.statusText);
+        } else {
+          CUSTOM_ERROR_MSG(response.data.message ? response.data.message : response.statusText);
+        }
+      } catch (error) {
+        HANDLE_ERROR(error);
+    }
+ }
+
     return (
       
         <React.Fragment>
-        <IconButton className="iconBtn" aria-lable="Activate/Deactivate SIM" onClick={handleClickOpen}>
+        <IconButton className="iconBtn" aria-label="Activate/Deactivate SIM" onClick={handleClickOpen}>
             <SimCardOutlinedIcon/>
         </IconButton>
         <Dialog
@@ -72,7 +100,7 @@ function SIMActivateModal(props) {
           open={open}
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
-        ><form className={classes.form}>
+        ><form className={classes.form} onSubmit={handleFormSubmit}>
           <DialogTitle id="max-width-dialog-title">Activate/Deactivate SIM</DialogTitle>
           <DialogContent>
             
@@ -83,7 +111,7 @@ function SIMActivateModal(props) {
                         <TableBody>
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="IMSI" id="standard-full-width" style={{ margin: 8 }} placeholder="IMSI" fullWidth margin="normal" required />
+                                <TextField label="IMSI" id="standard-full-width" style={{ margin: 8 }} placeholder="IMSI" fullWidth margin="normal" required onChange={handleIMSIChange} value={imsi} disable="true"/>
                             </TableCell>
                             <TableCell align="left" className={classes.boaderlessTr}>
                             <FormControlLabel
@@ -105,7 +133,7 @@ function SIMActivateModal(props) {
            
           </DialogContent>
           <DialogActions>
-          <Button type="submit" color="primary" variant="contained">
+          <Button type="submit" color="primary"  variant="contained">
             Submit
           </Button>
           <Button onClick={handleClose} color="primary" variant="contained">

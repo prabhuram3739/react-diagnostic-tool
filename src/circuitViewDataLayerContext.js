@@ -4,9 +4,9 @@ import { authEndpoint } from './environment';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const searchViewDataLayerContext = createContext();
+const circuitViewDataLayerContext = createContext();
 
-export class DataProvider extends Component {
+export class CircuitDataProvider extends Component {
   state = {
     data: [],
     count: 0,
@@ -15,7 +15,7 @@ export class DataProvider extends Component {
 
   componentDidMount() {
     this.setState({ loading: true }, () => {
-      this.getSearchViewData(this.props.imsi);
+      this.getCircuitViewData(this.props.imsi);
     });
   }
 
@@ -29,7 +29,7 @@ export class DataProvider extends Component {
     //clearTimeout(this.intervalID);
   }
 
-  getSearchViewData = (imsi) => {
+  getCircuitViewData = (imsi) => {
     var self = this;
     axios
     .get(authEndpoint + "/api/diagnosticData/searchView/" + imsi, {
@@ -73,10 +73,10 @@ export class DataProvider extends Component {
     const {data, count, loading} = this.state || {};
     const {componentDidMount} = this;
     return(
-      <searchViewDataLayerContext.Provider value = {{ data, count, loading, componentDidMount }} > { this.props.children } 
-      </searchViewDataLayerContext.Provider>
+      <circuitViewDataLayerContext.Provider value = {{ data, count, loading, componentDidMount }} > { this.props.children } 
+      </circuitViewDataLayerContext.Provider>
     )
   }
 }
 
-export default searchViewDataLayerContext;
+export default circuitViewDataLayerContext;

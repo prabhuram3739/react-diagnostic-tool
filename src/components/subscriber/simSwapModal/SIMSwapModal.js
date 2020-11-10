@@ -15,6 +15,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import TextField from '@material-ui/core/TextField';
+import { CUSTOM_ERROR_MSG, HANDLE_ERROR, HTTP_CALL, HANDLE_SUCCESS} from "../../../hooks/http";
+import {POST , SIM_SWAP} from "../../../hooks/api"
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -49,14 +51,35 @@ function SIMSwapModal(props) {
   const [open, setOpen] = React.useState(false);
   const [fullWidth] = React.useState(true);
   const [maxWidth] = React.useState('md');
-
+  const [imsi, IMSIValue] = React.useState(props.imsi);
+  const [newimsi, newIMSIValue] = React.useState('');
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
+  const handleIMSIChange = (event)  =>{
+    IMSIValue(event.target.value);
+   }
+   const handleNewIMSIChange = (event)  =>{
+    newIMSIValue(event.target.value);
+   }
+   const handleFormSubmit = async (event) =>{
+    event.preventDefault();
+    let requestData = {"oldSim": imsi ,"newSim":newimsi}
+        let response = '';    
+        try {
+          response = await HTTP_CALL("/"+imsi+SIM_SWAP, POST,JSON.stringify(requestData))
+          if (response && response.data.code === 200) {
+            HANDLE_SUCCESS(response.data.message ? response.data.message : response.statusText);
+          } else {
+            CUSTOM_ERROR_MSG(response.data.message ? response.data.message : response.statusText);
+          }
+      } catch (error) {
+        HANDLE_ERROR(error);
+      }
+  }
     return (
       
         <React.Fragment>
@@ -69,7 +92,7 @@ function SIMSwapModal(props) {
           open={open}
           onClose={handleClose}
           aria-labelledby="max-width-dialog-title"
-        ><form className={classes.form}>
+        ><form className={classes.form} onSubmit={handleFormSubmit}>
           <DialogTitle id="max-width-dialog-title">SIM Swap</DialogTitle>
           <DialogContent>
             
@@ -80,10 +103,10 @@ function SIMSwapModal(props) {
                         <TableBody>
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="Old IMSI" id="standard-full-width" style={{ margin: 8 }} placeholder="Old IMSI" fullWidth margin="normal" required />
+                                <TextField label="Old IMSI" id="standard-full-width" style={{ margin: 8 }} placeholder="Old IMSI" fullWidth margin="normal" required disabled value={imsi} onChange={handleIMSIChange}/>
                             </TableCell>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="New IMSI" id="standard-full-width" style={{ margin: 8 }} placeholder="New IMSI" fullWidth margin="normal" required />
+                                <TextField label="New IMSI" id="standard-full-width" style={{ margin: 8 }} placeholder="New IMSI" fullWidth margin="normal" required value={newimsi} onChange={handleNewIMSIChange} />
                             </TableCell>
                         </TableRow>                                                                                                                                                                                                                                                                                                                                                                                                                                                              
                         </TableBody>

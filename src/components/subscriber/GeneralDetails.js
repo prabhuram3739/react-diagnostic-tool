@@ -6,10 +6,9 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Loader from 'react-loader-spinner';
-import searchViewDataLayerContext from '../../searchViewDataLayerContext';
+import circuitViewDataLayerContext from '../../circuitViewDataLayerContext';
 
 const drawerWidth = 240;
 
@@ -145,7 +144,7 @@ const useStyles = makeStyles((theme) => ({
 export default function GeneralDetails() {
     const classes = useStyles();
 
-      const { data, count, loading } = useContext(searchViewDataLayerContext) || {};
+      const { data, count, loading } = useContext(circuitViewDataLayerContext) || {};
       const finalData = [];
       finalData.push(data);
       //const authResult = new URLSearchParams(window.location.search); 
@@ -193,7 +192,7 @@ export default function GeneralDetails() {
             </React.Fragment>
             )
             } else {
-                return
+                return "";
             }
           })
           }

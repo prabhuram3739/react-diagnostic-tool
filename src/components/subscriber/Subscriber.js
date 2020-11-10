@@ -20,6 +20,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import SignalCellular3BarOutlinedIcon from '@material-ui/icons/SignalCellular3BarOutlined';
 import BallotOutlinedIcon from '@material-ui/icons/BallotOutlined';
 import { DataProvider } from '../../searchViewDataLayerContext';
+import { CircuitDataProvider } from '../../circuitViewDataLayerContext';
 import { useLocation } from 'react-router';
 import queryString from 'query-string';
 import PsDetails from './PsDetails';
@@ -30,11 +31,7 @@ import VoiceServicesModal from './voiceServicesModal/VoiceServicesModal';
 import SMSServicesModal from './smsServicesModal/SMSServicesModal';
 import SIMSwapModal from './simSwapModal/SIMSwapModal';
 import SIMPurgeModal from './simPurgeModal/SIMPurgeModal';
-
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -86,13 +83,16 @@ const useStyles = makeStyles((theme) => ({
 export default function Subscriber() {
     const classes = useStyles();
     //const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
-    
     const [value, setValue] = React.useState('1');
     const location = useLocation();
+    const imsi = queryString.parse(location.search).imsi;
+    const [imsiNumber, imsiValue] = React.useState(imsi);
     const handleChange = (event, newValue) => {
       setValue(newValue);
     };
-
+    const handleIMSIChange = (event)  =>{
+      imsiValue(event.target.value);
+     }
     //const [anchorEl, setAnchorEl] = React.useState(null);
     //const openMenu = Boolean(anchorEl);
 
@@ -112,7 +112,6 @@ export default function Subscriber() {
 
     return(
         <div>
-          <DataProvider imsi={queryString.parse(location.search).imsi} >
             <Box m={2}>
                 <Typography component="h1" variant="h6" color="inherit" padding="12" display="inline" className={classes.title}>
                 Diagnostics &gt; Subscriber
@@ -126,7 +125,7 @@ export default function Subscriber() {
                     //title={'Node'}
                     subheader={'Subscriber Details'}
                     action={<form className={classes.root} action="/dashboard/subscriber/" autoComplete="off" style={{float: "right"}}>
-                      <TextField id="outlined-basic" label="Search IMSI" name="imsi" variant="outlined" size="small" required />
+                      <TextField id="outlined-basic" label="Search IMSI" name="imsi" variant="outlined" size="small" required value={imsiNumber} onChange={handleIMSIChange} />
                       <Tooltip title="Search IMSI" placement="top">
                       <Button type="submit" color="primary">
                         <SearchOutlinedIcon />
@@ -135,17 +134,17 @@ export default function Subscriber() {
                       <Divider className={classes.divider} orientation="vertical" />
                       <Tooltip title="Activate/Deactivate SIM" placement="top">
                         <span onClick={() => setModalSIMActivateShow(true)}>
-                        <SIMActivateModal show={ModalSIMActivateShow} onHide={() => setModalSIMActivateShow(false)} />
+                        <SIMActivateModal imsi={imsi} show={ModalSIMActivateShow} onHide={() => setModalSIMActivateShow(false)} />
                         </span>   
                       </Tooltip>
                       <Tooltip title="Voice Services" placement="top">
                         <span onClick={() => setModalVoiceServicesShow(true)}>
-                        <VoiceServicesModal show={ModalVoiceServicesShow} onHide={() => setModalVoiceServicesShow(false)} />
+                        <VoiceServicesModal imsi={imsi} show={ModalVoiceServicesShow} onHide={() => setModalVoiceServicesShow(false)} />
                         </span>   
                       </Tooltip>
                       <Tooltip title="SMS Services" placement="top">
                       <span onClick={() => setModalSMSServicesShow(true)}>
-                        <SMSServicesModal show={ModalSMSServicesShow} onHide={() => setModalSMSServicesShow(false)} />
+                        <SMSServicesModal imsi={imsi} show={ModalSMSServicesShow} onHide={() => setModalSMSServicesShow(false)} />
                         </span>   
                       </Tooltip>       
                       <Tooltip title="Data Services" placement="top">                 
@@ -160,12 +159,12 @@ export default function Subscriber() {
                       </Tooltip>                           
                       <Tooltip title="SIM Swap" placement="top">                 
                       <span onClick={() => setModalSIMSwapShow(true)}>
-                        <SIMSwapModal show={ModalSIMSwapShow} onHide={() => setModalSIMSwapShow(false)} />
+                        <SIMSwapModal imsi={imsi} show={ModalSIMSwapShow} onHide={() => setModalSIMSwapShow(false)} />
                         </span>   
                       </Tooltip> 
                       <Tooltip title="SIM Purge" placement="top">                 
                       <span onClick={() => setModalSIMPurgeShow(true)}>
-                        <SIMPurgeModal show={ModalSIMPurgeShow} onHide={() => setModalSIMPurgeShow(false)} />
+                        <SIMPurgeModal imsi={imsi} show={ModalSIMPurgeShow} onHide={() => setModalSIMPurgeShow(false)} />
                         </span> 
                       </Tooltip>                       
                       <Tooltip title="Refresh" placement="top">                          
@@ -204,9 +203,11 @@ export default function Subscriber() {
                       </form>}
                     >                          
                   </CardHeader>
+                  <CircuitDataProvider imsi={imsi} >
                   <CardContent className={classes.cardContent}>
                     <GeneralDetails />
                   </CardContent>
+                  </CircuitDataProvider>
                   </Card>
                 </Grid>
               </Grid>
@@ -217,11 +218,14 @@ export default function Subscriber() {
                         <Tab label="Circuit Core Data" className="noUpperCaseTxt" value="1" />
                         <Tab label="Packet Core Data" className="noUpperCaseTxt" value="2" />
                     </TabList>
+                    <CircuitDataProvider imsi={imsi} >
                     <TabPanel value="1"><CsDetails/></TabPanel>
+                    </CircuitDataProvider>
+                    <DataProvider imsi={imsi} >
                     <TabPanel value="2"><PsDetails/></TabPanel>
+                    </DataProvider>
                 </TabContext>            
             </Box>
-            </DataProvider>
         </div>
     );
 }

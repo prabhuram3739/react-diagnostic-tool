@@ -9,7 +9,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableRow from '@material-ui/core/TableRow';
 import Loader from 'react-loader-spinner';
 import Chip from '@material-ui/core/Chip';
-import searchViewDataLayerContext from '../../searchViewDataLayerContext';
+import circuitViewDataLayerContext from '../../circuitViewDataLayerContext';
 
 const drawerWidth = 240;
 
@@ -164,9 +164,10 @@ export default function CsDetails() {
         setAnchorEl(null);
       };*/
 
-      const { data, count, loading } = useContext(searchViewDataLayerContext) || {};
+      const { data, count, loading } = useContext(circuitViewDataLayerContext) || {};
       const finalData = [];
       finalData.push(data);
+      console.log("Final Data:", finalData);
       //const authResult = new URLSearchParams(window.location.search); 
       //const imsi = authResult.get('imsi');
       // Check if the count is zero or undefined to display the no records message
@@ -301,7 +302,7 @@ export default function CsDetails() {
             </React.Fragment>
             )
              } else {
-                 return
+                 return "";
              }
 
           })

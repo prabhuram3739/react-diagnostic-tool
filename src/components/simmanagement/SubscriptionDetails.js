@@ -1,11 +1,9 @@
 import React, { useContext, useRef, useCallback } from 'react';
 import axios from 'axios';
-import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Box from '@material-ui/core/Box';
-import TableCell from '@material-ui/core/TableCell';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertOutlinedIcon from '@material-ui/icons/MoreVertOutlined';
@@ -39,9 +37,6 @@ import {
 } from '@devexpress/dx-react-grid-material-ui';
 import MuiGrid from '@material-ui/core/Grid';
 import FormGroup from '@material-ui/core/FormGroup';
-import Edit from '@material-ui/icons/Edit';
-import Cancel from '@material-ui/icons/Close';
-import { withStyles } from '@material-ui/core/styles';
 import saveAs from 'file-saver';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import { toast } from 'react-toastify';
@@ -116,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const styles = theme => ({
+/*const styles = theme => ({
   toggleCell: {
     textAlign: 'center',
     textOverflow: 'initial',
@@ -132,7 +127,7 @@ const styles = theme => ({
   testMenu: {
     position: 'absolute'
   }
-});
+});*/
 
 const options = [
   'Voice Services',
@@ -172,7 +167,7 @@ export default function SubscriptionDetails() {
   const [editingRowIds, setEditingRowIds] = React.useState([]);
   const [addedRows, setAddedRows] = React.useState([]);
   const [rowChanges, setRowChanges] = React.useState({});
-  const [tempRows] = React.useState([]);
+  //const [tempRows] = React.useState([]);
   const [rows, setRows] = React.useState([]);
   const [currentPage, setCurrentPage] = React.useState(0);
   const [pageSize, setPageSize] = React.useState(25);
@@ -331,7 +326,7 @@ export default function SubscriptionDetails() {
     );
   };
 
-  const ToggleCellBase = ({
+  /*const ToggleCellBase = ({
     style, expanded, classes, onToggle,
     tableColumn, tableRow, row,
     className,
@@ -359,9 +354,9 @@ export default function SubscriptionDetails() {
         </IconButton>
       </TableCell>
     );
-  };
+  };*/
 
-  const ToggleCell = withStyles(styles, { name: 'ToggleCell' })(ToggleCellBase);
+  //const ToggleCell = withStyles(styles, { name: 'ToggleCell' })(ToggleCellBase);
 
   const DetailEditCell = () => (
     <Plugin name="DetailEditCell">
@@ -788,12 +783,12 @@ export default function SubscriptionDetails() {
         rows.push(rowObj);
         rowId++;
       }
-      // return rows;
+      return rows;
 
     });
     console.log(rows);
     setRows(rows)
-  }, [data])
+  }, [data, count, loading])
 
   // handle file upload
   const handleFileUpload = e => {

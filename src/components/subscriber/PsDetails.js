@@ -400,7 +400,7 @@ export default function PsDetails() {
             </React.Fragment>
             )
              } else {
-                 return
+                 return "";
              }
           })
           }

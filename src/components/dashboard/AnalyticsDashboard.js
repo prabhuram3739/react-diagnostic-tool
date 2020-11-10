@@ -2,31 +2,16 @@ import React, {Component, Fragment} from 'react';
 import Box from '@material-ui/core/Box';
 //import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import ReactCSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import classnames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import CardContent from '@material-ui/core/CardContent';
-import PhoneAndroidOutlinedIcon from '@material-ui/icons/PhoneAndroidOutlined';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import {
-    Row, Col,
-    Button,
-    CardHeader,
     Card,
     CardBody,
-    CardImg,
     CardTitle,
     CardSubtitle,
-    Progress,
-    TabContent,
-    TabPane,
 } from 'reactstrap';
 
 //import PageTitle from '../../../Layout/AppMain/PageTitle';
@@ -38,17 +23,13 @@ import {
     ResponsiveContainer,
     Bar,
     BarChart,
-    ComposedChart,
-    CartesianGrid,
     Tooltip,
     LineChart,
-    LabelList, Legend, Label, Cell
+    LabelList, Cell
 } from 'recharts';
 
 import {
     faAngleUp,
-    faArrowRight,
-    faArrowUp,
     faArrowLeft,
     faAngleDown
 } from '@fortawesome/free-solid-svg-icons';
@@ -229,7 +210,7 @@ const data4 = [
     { name: 'Holstein', value: 104 },
     { name: 'Other', value: 347 },
   ];
-  const user_colors = ['#311b92', '#5e35b1', '#9575cd'];
+  //const user_colors = ['#311b92', '#5e35b1', '#9575cd'];
   const pdn_colors = ['#003367', '#456696', '#311b92', '#5e35b1', '#9575cd', '#004d40', '#009688', '#4db6ac', '#d84315'];
   //['2020-04-01','2020-04-04','2020-04-07','2020-04-10','2020-04-13','2020-04-16','2020-04-19','2020-04-22','2020-04-25','2020-04-28','2020-05-01','2020-05-04','2020-05-07','2020-05-10','2020-05-13','2020-05-16','2020-05-19','2020-05-22','2020-05-25','2020-05-28','2020-05-31']
 
@@ -282,19 +263,19 @@ const data6 = [
     {name: '2020-05-31', Total: 520, MoSMS: 300, MtSMS: 220},
 ]
 
-function getArraySum(a){
+/*function getArraySum(a){
     var total=0;
     for(var i in a) {
         total += a[i].value
     }
     return total;
-}
+}*/
 
 const renderActiveShape = (props) => {
     const RADIAN = Math.PI / 180;
     const {
         cx, cy, midAngle, innerRadius, outerRadius, startAngle, endAngle,
-        fill, payload, percent, value,
+        fill, payload, value,
     } = props;
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);
