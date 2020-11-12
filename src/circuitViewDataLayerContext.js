@@ -1,6 +1,6 @@
 import React, { createContext, Component } from "react";
 import axios from 'axios';
-import { authEndpoint } from './environment';
+import { circuitCoreApiEndPoint } from './environment';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -32,11 +32,11 @@ export class CircuitDataProvider extends Component {
   getCircuitViewData = (imsi) => {
     var self = this;
     axios
-    .get(authEndpoint + "/api/diagnosticData/searchView/" + imsi, {
-        "Content-Type": "application/xml; charset=utf-8"
+    .get(circuitCoreApiEndPoint + "/api/subscriber/" + imsi, {
+        "Content-Type": "application/json; charset=utf-8"
      })
     .then(function(response) {
-        if(!response.data.circuitSwitch.iccId) {
+        if(!response.data.iccid) {
             toast.error('Subscriber Not Found', {
                 position: "top-right",
                 autoClose: 5000,

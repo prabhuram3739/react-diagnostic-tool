@@ -185,9 +185,9 @@ export default function CsDetails() {
           { loading ? <div><div className="v-loading-indicator second v-loading-indicator-delay v-loading-indicator-wait" ></div><Loader className="centerDisplayDefaultView mt-5" type="Circles" color="#00BFFF" height={40} width={40} /></div>  :
                 (finalData && finalData.length > 0) &&
                 finalData.map((item, index) => {
-                    if(item.circuitSwitch.iccId) {
+                    if(item.iccid) {
                     return(
-                    <React.Fragment key={item.id}>
+                    <React.Fragment key={item.iccid}>
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
                     <Grid item xs={4} sm={4} lg={4}>                    
                         <TableContainer component={Paper} className={classes.boaderlessTable}>
@@ -195,15 +195,15 @@ export default function CsDetails() {
                                 <TableBody>
                                 <TableRow style={{boader: "none"}}>
                                         <TableCell align="right" className={classes.boaderlessTh}>Subscriber Status</TableCell>
-                                        <TableCell align="left" style={{color: (item.circuitSwitch.subscriberStatus === "true") ?  "green" : "red"}} className={classes.boaderlessTr}>{item.circuitSwitch.subscriberStatus === "true" ? <Chip style={{ color: "green"}} size="small" label='ACTIVE' /> : <Chip style={{ color: "red"}} size="small" label='INACTIVE' />}</TableCell>
+                                        <TableCell align="left" style={{color: (item.imsiActive === "true") ?  "green" : "red"}} className={classes.boaderlessTr}>{item.imsiActive === true ? <Chip style={{ color: "green"}} size="small" label='ACTIVE' /> : <Chip style={{ color: "red"}} size="small" label='INACTIVE' />}</TableCell>
                                     </TableRow>
-                                   { item.circuitSwitch.threeGApnDataList !== '' ? <React.Fragment>
+                                   { item.pdnContexts !== '' ? <React.Fragment>
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>3G APN List:</TableCell>
                                         <TableCell align="left" className={classes.boaderlessTr}>
-                                        {item.circuitSwitch.threeGApnDataList.map((threeGApnList, index) => {
+                                        {item.pdnContexts.map((pdnContext, index) => {
                                         return(
-                                        <span key={index}>{threeGApnList.apn ? threeGApnList.apn : 'No Data Available'}</span>
+                                        <span key={index}>{pdnContext.apn ? pdnContext.apn : 'No Data Available'}</span>
                                           )
                                         })}
                                         </TableCell>
@@ -211,24 +211,24 @@ export default function CsDetails() {
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>4G APN List:</TableCell>
                                         <TableCell align="left" className={classes.boaderlessTr}>
-                                        {item.circuitSwitch.fourGApnDataList.map((fourGApnList, index) => {
+                                        {item.epsPdnContexts.map((epsPdnContext, index) => {
                                         return(
-                                          <span key={index}>{fourGApnList.apn ? fourGApnList.apn : 'No Data Available'}</span>
+                                          <span key={index}>{epsPdnContext.apn ? epsPdnContext.apn : 'No Data Available'}</span>
                                         )
                                         })}
                                         </TableCell>
                                     </TableRow>  
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>VLR Number:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.vlrNumber ? item.circuitSwitch.vlrNumber : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.vlrMobData.vlrNumber ? item.vlrMobData.vlrNumber : 'No Data Available'}</TableCell>
                                     </TableRow>  
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>SGSN Number:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.sgsnNumber ? item.circuitSwitch.sgsnNumber : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.sgsnMobData.sgsnNumber ? item.sgsnMobData.sgsnNumber : 'No Data Available'}</TableCell>
                                     </TableRow>  
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>MME-ID:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.mmeId ? item.circuitSwitch.mmeId : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.mmeId ? item.mmeId : 'No Data Available'}</TableCell>
                                     </TableRow>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
                                 </TableBody>
                             </Table>
@@ -240,27 +240,27 @@ export default function CsDetails() {
                                 <TableBody>
                                 <TableRow style={{boader: "none"}}>
                                         <TableCell align="right" className={classes.boaderlessTh}>Voice MO Status:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.outgoingCallStatus ? item.circuitSwitch.outgoingCallStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.voiceService.moBarred ? item.voiceService.moBarred : 'No Data Available'}</TableCell>
                                     </TableRow>  
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>Voice MT Status:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.incomingCallStatus ? item.circuitSwitch.incomingCallStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.voiceService.mtBarred ? item.voiceService.mtBarred : 'No Data Available'}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>SMS-MO Status:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.moSmsStatus ? item.circuitSwitch.moSmsStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.smsService.moBarred ? item.smsService.moBarred : 'No Data Available'}</TableCell>
                                     </TableRow>  
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>SMS-MT Status:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.mtSmsStatus ? item.circuitSwitch.mtSmsStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.smsService.mtBarred ? item.smsService.mtBarred : 'No Data Available'}</TableCell>
                                     </TableRow>  
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>3G DATA - Status:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.threeGDataStatus ? item.circuitSwitch.threeGDataStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.threeGDataStatus ? item.threeGDataStatus : 'No Data Available'}</TableCell>
                                     </TableRow>  
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>4G DATA - Status:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.fourGDataStatus ? item.circuitSwitch.fourGDataStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.fourGDataStatus ? item.fourGDataStatus : 'No Data Available'}</TableCell>
                                     </TableRow>                                      
                                 </TableBody>
                             </Table>
@@ -272,27 +272,27 @@ export default function CsDetails() {
                                 <TableBody>
                                 <TableRow style={{boader: "none"}}>
                                         <TableCell align="right" className={classes.boaderlessTh}>3G Roaming Profile:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.threeGDataRoamStatus ? item.circuitSwitch.threeGDataRoamStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.threeGDataRoamStatus ? item.threeGDataRoamStatus : 'No Data Available'}</TableCell>
                                     </TableRow>  
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>4G Roaming Profile:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.fourGDataStatus ? item.circuitSwitch.fourGDataStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.fourGDataStatus ? item.fourGDataStatus : 'No Data Available'}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>Prepaid/Camel Data:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.camelSubscriptionStatus ? item.circuitSwitch.camelSubscriptionStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.camelSubscriptionStatus ? item.camelSubscriptionStatus : 'No Data Available'}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>CS Raoming Profile:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.camelSubscriptionStatus ? item.circuitSwitch.camelSubscriptionStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.camelSubscriptionStatus ? item.camelSubscriptionStatus : 'No Data Available'}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>PS Roaming Profile::</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.camelSubscriptionStatus ? item.circuitSwitch.camelSubscriptionStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.camelSubscriptionStatus ? item.camelSubscriptionStatus : 'No Data Available'}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>EPS Roaming Profile:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.camelSubscriptionStatus ? item.circuitSwitch.camelSubscriptionStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.camelSubscriptionStatus ? item.camelSubscriptionStatus : 'No Data Available'}</TableCell>
                                     </TableRow>                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
                                 </TableBody>
                             </Table>

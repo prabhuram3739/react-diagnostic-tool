@@ -164,9 +164,9 @@ export default function GeneralDetails() {
           { loading ? <div><div className="v-loading-indicator second v-loading-indicator-delay v-loading-indicator-wait" ></div><Loader className="centerDisplayDefaultView mt-5" type="Circles" color="#00BFFF" height={40} width={40} /></div>  :
                 (finalData && finalData.length > 0) &&
                 finalData.map((item, index) => {
-                    if(item.circuitSwitch.iccId) {
+                    if(item.iccid) {
                     return(
-                    <React.Fragment key={item.id}>
+                    <React.Fragment key={item.iccid}>
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
                     <Grid item xs={4} sm={4} lg={4}>                    
                     <TableContainer component={Paper} className={classes.boaderlessTable}>
@@ -174,15 +174,15 @@ export default function GeneralDetails() {
                               <TableBody>
                                   <TableRow className={classes.boaderlessTh}>
                                       <TableCell align="right" className={classes.boaderlessTh}>IMSI:</TableCell>
-                                      <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.id ? item.circuitSwitch.id : 'No Data Available'}</TableCell>
+                                      <TableCell align="left" className={classes.boaderlessTr}>{item.imsi ? item.imsi : 'No Data Available'}</TableCell>
                                   </TableRow>                                                                                                                                                              
                                   <TableRow style={{boader: "none"}}>
                                       <TableCell align="right" className={classes.boaderlessTh}>ICCID:</TableCell>
-                                      <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.iccId ? item.circuitSwitch.iccId : 'No Data Available'}</TableCell>
+                                      <TableCell align="left" className={classes.boaderlessTr}>{item.iccid ? item.iccid : 'No Data Available'}</TableCell>
                                   </TableRow>  
                                   <TableRow style={{boader: "none"}}>
                                       <TableCell align="right" className={classes.boaderlessTh}>MSISDN:</TableCell>
-                                      <TableCell align="left" className={classes.boaderlessTr}>{item.circuitSwitch.msisdn ? item.circuitSwitch.msisdn : 'No Data Available'}</TableCell>
+                                      <TableCell align="left" className={classes.boaderlessTr}>{item.gprsMsisdn ? item.gprsMsisdn : 'No Data Available'}</TableCell>
                                   </TableRow> 
                               </TableBody>
                           </Table>

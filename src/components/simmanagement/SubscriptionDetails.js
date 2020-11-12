@@ -215,7 +215,6 @@ export default function SubscriptionDetails() {
       cancelChanges,
     } = rest;
     let arr = getKey(row);
-    console.log(row);
     return (
       <MuiGrid container spacing={1}>
         <MuiGrid item xs={6}>
@@ -224,7 +223,7 @@ export default function SubscriptionDetails() {
               margin="normal"
               name="IMSI"
               label="IMSI"
-              value={row.imsi}
+              value={row.imsi ? row.imsi : ""}
               onChange={processValueChange}
               readOnly
               disabled
@@ -233,7 +232,7 @@ export default function SubscriptionDetails() {
               margin="normal"
               name="msisdn"
               label="MSISDN"
-              value={row.msisdn}
+              value={row.msisdn ? row.msisdn : ""}
               onChange={processValueChange}
               readOnly
               disabled
@@ -242,7 +241,7 @@ export default function SubscriptionDetails() {
               margin="normal"
               name="account"
               label="Account"
-              value={row.accountName}
+              value={row.accountName ? row.accountName : ""}
               onChange={processValueChange}
               readOnly
               disabled
@@ -269,7 +268,7 @@ export default function SubscriptionDetails() {
             />*/}
             <div className="dx-field-label">State</div>
             <NativeSelect
-              value={row.currentSimState}
+              value={row.currentSimState ? row.currentSimState : ""}
               name="currentSimState"
               onChange={processValueChange}
               className="statusDrpDown"
@@ -292,7 +291,7 @@ export default function SubscriptionDetails() {
               margin="normal"
               name="simver"
               label="SIM Version"
-              value={row.simver}
+              value={row.simver ? row.simver : ""}
               onChange={processValueChange}
               readOnly
               disabled
@@ -301,7 +300,7 @@ export default function SubscriptionDetails() {
               margin="normal"
               name="batch"
               label="SIM Batch"
-              value={row.batch}
+              value={row.batch ? row.batch : ""}
               onChange={processValueChange}
               readOnly
               disabled
@@ -446,7 +445,6 @@ export default function SubscriptionDetails() {
     //status: row.currentSimState,
     //simver: row.simver
     //}
-    console.log("before starting wf: ", row);
     let params = {
       iccid: row.iccid,
       imsi: row.imsi,
@@ -458,7 +456,6 @@ export default function SubscriptionDetails() {
       "Content-Type": "application/json",
     }
     axios.post(APIURL, params, headers).then(response => {
-      console.log("Response Status:", response.status);
       if (response.status === 200) {
         stausCheck(response.data, row);
 
@@ -478,7 +475,6 @@ export default function SubscriptionDetails() {
       }
     })
       .catch(function (error) {
-        console.log(error.status);
         if (error?.response?.status === 409) {
           toast.error('' + error?.response?.data?.message, {
             position: "top-right",
@@ -532,14 +528,10 @@ export default function SubscriptionDetails() {
     let statusCheck = true;
     let updatedId = id;
     const checkStatus = () => {
-      console.log("Checking Workflow status");
       if (statusCheck && i <= 2) {
-        console.log("Getting Workflow status");
         const APIURL = `http://18.185.117.167:7070/api/workflow/${updatedId}?includeTasks=false`;
         axios.get(APIURL)
           .then(function (response) {
-            console.log(response);
-            console.log("inside catch:", row);
             let st = response?.data?.status;
             if (st === "COMPLETED") {
               setRows(window.tempRows);
@@ -651,7 +643,6 @@ export default function SubscriptionDetails() {
   };
 
   const commitChanges = ({ added, changed, deleted }) => {
-    console.log(56)
     let changedRows;
     if (added) {
       const startingAddedId = rows.length > 0 ? rows[rows.length - 1].iccid + 1 : 0;
@@ -670,10 +661,7 @@ export default function SubscriptionDetails() {
       const deletedSet = new Set(deleted);
       changedRows = rows.filter(row => !deletedSet.has(row.iccid));
     }
-    console.log(changedRows);
-    console.log(rows);
     setRows(changedRows);
-    console.log("Changed Rows:", changedRows);
     window.tempRows = changedRows;
   };
 
@@ -786,14 +774,12 @@ export default function SubscriptionDetails() {
       return rows;
 
     });
-    console.log(rows);
     setRows(rows)
   }, [data, count, loading])
 
   // handle file upload
   const handleFileUpload = e => {
     const file = e.target.files[0];
-    console.log(file);
     if (/\.(csv?)$/i.test(file.name) === false) {
       //alert("not a csv File!");
       toast.error('Please upload only a CSV file', {
