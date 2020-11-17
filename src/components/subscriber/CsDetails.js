@@ -228,7 +228,7 @@ export default function CsDetails() {
                                     </TableRow>  
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>MME-ID:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.mmeId ? item.mmeId : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.epsDataService.mmeIdentity ? item.epsDataService.mmeIdentity : 'No Data Available'}</TableCell>
                                     </TableRow>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
                                 </TableBody>
                             </Table>
@@ -280,7 +280,7 @@ export default function CsDetails() {
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>Prepaid/Camel Data:</TableCell>
-                                        <TableCell align="left" className={classes.boaderlessTr}>{item.camelSubscriptionStatus ? item.camelSubscriptionStatus : 'No Data Available'}</TableCell>
+                                        <TableCell align="left" className={classes.boaderlessTr}>{item.camelServices ? item.camelServices : 'No Data Available'}</TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell align="right" className={classes.boaderlessTh}>CS Raoming Profile:</TableCell>
