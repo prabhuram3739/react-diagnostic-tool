@@ -205,7 +205,7 @@ export default function Summary(props) {
           console.log(str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase()));
           return str.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
     }*/
-      let [refreshBoolean, setRefreshBoolean] = useState(false);
+    let [refreshBoolean, setRefreshBoolean] = useState(false);
     let [refreshStatus, setRefreshStatus] = useState(false);
     let [buttonText, setButtonText] = useState("Enable");
     let [timeInterval, setTimeInterval] = useState(3000);

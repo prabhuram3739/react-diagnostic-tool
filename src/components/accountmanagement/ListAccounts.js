@@ -151,7 +151,7 @@ export default function ListAccounts() {
   //const [tempRows] = React.useState([]);
   const [rows, setRows] = React.useState([]);
   const [currentPage, setCurrentPage] = React.useState(0);
-  const [pageSize, setPageSize] = React.useState(10);
+  const [pageSize, setPageSize] = React.useState(25);
   const [pageSizes] = React.useState([10, 25, 50]);
   const [filters, setFilters] = React.useState();
     
@@ -884,7 +884,7 @@ export default function ListAccounts() {
                 <TableColumnReordering
                   //'action'
                   //defaultOrder={['iccid', 'imsi', 'msisdn', 'currentSimState', 'accountName', 'simver', 'batch']}
-		  defaultOrder={['id', 'name', 'tenantId', 'accountType', 'parentAccountId', 'accountState']}
+		        defaultOrder={['id', 'name', 'tenantId', 'accountType', 'parentAccountId', 'accountState']}
                 />
                 <TableHeaderRow showSortingControls />
                 <TableRowDetail
@@ -895,8 +895,8 @@ export default function ListAccounts() {
                 <DetailEditCell />
                 {/*<TableEditRow />*/}
                 {/*<TableEditColumn
-          showDeleteCommand
-        />*/}
+                showDeleteCommand
+                />*/}
                 <Toolbar />
                 <ExportPanel startExport={startExport} />
                 <SearchPanel />
@@ -904,7 +904,7 @@ export default function ListAccounts() {
                 <TableSelection showSelectAll />
                 { /* <TableGroupRow />
                 <GroupingPanel showSortingControls /> */}
-		<PagingPanel 
+		        <PagingPanel 
                 pageSizes={pageSizes}
               />
               </Grid>

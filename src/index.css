@@ -42,9 +42,13 @@ input {
     color: #000 !important;
 }
 
-.MuiTableCell-head {
+.MuiTableRow-head {
     font-weight: 700 !important;
     background-color: #094391 !important;
+    color: #FFF !important;
+}
+
+.MuiTableCell-head {
     color: #FFF !important;
 }
 
