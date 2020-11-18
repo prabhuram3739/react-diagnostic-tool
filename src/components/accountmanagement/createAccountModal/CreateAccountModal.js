@@ -352,7 +352,6 @@ function CreateAccountModal(props) {
   };
 
   const handleRadioValueChange = (e) => {
-    console.log(e.target.value);
     setRadioVal(e.target.value);
   };
     return (
