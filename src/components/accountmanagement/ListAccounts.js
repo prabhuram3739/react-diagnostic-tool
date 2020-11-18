@@ -900,7 +900,7 @@ export default function ListAccounts() {
                 <Toolbar />
                 <ExportPanel startExport={startExport} />
                 <SearchPanel />
-                <TableFilterRow />
+                <TableFilterRow  />
                 <TableSelection showSelectAll />
                 { /* <TableGroupRow />
                 <GroupingPanel showSortingControls /> */}

@@ -52,6 +52,12 @@ input {
     color: #FFF !important;
 }
 
+div[class^='Editor-root'],
+div[class*=' Editor-root'] {
+    background-color: white !important;
+    color: #000 !important;
+}
+
 .MuiButton-containedSecondary {
     background-color: #1976d2 !important;
 }
