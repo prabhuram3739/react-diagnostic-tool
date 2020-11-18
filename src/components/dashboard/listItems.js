@@ -16,34 +16,34 @@ import { Link } from 'react-router-dom';
     <div>
       <ListItem button>
         <ListItemIcon>
-          <DashboardOutlinedIcon style={{ color: '#001235' }}  />
+          <DashboardOutlinedIcon style={{ color: '#FFFFFF' }}  />
         </ListItemIcon>
         <ListItemText primary="Dashboard" />
       </ListItem>
       <Link to="/simmanagement/Subscriptions">
       <ListItem button>
         <ListItemIcon >
-          <SimCardOutlinedIcon style={{ color: '#001235' }}/>
+          <SimCardOutlinedIcon style={{ color: '#FFFFFF' }}/>
         </ListItemIcon>
         <ListItemText primary="SIM Management" />
       </ListItem>
       </Link>
       <ListItem button>
         <ListItemIcon>
-          <BusinessOutlinedIcon style={{ color: '#001235' }}/>
+          <BusinessOutlinedIcon style={{ color: '#FFFFFF' }}/>
         </ListItemIcon>
         <ListItemText primary="Account Management" />
       </ListItem>
       <ListItem button>
         <ListItemIcon>
-          <MonetizationOnOutlinedIcon style={{ color: '#001235' }}/>
+          <MonetizationOnOutlinedIcon style={{ color: '#FFFFFF' }}/>
         </ListItemIcon>
         <ListItemText primary="Rating Management" />
       </ListItem>
     
       <ListItem button>
         <ListItemIcon>
-          <AssessmentOutlinedIcon style={{ color: '#001235' }}/>
+          <AssessmentOutlinedIcon style={{ color: '#FFFFFF' }}/>
         </ListItemIcon>
         <ListItemText primary="Reports" />
       </ListItem>
@@ -54,20 +54,20 @@ import { Link } from 'react-router-dom';
     <div>
       <ListItem button>
         <ListItemIcon>
-          <SettingsOutlinedIcon style={{ color: '#001235' }}/>
+          <SettingsOutlinedIcon style={{ color: '#FFFFFF' }}/>
         </ListItemIcon>
         <ListItemText primary="Administration" />
       </ListItem>   
       <ListItem button>
         <ListItemIcon>
-          <PeopleOutlineOutlinedIcon style={{ color: '#001235' }}/>
+          <PeopleOutlineOutlinedIcon style={{ color: '#FFFFFF' }}/>
         </ListItemIcon>
         <ListItemText primary="User Management" />
       </ListItem>
       <Link to="/diagnostics">
       <ListItem button>
         <ListItemIcon>
-          <LocalHospitalOutlinedIcon style={{ color: '#001235' }}/>
+          <LocalHospitalOutlinedIcon style={{ color: '#FFFFFF' }}/>
         </ListItemIcon>
         <ListItemText primary="Diagnostics" />
       </ListItem>

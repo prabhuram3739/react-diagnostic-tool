@@ -42,6 +42,7 @@ import Diagnostics from '../diagnostics/Diagnostics';
 import Subscriber from '../subscriber/Subscriber';
 import Subscriptions from '../simmanagement/Subscriptions';
 import AnalyticsDashboard from './AnalyticsDashboard';
+import Accounts from '../accountmanagement/Accounts';
 
 import nokia_logo from '../../nokia_logo.jpg';
 
@@ -66,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
-    background: '#001235',
+    background: '#FFFFFF',
     //width: `calc(100%)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -264,12 +265,14 @@ export default function Dashboard(match) {
               <ListItemText primary="SIM Management" />
             </ListItem>
             </Link>
+            <Link to="/accountmanagement/Accounts"  className={classes.link}>
             <ListItem button>
               <ListItemIcon>
                 <BusinessOutlinedIcon style={{ color: '#001235' }}/>
               </ListItemIcon>
               <ListItemText primary="Account Management" />
             </ListItem>
+            </Link>
             <ListItem button>
               <ListItemIcon>
                 <HomeWorkOutlinedIcon style={{ color: '#001235' }}/>
@@ -323,6 +326,7 @@ export default function Dashboard(match) {
           <Route path="/dashboard/diagnostics" render={match => <Diagnostics {...match} />} />
           <Route path="/dashboard/subscriber" render={match =>  <Subscriber {...match} />} />
           <Route path="/simmanagement/Subscriptions" render={match =>  <Subscriptions {...match} />} />
+          <Route path="/accountmanagement/Accounts" render={match =>  <Accounts {...match} />} />
         </Switch>      
       </main>
     </div>

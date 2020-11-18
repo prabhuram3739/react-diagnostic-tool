@@ -26,10 +26,26 @@ code {
     left: 50%;
 }
 
+.makeStyles-drawerPaperClose-11 {
+    background: #094391 !important;
+}
+
+.MuiTableSortLabel-root.MuiTableSortLabel-active,
+.MuiInputBase-fullWidth,
+.MuiTableSortLabel-icon {
+    color: #FFF !important;
+}
+
+.makeStyles-title-9,
+.MuiIconButton-label,
+input {
+    color: #000 !important;
+}
+
 .MuiTableCell-head {
     font-weight: 700 !important;
-    background-color: rgb(179, 229, 252) !important;
-    color: #000 !important;
+    background-color: #094391 !important;
+    color: #FFF !important;
 }
 
 .MuiButton-containedSecondary {
