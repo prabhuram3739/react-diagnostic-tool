@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     return ['Basic', 'Primary Contact', 'Primary Address'];
   }
 
-  function getStepContent(stepIndex) {
+  /*function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0:
         return 'Basic';
@@ -69,7 +69,7 @@ const useStyles = makeStyles((theme) => ({
       default:
         return 'Unknown stepIndex';
     }
-  }
+  }*/
 
 function CreateAccountModal(props) {
   const classes = useStyles();
