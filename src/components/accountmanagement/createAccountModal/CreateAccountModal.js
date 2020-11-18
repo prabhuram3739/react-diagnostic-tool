@@ -396,7 +396,7 @@ function CreateAccountModal(props) {
                              {activeStep === 0 ? 
                              (
                                 <React.Fragment>
-                                    <RadioGroup row aria-label="accounttype" name="accounttype" defaultValue="master" onChange={handleRadioValueChange}>
+                                    <RadioGroup row aria-label="accounttype" name="accounttype" defaultValue="master" onChange={handleRadioValueChange} style={{marginLeft: '5%'}}>
                                     <FormControlLabel value="master" control={<Radio color="primary" />} label="Master Account" />
                                     <FormControlLabel value="sub" control={<Radio color="primary" />} label="Sub Account" />
                                     </RadioGroup>
