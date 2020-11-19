@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -24,12 +24,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FilledInput from '@material-ui/core/FilledInput';
 import FormControl from '@material-ui/core/FormControl';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
@@ -79,19 +75,6 @@ const useStyles = makeStyles((theme) => ({
     return ['Basic', 'Primary Contact', 'Primary Address'];
   }
 
-  /*function getStepContent(stepIndex) {
-    switch (stepIndex) {
-      case 0:
-        return 'Basic';
-      case 1:
-        return 'Primary Contact';
-      case 2:
-        return 'Primary Address';
-      default:
-        return 'Unknown stepIndex';
-    }
-  }*/
-
 function CreateAccountModal(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -102,6 +85,7 @@ function CreateAccountModal(props) {
   const [name, setName] = React.useState('');
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
+  const [externalAccountId, setexternalAccountId] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phone, setPhone] = React.useState('');
   const [addressOne, setAddressOne] = React.useState('');
@@ -115,64 +99,61 @@ function CreateAccountModal(props) {
   const [accountTypeDrpDown, setAccountTypeDrpDown] = React.useState('');
   const steps = getSteps();
 
-  const nameInputRef = useRef();
-  const tenantRef = useRef();
-  const parentAccountRef = useRef();
-  const accountTypeRef = useRef();
-  const externalAccountIdRef = useRef();
-  const firstNameRef = useRef();
-  const lastNameRef = useRef();
-  const emailRef = useRef();
-  const phoneRef = useRef();
-  const addressOneRef = useRef();
-  const addressTwoRef = useRef();
-  const postalCodeRef = useRef();
-  const countryRef = useRef();
-  const cityRef = useRef();
-  const stateRef = useRef();
-
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const onSubmitClick = (e) => {
       e.preventDefault();
-      console.log(e);
-    const accountName = nameInputRef.current.value ? nameInputRef.current.value : "";
-    console.log("AccountName:", nameInputRef.current.value);
-    const tenant = tenantRef.current.value ? tenantRef.current.value : "";
-    const parentAccount = parentAccountRef.current.value ? parentAccountRef.current.value : "";
-    const accountType = accountTypeRef.current.value ? accountTypeRef.current.value : "";
-    const externalAccountId = externalAccountIdRef.current.value ? externalAccountIdRef.current.value : "";
-    const firstName = firstNameRef.current.value ? firstNameRef.current.value : "";
-    const lastName = lastNameRef.current.value ? lastNameRef.current.value : "";
-    const email = emailRef.current.value ? emailRef.current.value : "";
-    const phone = phoneRef.current.value ? phoneRef.current.value : "";
-    const addressOne = addressOneRef.current.value ? addressOneRef.current.value : "";
-    const addressTwo = addressTwoRef.current.value ? addressTwoRef.current.value : "";
-    const postalCode = postalCodeRef.current.value ? postalCodeRef.current.value : "";
-    const country = countryRef.current.value ? countryRef.current.value : "";
-    const city = cityRef.current.value ? cityRef.current.value : "";
-    const state = stateRef.current.value ? stateRef.current.value : "";
+    /*const accountName = name ? name : "test";
+    const tenant = tenantDrpDown ? tenantDrpDown : 1;
+    const parentAccount = 1;
+    const accountType = accountTypeDrpDown ? accountTypeDrpDown : "INDIVIDUAL";
+    const externalAccountId = externalAccountId ? externalAccountId : "EXT2";
+    const firstName = firstName ? firstName : "";
+    const lastName = lastName ? lastName : "";
+    const email = email ? email : "test@test.com";
+    const phone = phone ? phone : "";
+    const addressOne = addressOne ? addressOne : "";
+    const addressTwo = addressTwo ? addressTwo : "";
+    const postalCode = post ? post : "";
+    const country = country ? country : "";
+    const city = city ? city : "";
+    const state = state ? state : "";*/
+
+    /*const accountName = "test";
+    const tenant = 1;
+    const parentAccount = 1;
+    const accountType = "INDIVIDUAL";
+    const externalAccountId = "EXT2";
+    const firstName = "test";
+    const lastName = "test";
+    const email = "test@gmail.com";
+    const phone = "test";
+    const addressOne = "test";
+    const addressTwo =  "test";
+    const postalCode = "test";
+    const country = "test";
+    const city = "test";
+    const state = "test";*/
 
     let row = {
-        extId: externalAccountId ? externalAccountId : "",
-        name: accountName ? accountName : "",
-        tenantId: tenant ? tenant : "",
-        parrentAccountId:  parentAccount ? parentAccount : "",
-        accountType : accountType ?  accountType : "",
+        extId: externalAccountId ? externalAccountId : "EXT2",
+        name: name ? name : "",
+        tenantId: tenantDrpDown ? tenantDrpDown : 1,
+        parentAccountId:  1,
+        accountType : accountTypeDrpDown ?  accountTypeDrpDown : "INDIVIDUAL",
         firstName: firstName ? firstName : "",
         lastName: lastName ? lastName : "",
-        email: email ? email : "",
+        email: email ? email : "test@gmail.com",
         phone: phone ? phone : "",
         addressLine1 : addressOne ? addressOne : "",
         addressLine2 : addressTwo ? addressTwo : "",
-        postalCode : postalCode ? postalCode : "",
+        postalCode : post ? post : "",
         country : country ? country : "",
         city: city ? city : "",
         state : state ? state : ""
     };
-    console.log("Form values:", row);
     createAccount(row);
 };
 
@@ -209,15 +190,16 @@ function CreateAccountModal(props) {
         }
      }
      
-*/     
+*/  
+
     let params = {
-      id: row.id ? row.id : "",
+      extId: row.extId ? row.extId : "EXT2",
       name: row.name ? row.name : "",
-      tenantId: row.tenantId ? row.tenantId : "",
-      accountType: row.accountType ? row.accountType : "",
-      accountState: row.accountState ? row.accountState : "",
+      tenantId: row.tenantId ? row.tenantId : 1,
+      accountType: row.accountType ? row.accountType : "INDIVIDUAL",
+      accountState: row.accountState ? row.accountState : "DRAFT",
       billingAccountId: row.billingAccountId ? row.billingAccountId : 1,
-      parentAccountId: row.parentAccountId ? row.parentAccountId : "",
+      parentAccountId: row.parentAccountId ? row.parentAccountId : 1,
         address:{
            addressLine1: row.addressLine1 ? row.addressLine1 : "",
            addressLine2: row.addressLine2 ? row.addressLine2 : "",
@@ -225,11 +207,11 @@ function CreateAccountModal(props) {
            country: row.country ? row.country : "",
            default: row.default ?  row.default : true,
            extId: row.extId ? row.extId : "EXT2",
-           postcode: row.postCode ? row.postCode : "",
+           postcode: row.postalCode ? row.postalCode : "",
            state: row.state ? row.state : ""
         },
         contact:{
-           email: row.email ? row.email : "",
+           email: row.email ? row.email : "test@gmail.com",
            extId: row.extId ? row.extId : "EXT2",
            firstName: row.firstName ? row.firstName : "",
            lastName: row.lastName ? row.lastName : "",
@@ -241,14 +223,14 @@ function CreateAccountModal(props) {
            prop3: row.prop3 ?  row.prop3 : "value3"
         }
     }
-    const APIURL = `http://18.185.117.167:7070/api/account`;
+    const APIURL = `http://3.127.248.97:8081/api/account`;
     let headers = {
       "Content-Type": "application/json",
     }
     axios.post(APIURL, params, headers).then(response => {
-      if (response.status === 200) {
-        stausCheck(response.data, row);
-        toast.success('Account create request accepted.', {
+      if (response.status === 200 || response.status === 201) {
+        //stausCheck(response.data, row);
+        toast.success('Account created successfully.', {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -257,6 +239,7 @@ function CreateAccountModal(props) {
           draggable: true,
           progress: undefined,
         });
+        window.location.reload();
       }
     })
       .catch(function (error) {
@@ -305,7 +288,7 @@ function CreateAccountModal(props) {
       });
   }
 
-  const stausCheck = (id, row) => {
+  /*const stausCheck = (id, row) => {
     let i = 0;
     let statusCheck = true;
     let updatedId = id;
@@ -315,7 +298,7 @@ function CreateAccountModal(props) {
         axios.get(APIURL)
           .then(function (response) {
             let st = response?.data?.status;
-            if (st === "COMPLETED") {
+            if (st === 201 || st === 200) {
               //setRows(window.tempRows);
               showToast("success", "Account created successfully")
               statusCheck = false
@@ -344,7 +327,7 @@ function CreateAccountModal(props) {
       }
     }
     checkStatus();
-  }
+  }*/
 
   const showToast = (type, message, position = "top-right", autoClose = 5000) => {
     let toastConfig = {
@@ -467,14 +450,14 @@ function CreateAccountModal(props) {
           </Step>
         ))}
       </Stepper>
-      <div>
+     
         {activeStep === steps.length ? (
-          <div>
+          <>
             <Typography className={classes.instructions}>All steps completed</Typography>
             <Button onClick={handleReset}>Reset</Button>
-          </div>
+          </>
         ) : (
-          <div>
+          
             <Table size="medium" style={{ width: 900 }} >
                         <TableBody>
                              {activeStep === 0 ? 
@@ -485,16 +468,14 @@ function CreateAccountModal(props) {
                                     <FormControlLabel value="sub" control={<Radio color="primary" />} label="Sub Account" />
                                     </RadioGroup>
                                     { radioVal === "master" ? (
-                                        <React.Fragment><div>
+                                        <React.Fragment>
                             <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="Name" inputProps={{autoComplete: 'new-password'}} size="small" variant="outlined" value={name} onChange={handleNameChange} style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Name" margin="normal" inputRef={nameInputRef}  />
+                                <TextField label="Name" inputProps={{autoComplete: 'new-password'}} size="small" variant="outlined" value={name} onChange={handleNameChange} style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Name" margin="normal"  />
                                 </TableCell>
                                 </TableRow><TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                {/*<TextField label="Tenant" size="small" variant="outlined" style={{ margin: 8 }} placeholder="Tenant" fullWidth margin="normal" inputRef={tenantRef} required />*/}
-                                
-                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" inputRef={tenantRef} required className={classes.formControl}>
+                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" required className={classes.formControl}>
                                     <InputLabel id="tenant-label">Organization</InputLabel>
                                     <Select
                                     labelId="tenant-label"
@@ -506,9 +487,9 @@ function CreateAccountModal(props) {
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value={1}>One</MenuItem>
+                                    <MenuItem value={2}>Two</MenuItem>
+                                    <MenuItem value={3}>Three</MenuItem>
                                     </Select>
                                 </FormControl>
                                 </TableCell>
@@ -516,9 +497,7 @@ function CreateAccountModal(props) {
                         </TableRow>   
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                {/*<TextField label="Account Type" size="small" variant="outlined" style={{ margin: 8 }} placeholder="Account Type" fullWidth margin="normal" inputRef={accountTypeRef} required />*/}
-                                
-                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" inputRef={accountTypeRef} required className={classes.formControl}>
+                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" required className={classes.formControl}>
                                     <InputLabel id="account-type-label">Account Type</InputLabel>
                                     <Select
                                     labelId="account-type-label"
@@ -530,9 +509,9 @@ function CreateAccountModal(props) {
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value="INDIVIDUAL">INDIVIDUAL</MenuItem>
+                                    <MenuItem value="ENTERPRISE">ENTERPRISE</MenuItem>
+                                    <MenuItem value="RESELLER">RESELLER</MenuItem>
                                     </Select>
                                 </FormControl>
                                 
@@ -540,21 +519,19 @@ function CreateAccountModal(props) {
                                 </TableCell>
                                 </TableRow><TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="External Account ID" autoComplete='off' size="small" variant="outlined" style={{ margin: 8, minWidth: 400, marginBottom: 20 }} placeholder="ID" disabled margin="normal" inputRef={externalAccountIdRef} />
+                                <TextField label="External Account ID" value={externalAccountId} autoComplete='off' size="small" variant="outlined" style={{ margin: 8, minWidth: 400, marginBottom: 20 }} placeholder="ID" disabled margin="normal" />
                                 </TableCell>
                                 
-                        </TableRow></div> </React.Fragment> ) : (
+                        </TableRow> </React.Fragment> ) : (
                         <React.Fragment>
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                            <TextField label="Name" inputProps={{autoComplete: 'new-password'}} size="small" variant="outlined" value={name} onChange={handleNameChange} style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Name" margin="normal" inputRef={nameInputRef}  />
+                            <TextField label="Name" inputProps={{autoComplete: 'new-password'}} size="small" variant="outlined" value={name} onChange={handleNameChange} style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Name" margin="normal"  />
                                 </TableCell>
                                 </TableRow>
                                 <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                {/*<TextField label="Tenant" size="small" variant="outlined" style={{ margin: 8 }} placeholder="Tenant" fullWidth margin="normal" inputRef={tenantRef} required />*/}
-                                
-                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" inputRef={tenantRef} required className={classes.formControl}>
+                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" required className={classes.formControl}>
                                     <InputLabel id="tenant-label">Organization</InputLabel>
                                     <Select
                                     labelId="tenant-label"
@@ -566,9 +543,9 @@ function CreateAccountModal(props) {
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value={1}>One</MenuItem>
+                                    <MenuItem value={2}>Two</MenuItem>
+                                    <MenuItem value={3}>Three</MenuItem>
                                     </Select>
                                 </FormControl>
                                 </TableCell>
@@ -578,15 +555,30 @@ function CreateAccountModal(props) {
                                 
                                 <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="Parent Account" inputProps={{autoComplete: 'new-password'}} size="small" variant="outlined" onChange={handleParentAccountChange} value={parentAccount} style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Parent Account" margin="normal" inputRef={parentAccountRef} />
+                                {/*<TextField label="Parent Account" inputProps={{autoComplete: 'new-password'}} size="small" variant="outlined" onChange={handleParentAccountChange} value={parentAccount} style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Parent Account" margin="normal" />*/}
+                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" required className={classes.formControl}>
+                                    <InputLabel id="parent-account-label">Parent Account</InputLabel>
+                                    <Select
+                                    labelId="parent-account-label"
+                                    id="parent-account"
+                                    onChange={handleParentAccountChange} value={parentAccount}
+                                    label="Parent Account"
+                                    >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={1}>One</MenuItem>
+                                    <MenuItem value={2}>Two</MenuItem>
+                                    <MenuItem value={3}>Three</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                
                                 </TableCell>
                                 
                         </TableRow>
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                {/*<TextField label="Account Type" size="small" variant="outlined" style={{ margin: 8 }} placeholder="Account Type" fullWidth margin="normal" inputRef={accountTypeRef} required />*/}
-                                
-                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" inputRef={accountTypeRef} required className={classes.formControl}>
+                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" required className={classes.formControl}>
                                     <InputLabel id="account-type-label">Account Type</InputLabel>
                                     <Select
                                     labelId="account-type-label"
@@ -598,9 +590,9 @@ function CreateAccountModal(props) {
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value="INDIVIDUAL">INDIVIDUAL</MenuItem>
+                                    <MenuItem value="ENTERPRISE">ENTERPRISE</MenuItem>
+                                    <MenuItem value="RESELLER">RESELLER</MenuItem>
                                     </Select>
                                 </FormControl>
                                 
@@ -609,7 +601,7 @@ function CreateAccountModal(props) {
                                 </TableRow>  
                         <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="External Account ID" size="small" variant="outlined" style={{ margin: 8, minWidth: 400, marginBottom: 20 }} placeholder="ID" disabled margin="normal" inputRef={externalAccountIdRef} />
+                                <TextField label="External Account ID" value={externalAccountId} size="small" variant="outlined" style={{ margin: 8, minWidth: 400, marginBottom: 20 }} placeholder="ID" disabled margin="normal" />
                                 </TableCell>
                                 
                         </TableRow>
@@ -618,23 +610,23 @@ function CreateAccountModal(props) {
                             <React.Fragment>
                             <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="First Name" inputProps={{autoComplete: 'new-password'}} value={firstName} onChange={handleFirstNameChange} size="small" variant="outlined" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="First Name" margin="normal" inputRef={firstNameRef} />
+                                    <TextField label="First Name" inputProps={{autoComplete: 'new-password'}} value={firstName} onChange={handleFirstNameChange} size="small" variant="outlined" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="First Name" margin="normal" />
                                     </TableCell>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="External Account ID" autoComplete='off' size="small" variant="outlined" style={{ margin: 8, marginLeft: '8%', color: '#000', minWidth: 400 }} placeholder="ID" disabled margin="normal" inputRef={externalAccountIdRef} />
+                                    <TextField label="External Account ID" autoComplete='off' size="small" variant="outlined" style={{ margin: 8, marginLeft: '8%', color: '#000', minWidth: 400 }} placeholder="ID" disabled margin="normal" />
                                     </TableCell>
                                     </TableRow><TableRow>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Last Name" inputProps={{autoComplete: 'new-password'}} value={lastName} onChange={handleLastNameChange} size="small" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Last Name" margin="normal" inputRef={lastNameRef} />
+                                    <TextField label="Last Name" inputProps={{autoComplete: 'new-password'}} value={lastName} onChange={handleLastNameChange} size="small" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Last Name" margin="normal" />
                                     </TableCell>
                                     
                             </TableRow>   
                             <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Email" inputProps={{autoComplete: 'new-password'}} size="small" value={email} onChange={handleEmailChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Email" margin="normal" inputRef={emailRef} />
+                                    <TextField label="Email" inputProps={{autoComplete: 'new-password'}} size="small" value={email} onChange={handleEmailChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="ex: test@test.com" margin="normal" />
                                     </TableCell></TableRow><TableRow>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Phone Number" inputProps={{autoComplete: 'new-password'}} size="small" value={phone} onChange={handlePhoneChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400, marginBottom: 79 }} placeholder="Phone Number" margin="normal" inputRef={phoneRef} />
+                                    <TextField label="Phone Number" inputProps={{autoComplete: 'new-password'}} size="small" value={phone} onChange={handlePhoneChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400, marginBottom: 79 }} placeholder="ex: 1234567890" margin="normal" />
                                     </TableCell>
                                     
                             </TableRow>
@@ -643,20 +635,19 @@ function CreateAccountModal(props) {
                             <React.Fragment>
                             <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Address Line 1" inputProps={{autoComplete: 'new-password'}} size="small" value={addressOne} onChange={handleAddressOneChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Address Line 1" margin="normal" inputRef={addressOneRef} />
+                                    <TextField label="Address Line 1" inputProps={{autoComplete: 'new-password'}} size="small" value={addressOne} onChange={handleAddressOneChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Address Line 1" margin="normal" />
                                     </TableCell>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Postal Code" inputProps={{autoComplete: 'new-password'}} size="small" value={post} onChange={handlePostChange} variant="outlined" style={{ margin: 8, marginLeft: '8%', color: '#000', minWidth: 400 }}placeholder="Postal Code" margin="normal" inputRef={postalCodeRef} />
+                                    <TextField label="Postal Code" inputProps={{autoComplete: 'new-password'}} size="small" value={post} onChange={handlePostChange} variant="outlined" style={{ margin: 8, marginLeft: '8%', color: '#000', minWidth: 400 }}placeholder="Postal Code" margin="normal" />
                                     </TableCell>
                                     
                             </TableRow>   
                             <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Address Line 2" inputProps={{autoComplete: 'new-password'}} size="small" value={addressTwo} onChange={handleAddressTwoChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Address Line 2" margin="normal" inputRef={addressTwoRef} />
+                                    <TextField label="Address Line 2" inputProps={{autoComplete: 'new-password'}} size="small" value={addressTwo} onChange={handleAddressTwoChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Address Line 2" margin="normal" />
                                     </TableCell>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                   {/* <TextField label="Country" size="small" value={country} onChange={handleCountryChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Country" margin="normal" required inputRef={countryRef} />*/}
-                                    <FormControl size="small" style={{minWidth: 400, margin: 10, marginLeft: '8%'}} variant="outlined" inputRef={countryRef} required className={classes.formControl}>
+                                    <FormControl size="small" style={{minWidth: 400, margin: 10, marginLeft: '8%'}} variant="outlined" required className={classes.formControl}>
                                     <InputLabel id="country-label">Country</InputLabel>
                                     <Select
                                     labelId="country-label"
@@ -668,9 +659,9 @@ function CreateAccountModal(props) {
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    <MenuItem value="INDIA">India</MenuItem>
+                                    <MenuItem value="USA">USA</MenuItem>
+                                    <MenuItem value="UK">UK</MenuItem>
                                     </Select>
                                 </FormControl>
                                     
@@ -680,10 +671,10 @@ function CreateAccountModal(props) {
                             </TableRow>
                             <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="State & Province" inputProps={{autoComplete: 'new-password'}} value={state} onChange={handleStateChange} size="small" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="State & Province" margin="normal" inputRef={stateRef} />
+                                    <TextField label="State & Province" inputProps={{autoComplete: 'new-password'}} value={state} onChange={handleStateChange} size="small" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="State & Province" margin="normal" />
                                     </TableCell></TableRow><TableRow>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="City" size="small" inputProps={{autoComplete: 'new-password'}} value={city} onChange={handleCityChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400, marginBottom: 79 }} placeholder="City" margin="normal" required inputRef={cityRef} />
+                                    <TextField label="City" size="small" inputProps={{autoComplete: 'new-password'}} value={city} onChange={handleCityChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400, marginBottom: 79 }} placeholder="City" margin="normal" required />
                                     </TableCell>
                             </TableRow>
                             
@@ -693,9 +684,9 @@ function CreateAccountModal(props) {
                         </TableBody>
                     </Table>
             
-          </div>
+          
         )}
-      </div>
+      
     </div>
 
                     </TableContainer>                                            
@@ -706,7 +697,7 @@ function CreateAccountModal(props) {
           </DialogContent>
           <DialogActions>
 
-          <div>
+          
           <Button onClick={handleClose} color="primary" variant="contained" className={classes.operationButton}>
             Cancel
           </Button>
@@ -723,7 +714,7 @@ function CreateAccountModal(props) {
               </Button>  ) :  ( <Button type="submit" variant="contained" color="primary" >
                  Create
               </Button> ) }
-            </div>
+            
           </DialogActions>
           </form>
         </Dialog>

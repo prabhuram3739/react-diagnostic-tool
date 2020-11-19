@@ -886,13 +886,13 @@ export default function ListAccounts() {
       {/*<ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />*/}
           <Box className={classes.root} style={{ height: '100%', width: '100%' }} display="flex" flexDirection="row" bgcolor="grey.300">
             <Box bgcolor="background.paper" flexGrow={1}>
-              <form className={classes.root} noValidate autoComplete="off" style={{ float: "left" }}>
+              {/*<form className={classes.root} noValidate autoComplete="off" style={{ float: "left" }}>
                 <span className="topAlign">
                   Total rows selected:
             {' '}
                   {selection.length}
                 </span>
-              </form>
+  </form>*/}
 
             </Box>
             <Box bgcolor="background.paper">
