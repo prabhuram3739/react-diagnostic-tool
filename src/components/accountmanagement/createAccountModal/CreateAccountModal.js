@@ -85,7 +85,7 @@ function CreateAccountModal(props) {
   const [name, setName] = React.useState('');
   const [firstName, setFirstName] = React.useState('');
   const [lastName, setLastName] = React.useState('');
-  const [externalAccountId, setexternalAccountId] = React.useState('');
+  const [externalAccountId] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [phone, setPhone] = React.useState('');
   const [addressOne, setAddressOne] = React.useState('');
@@ -329,7 +329,7 @@ function CreateAccountModal(props) {
     checkStatus();
   }*/
 
-  const showToast = (type, message, position = "top-right", autoClose = 5000) => {
+  /*const showToast = (type, message, position = "top-right", autoClose = 5000) => {
     let toastConfig = {
       position: position,
       autoClose: autoClose,
@@ -345,7 +345,7 @@ function CreateAccountModal(props) {
       toast.error(message, toastConfig);
     }
 
-  }
+  }*/
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -416,6 +416,7 @@ function CreateAccountModal(props) {
   };
 
   const handleClose = () => {
+    setActiveStep(0);
     setOpen(false);
   };
 
@@ -458,9 +459,9 @@ function CreateAccountModal(props) {
           </>
         ) : (
           
-            <Table size="medium" style={{ width: 900 }} >
-                        <TableBody>
-                             {activeStep === 0 ? 
+            <Table size="medium" style={{ width: 900 }}>
+                <TableBody>
+                {activeStep === 0 ? 
                              (
                                 <React.Fragment>
                                     <RadioGroup row aria-label="accounttype" name="accounttype" defaultValue="master" onChange={handleRadioValueChange} style={{marginLeft: '1%'}}>
@@ -610,7 +611,7 @@ function CreateAccountModal(props) {
                             <React.Fragment>
                             <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="First Name" inputProps={{autoComplete: 'new-password'}} value={firstName} onChange={handleFirstNameChange} size="small" variant="outlined" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="First Name" margin="normal" />
+                                    <TextField label="First Name" inputProps={{autoComplete: 'new-password'}} value={firstName} onChange={handleFirstNameChange} size="small" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="First Name" margin="normal" />
                                     </TableCell>
                                     <TableCell align="left" className={classes.boaderlessTr}>
                                     <TextField label="External Account ID" autoComplete='off' size="small" variant="outlined" style={{ margin: 8, marginLeft: '8%', color: '#000', minWidth: 400 }} placeholder="ID" disabled margin="normal" />
@@ -705,6 +706,7 @@ function CreateAccountModal(props) {
                 disabled={activeStep === 0}
                 onClick={handleBack}
                 className={classes.operationButton}
+                style={{color: activeStep === 0 ?  'black' : 'white'}}
               >
                 Back
               </Button>

@@ -899,7 +899,7 @@ export default function ListAccounts() {
               <Divider component="span" className={classes.divider} orientation="vertical" />
               <span onClick={() => setModalNewAccountShow(true)}>
 
-        <CreateAccountModal show={ModalNewAccountShow} onHide={() => setModalNewAccountShow(false)} /> </span>
+        <CreateAccountModal activeStep={0} show={ModalNewAccountShow} onHide={() => setModalNewAccountShow(false)} /> </span>
           </Box>
 </Box>
           <Box className={classes.root} style={{ height: '100%', overflow: 'auto', width: '100%' }} display="flex" >
