@@ -58,6 +58,11 @@ div[class*=' Editor-root'] {
     color: #000 !important;
 }
 
+
+/*.MuiSvgIcon-root {
+    color: #FFF !important;
+}*/
+
 .MuiButton-containedSecondary {
     background-color: #1976d2 !important;
 }

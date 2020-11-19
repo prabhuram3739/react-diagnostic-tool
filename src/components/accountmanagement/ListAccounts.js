@@ -166,7 +166,7 @@ export default function ListAccounts() {
   const columns = [
     { name: 'id', title: 'Account ID', },
     { name: 'name', title: 'Name', },
-    { name: 'tenantId', title: 'Tenant', },
+    { name: 'tenantId', title: 'Organization', },
     { name: 'accountType', title: 'Account Type', },
     { name: 'parentAccountId', title: 'Parent Account', },
     { name: 'accountState', title: 'Account Status', },
@@ -221,7 +221,7 @@ export default function ListAccounts() {
             <TextField
               margin="normal"
               name="tenantId"
-              label="Tenant"
+              label="Organization"
               value={row.tenantId ? row.tenantId : ""}
               onChange={processValueChange}
               readOnly
@@ -695,7 +695,7 @@ export default function ListAccounts() {
   );
   React.useEffect(() => {
     let rows = [];
-    let rowsToBeModified = [
+    /*let rowsToBeModified = [
         {
             "id": 2,
             "tenantId": 1,
@@ -741,7 +741,7 @@ export default function ListAccounts() {
             "extId": "EXT2",
             "name": "test_account_1",
             "accountType": "INDIVIDUAL",
-            "accountState": "DRAFT",
+            "accountState": "SUSPENDED",
             "billingAccountId": 1,
             "custFields": {
                 "prop2": "value2",
@@ -773,8 +773,87 @@ export default function ListAccounts() {
                 "isDefault": true,
                 "accountMasterId": 3
             }
+        },
+        {
+            "id": 4,
+            "tenantId": 1,
+            "extId": "EXT2",
+            "name": "test_account_2",
+            "accountType": "RESELLER",
+            "accountState": "RETIRED",
+            "billingAccountId": 1,
+            "custFields": {
+                "prop2": "value2",
+                "prop1": "value1",
+                "prop3": "value3"
+            },
+            "parentAccountId": 1,
+            "address": {
+                "id": 2,
+                "tenantId": 1,
+                "extId": "EXT2",
+                "addressLine1": "Clement-Town",
+                "addressLine2": "NA",
+                "state": "Uttarakhand",
+                "city": "Dehradun",
+                "postcode": "248002",
+                "country": "India",
+                "isDefault": true,
+                "accountMasterId": 3
+            },
+            "contact": {
+                "id": 2,
+                "tenantId": 1,
+                "extId": "EXT2",
+                "firstName": "Amit",
+                "lastName": "Aswal",
+                "email": "test2@gmail.com",
+                "phone": "9908294682",
+                "isDefault": true,
+                "accountMasterId": 3
+            }
+        },
+        {
+            "id": 5,
+            "tenantId": 1,
+            "extId": "EXT2",
+            "name": "test_account_3",
+            "accountType": "ENTERPRISE",
+            "accountState": "ACTIVE",
+            "billingAccountId": 1,
+            "custFields": {
+                "prop2": "value2",
+                "prop1": "value1",
+                "prop3": "value3"
+            },
+            "parentAccountId": 4,
+            "address": {
+                "id": 2,
+                "tenantId": 1,
+                "extId": "EXT2",
+                "addressLine1": "Clement-Town",
+                "addressLine2": "NA",
+                "state": "Uttarakhand",
+                "city": "Dehradun",
+                "postcode": "248002",
+                "country": "India",
+                "isDefault": true,
+                "accountMasterId": 3
+            },
+            "contact": {
+                "id": 2,
+                "tenantId": 1,
+                "extId": "EXT2",
+                "firstName": "Amit",
+                "lastName": "Aswal",
+                "email": "test2@gmail.com",
+                "phone": "9908294682",
+                "isDefault": true,
+                "accountMasterId": 3
+            }
         }
-    ];
+    ];*/
+    let rowsToBeModified = data;
     // Check if the count is zero or undefined to display the no records message
     if (!loading) {
       if ((count === 0) || (count === undefined)) {

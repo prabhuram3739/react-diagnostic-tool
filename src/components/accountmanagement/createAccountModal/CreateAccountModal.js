@@ -24,6 +24,14 @@ import 'react-toastify/dist/ReactToastify.css';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FilledInput from '@material-ui/core/FilledInput';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -34,12 +42,19 @@ const useStyles = makeStyles((theme) => ({
       minHeight: 150
     },
     formControl: {
-      marginTop: theme.spacing(2),
+      marginTop: theme.spacing(0),
       minWidth: 120,
     },
     formControlLabel: {
       marginTop: theme.spacing(1),
     },
+  selectEmpty: {
+    marginTop: theme.spacing(2)
+  },
+  boaderlessTr: {
+      borderBottom: 0,
+      padding: 0
+  },
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
@@ -84,6 +99,20 @@ function CreateAccountModal(props) {
   const [maxWidth] = React.useState('md');
   const [activeStep, setActiveStep] = React.useState(0);
   const [radioVal, setRadioVal] = React.useState("master");
+  const [name, setName] = React.useState('');
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [phone, setPhone] = React.useState('');
+  const [addressOne, setAddressOne] = React.useState('');
+  const [addressTwo, setAddressTwo] = React.useState('');
+  const [post, setPost] = React.useState('');
+  const [country, setCountry] = React.useState('');
+  const [state, setState] = React.useState('');
+  const [city, setCity] = React.useState('');
+  const [parentAccount, setParentAccount] = React.useState('');
+  const [tenantDrpDown, setTenantDrpDown] = React.useState('');
+  const [accountTypeDrpDown, setAccountTypeDrpDown] = React.useState('');
   const steps = getSteps();
 
   const nameInputRef = useRef();
@@ -343,6 +372,62 @@ function CreateAccountModal(props) {
     setActiveStep(0);
   };
 
+  const handleTenantChange = (e) => {
+    setTenantDrpDown(e.target.value);
+  };
+
+  const handleAccountTypeChange = (e) => {
+    setAccountTypeDrpDown(e.target.value);
+  };
+
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
+  };
+
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePhoneChange = (e) => {
+    setPhone(e.target.value);
+  };
+
+  const handleAddressOneChange = (e) => {
+    setAddressOne(e.target.value);
+  };
+
+  const handleAddressTwoChange = (e) => {
+    setAddressTwo(e.target.value);
+  };
+
+  const handlePostChange = (e) => {
+    setPost(e.target.value);
+  };
+
+  const handleCountryChange = (e) => {
+    setCountry(e.target.value);
+  };
+
+  const handleStateChange = (e) => {
+    setState(e.target.value);
+  };
+
+  const handleCityChange = (e) => {
+    setCity(e.target.value);
+  };
+
+  const handleParentAccountChange = (e) => {
+    setParentAccount(e.target.value);
+  };
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -395,46 +480,136 @@ function CreateAccountModal(props) {
                              {activeStep === 0 ? 
                              (
                                 <React.Fragment>
-                                    <RadioGroup row aria-label="accounttype" name="accounttype" defaultValue="master" onChange={handleRadioValueChange} style={{marginLeft: '5%'}}>
+                                    <RadioGroup row aria-label="accounttype" name="accounttype" defaultValue="master" onChange={handleRadioValueChange} style={{marginLeft: '1%'}}>
                                     <FormControlLabel value="master" control={<Radio color="primary" />} label="Master Account" />
                                     <FormControlLabel value="sub" control={<Radio color="primary" />} label="Sub Account" />
                                     </RadioGroup>
                                     { radioVal === "master" ? (
-                                        <React.Fragment>
-                        <TableRow>
+                                        <React.Fragment><div>
+                            <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="Name" style={{ margin: 8, color: '#000' }} placeholder="Name" fullWidth margin="normal" inputRef={nameInputRef}  />
+                                <TextField label="Name" inputProps={{autoComplete: 'new-password'}} size="small" variant="outlined" value={name} onChange={handleNameChange} style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Name" margin="normal" inputRef={nameInputRef}  />
                                 </TableCell>
+                                </TableRow><TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="Tenant" style={{ margin: 8 }} placeholder="Tenant" fullWidth margin="normal" inputRef={tenantRef} required />
+                                {/*<TextField label="Tenant" size="small" variant="outlined" style={{ margin: 8 }} placeholder="Tenant" fullWidth margin="normal" inputRef={tenantRef} required />*/}
+                                
+                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" inputRef={tenantRef} required className={classes.formControl}>
+                                    <InputLabel id="tenant-label">Organization</InputLabel>
+                                    <Select
+                                    labelId="tenant-label"
+                                    id="tenant"
+                                    value={tenantDrpDown}
+                                    onChange={handleTenantChange}
+                                    label="Organization"
+                                    >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    </Select>
+                                </FormControl>
                                 </TableCell>
                                 
                         </TableRow>   
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="Account Type" style={{ margin: 8 }} placeholder="Account Type" fullWidth margin="normal" inputRef={accountTypeRef} required />
+                                {/*<TextField label="Account Type" size="small" variant="outlined" style={{ margin: 8 }} placeholder="Account Type" fullWidth margin="normal" inputRef={accountTypeRef} required />*/}
+                                
+                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" inputRef={accountTypeRef} required className={classes.formControl}>
+                                    <InputLabel id="account-type-label">Account Type</InputLabel>
+                                    <Select
+                                    labelId="account-type-label"
+                                    id="account-type"
+                                    value={accountTypeDrpDown}
+                                    onChange={handleAccountTypeChange}
+                                    label="Account Type"
+                                    >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                
+                                
                                 </TableCell>
+                                </TableRow><TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="External Account ID" style={{ margin: 8 }} placeholder="ID" disabled fullWidth margin="normal" inputRef={externalAccountIdRef} />
+                                <TextField label="External Account ID" autoComplete='off' size="small" variant="outlined" style={{ margin: 8, minWidth: 400, marginBottom: 20 }} placeholder="ID" disabled margin="normal" inputRef={externalAccountIdRef} />
                                 </TableCell>
                                 
-                        </TableRow> </React.Fragment> ) : (
+                        </TableRow></div> </React.Fragment> ) : (
                         <React.Fragment>
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="Name" style={{ margin: 8, color: '#000' }} placeholder="Name" fullWidth margin="normal" inputRef={nameInputRef}  />
+                            <TextField label="Name" inputProps={{autoComplete: 'new-password'}} size="small" variant="outlined" value={name} onChange={handleNameChange} style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Name" margin="normal" inputRef={nameInputRef}  />
                                 </TableCell>
+                                </TableRow>
+                                <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="Parent Account" style={{ margin: 8 }} placeholder="Parent Account" fullWidth margin="normal" inputRef={parentAccountRef} />
+                                {/*<TextField label="Tenant" size="small" variant="outlined" style={{ margin: 8 }} placeholder="Tenant" fullWidth margin="normal" inputRef={tenantRef} required />*/}
+                                
+                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" inputRef={tenantRef} required className={classes.formControl}>
+                                    <InputLabel id="tenant-label">Organization</InputLabel>
+                                    <Select
+                                    labelId="tenant-label"
+                                    id="tenant"
+                                    value={tenantDrpDown}
+                                    onChange={handleTenantChange}
+                                    label="Organization"
+                                    >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    </Select>
+                                </FormControl>
                                 </TableCell>
                                 
                         </TableRow>   
+                                
+                                
+                                <TableRow>
+                                <TableCell align="left" className={classes.boaderlessTr}>
+                                <TextField label="Parent Account" inputProps={{autoComplete: 'new-password'}} size="small" variant="outlined" onChange={handleParentAccountChange} value={parentAccount} style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Parent Account" margin="normal" inputRef={parentAccountRef} />
+                                </TableCell>
+                                
+                        </TableRow>
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="Account Type" style={{ margin: 8 }} placeholder="Account Type" fullWidth margin="normal" inputRef={accountTypeRef} required />
+                                {/*<TextField label="Account Type" size="small" variant="outlined" style={{ margin: 8 }} placeholder="Account Type" fullWidth margin="normal" inputRef={accountTypeRef} required />*/}
+                                
+                                <FormControl size="small" style={{minWidth: 400, marginLeft: '3%', margin: 10}} variant="outlined" inputRef={accountTypeRef} required className={classes.formControl}>
+                                    <InputLabel id="account-type-label">Account Type</InputLabel>
+                                    <Select
+                                    labelId="account-type-label"
+                                    id="account-type"
+                                    value={accountTypeDrpDown}
+                                    onChange={handleAccountTypeChange}
+                                    label="Account Type"
+                                    >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                
+                                
                                 </TableCell>
+                                </TableRow>  
+                        <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                <TextField label="External Account ID" style={{ margin: 8 }} placeholder="ID" disabled fullWidth margin="normal" inputRef={externalAccountIdRef} />
+                                <TextField label="External Account ID" size="small" variant="outlined" style={{ margin: 8, minWidth: 400, marginBottom: 20 }} placeholder="ID" disabled margin="normal" inputRef={externalAccountIdRef} />
                                 </TableCell>
                                 
                         </TableRow>
@@ -443,54 +618,72 @@ function CreateAccountModal(props) {
                             <React.Fragment>
                             <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="First Name" style={{ margin: 8 }} placeholder="First Name" fullWidth margin="normal" inputRef={firstNameRef} />
+                                    <TextField label="First Name" inputProps={{autoComplete: 'new-password'}} value={firstName} onChange={handleFirstNameChange} size="small" variant="outlined" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="First Name" margin="normal" inputRef={firstNameRef} />
                                     </TableCell>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Last Name" style={{ margin: 8 }} placeholder="Last Name" fullWidth margin="normal" inputRef={lastNameRef} />
+                                    <TextField label="External Account ID" autoComplete='off' size="small" variant="outlined" style={{ margin: 8, marginLeft: '8%', color: '#000', minWidth: 400 }} placeholder="ID" disabled margin="normal" inputRef={externalAccountIdRef} />
+                                    </TableCell>
+                                    </TableRow><TableRow>
+                                    <TableCell align="left" className={classes.boaderlessTr}>
+                                    <TextField label="Last Name" inputProps={{autoComplete: 'new-password'}} value={lastName} onChange={handleLastNameChange} size="small" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Last Name" margin="normal" inputRef={lastNameRef} />
                                     </TableCell>
                                     
                             </TableRow>   
                             <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Email"  style={{ margin: 8 }} placeholder="Email" fullWidth margin="normal" inputRef={emailRef} />
-                                    </TableCell>
+                                    <TextField label="Email" inputProps={{autoComplete: 'new-password'}} size="small" value={email} onChange={handleEmailChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Email" margin="normal" inputRef={emailRef} />
+                                    </TableCell></TableRow><TableRow>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Phone Number" style={{ margin: 8 }} placeholder="Phone Number" fullWidth margin="normal" inputRef={phoneRef} />
+                                    <TextField label="Phone Number" inputProps={{autoComplete: 'new-password'}} size="small" value={phone} onChange={handlePhoneChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400, marginBottom: 79 }} placeholder="Phone Number" margin="normal" inputRef={phoneRef} />
                                     </TableCell>
                                     
-                            </TableRow>
-                            <TableRow>
-                            <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="External Account ID" style={{ margin: 8 }} placeholder="ID" disabled fullWidth margin="normal" inputRef={externalAccountIdRef} />
-                                    </TableCell>
                             </TableRow>
                             
                             </React.Fragment> ) : activeStep === 2 ? ( 
                             <React.Fragment>
                             <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Address Line 1" style={{ margin: 8 }} placeholder="Address Line 1" fullWidth margin="normal" inputRef={addressOneRef} />
+                                    <TextField label="Address Line 1" inputProps={{autoComplete: 'new-password'}} size="small" value={addressOne} onChange={handleAddressOneChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Address Line 1" margin="normal" inputRef={addressOneRef} />
                                     </TableCell>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Postal Code" style={{ margin: 8 }} placeholder="Postal Code" fullWidth margin="normal" inputRef={postalCodeRef} />
+                                    <TextField label="Postal Code" inputProps={{autoComplete: 'new-password'}} size="small" value={post} onChange={handlePostChange} variant="outlined" style={{ margin: 8, marginLeft: '8%', color: '#000', minWidth: 400 }}placeholder="Postal Code" margin="normal" inputRef={postalCodeRef} />
                                     </TableCell>
                                     
                             </TableRow>   
                             <TableRow>
                                 <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Address Line 2"  style={{ margin: 8 }} placeholder="Address Line 2" fullWidth margin="normal" inputRef={addressTwoRef} />
+                                    <TextField label="Address Line 2" inputProps={{autoComplete: 'new-password'}} size="small" value={addressTwo} onChange={handleAddressTwoChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Address Line 2" margin="normal" inputRef={addressTwoRef} />
                                     </TableCell>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="Country" style={{ margin: 8 }} placeholder="Country" fullWidth margin="normal" required inputRef={countryRef} />
+                                   {/* <TextField label="Country" size="small" value={country} onChange={handleCountryChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="Country" margin="normal" required inputRef={countryRef} />*/}
+                                    <FormControl size="small" style={{minWidth: 400, margin: 10, marginLeft: '8%'}} variant="outlined" inputRef={countryRef} required className={classes.formControl}>
+                                    <InputLabel id="country-label">Country</InputLabel>
+                                    <Select
+                                    labelId="country-label"
+                                    id="country"
+                                    value={country}
+                                    onChange={handleCountryChange}
+                                    label="Country"
+                                    >
+                                    <MenuItem value="">
+                                        <em>None</em>
+                                    </MenuItem>
+                                    <MenuItem value={10}>Ten</MenuItem>
+                                    <MenuItem value={20}>Twenty</MenuItem>
+                                    <MenuItem value={30}>Thirty</MenuItem>
+                                    </Select>
+                                </FormControl>
+                                    
+                                    
                                     </TableCell>
                                     
                             </TableRow>
                             <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="State & Province"  style={{ margin: 8 }} placeholder="State & Province" fullWidth margin="normal" inputRef={stateRef} />
-                                    </TableCell>
+                                    <TextField label="State & Province" inputProps={{autoComplete: 'new-password'}} value={state} onChange={handleStateChange} size="small" variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400 }} placeholder="State & Province" margin="normal" inputRef={stateRef} />
+                                    </TableCell></TableRow><TableRow>
                                     <TableCell align="left" className={classes.boaderlessTr}>
-                                    <TextField label="City" style={{ margin: 8 }} placeholder="City" fullWidth margin="normal" required inputRef={cityRef} />
+                                    <TextField label="City" size="small" inputProps={{autoComplete: 'new-password'}} value={city} onChange={handleCityChange} variant="outlined" style={{ margin: 8, color: '#000', minWidth: 400, marginBottom: 79 }} placeholder="City" margin="normal" required inputRef={cityRef} />
                                     </TableCell>
                             </TableRow>
                             
