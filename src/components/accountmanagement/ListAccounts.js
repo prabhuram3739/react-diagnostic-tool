@@ -148,6 +148,7 @@ export default function ListAccounts() {
   //const [tempRows] = React.useState([]);
   const [rows, setRows] = React.useState([]);
   const [currentPage, setCurrentPage] = React.useState(0);
+  //const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = React.useState(25);
   const [pageSizes] = React.useState([10, 25, 50]);
   const [filters, setFilters] = React.useState();
@@ -186,14 +187,14 @@ export default function ListAccounts() {
     return arr;
 }*/
     const accountTypeArr = [];
-    const accountStateArr = [];
+    const accountStateArr = ["DRAFT", "ACTIVE", "SUSPEND", "RETIRED"];
 
     const onlyUnique = (value, index, self) => {
         return self.indexOf(value) === index;
       }
     data.map((e,i) => {
         accountTypeArr.push(e.accountType);
-        accountStateArr.push(e.accountState);
+        //accountStateArr.push(e.accountState);
         return accountTypeArr;
     });
   const DetailContent = ({ row, ...rest }) => {

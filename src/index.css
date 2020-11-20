@@ -92,6 +92,10 @@
         transition: opacity 5s 3s, width 1s;
     }
     
+    .Toastify {
+        z-index: 999999;
+    }
+    
     .v-loading-indicator-wait {
         width: 96%;
         -webkit-animation: v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards !important;

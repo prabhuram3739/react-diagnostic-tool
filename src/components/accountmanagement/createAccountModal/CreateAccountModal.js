@@ -28,6 +28,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
     form: {
@@ -104,38 +105,7 @@ function CreateAccountModal(props) {
   };
 
   const onSubmitClick = (e) => {
-      e.preventDefault();
-    /*const accountName = name ? name : "test";
-    const tenant = tenantDrpDown ? tenantDrpDown : 1;
-    const parentAccount = 1;
-    const accountType = accountTypeDrpDown ? accountTypeDrpDown : "INDIVIDUAL";
-    const externalAccountId = externalAccountId ? externalAccountId : "EXT2";
-    const firstName = firstName ? firstName : "";
-    const lastName = lastName ? lastName : "";
-    const email = email ? email : "test@test.com";
-    const phone = phone ? phone : "";
-    const addressOne = addressOne ? addressOne : "";
-    const addressTwo = addressTwo ? addressTwo : "";
-    const postalCode = post ? post : "";
-    const country = country ? country : "";
-    const city = city ? city : "";
-    const state = state ? state : "";*/
-
-    /*const accountName = "test";
-    const tenant = 1;
-    const parentAccount = 1;
-    const accountType = "INDIVIDUAL";
-    const externalAccountId = "EXT2";
-    const firstName = "test";
-    const lastName = "test";
-    const email = "test@gmail.com";
-    const phone = "test";
-    const addressOne = "test";
-    const addressTwo =  "test";
-    const postalCode = "test";
-    const country = "test";
-    const city = "test";
-    const state = "test";*/
+    e.preventDefault();
     let row = {
         extId: externalAccountId ? externalAccountId : "EXT2",
         name: name ? name : "",
@@ -198,7 +168,7 @@ function CreateAccountModal(props) {
       accountType: row.accountType ? row.accountType : "INDIVIDUAL",
       accountState: row.accountState ? row.accountState : "DRAFT",
       billingAccountId: row.billingAccountId ? row.billingAccountId : 1,
-      parentAccountId: row.parentAccountId ? row.parentAccountId : 1,
+      parentAccountId: row.parentAccountId ? row.parentAccountId : null,
         address:{
            addressLine1: row.addressLine1 ? row.addressLine1 : "",
            addressLine2: row.addressLine2 ? row.addressLine2 : "",
@@ -439,11 +409,12 @@ function CreateAccountModal(props) {
           aria-labelledby="max-width-dialog-title"
         ><form onSubmit={onSubmitClick} className={classes.form}>
           <DialogTitle id="max-width-dialog-title">Account Creation</DialogTitle>
+          <Divider component="span" className={classes.divider} orientation="horizontal" />
           <DialogContent>
             
                 <Grid container spacing={1} alignContent="center" alignItems="stretch" justify="space-between">
                 <Grid item xs={12} sm={12} lg={12}>
-                    <TableContainer component={Paper} className={classes.boaderlessTable}>
+                    <TableContainer component={Paper} className={classes.boaderlessTable} style={{boxShadow: 'none'}}>
                     <div className={classes.root}>
       <Stepper activeStep={activeStep} alternativeLabel>
         {steps.map((label) => (
@@ -680,6 +651,7 @@ function CreateAccountModal(props) {
                 
            
           </DialogContent>
+          <Divider component="span" className={classes.divider} orientation="horizontal" />
           <DialogActions>
 
           

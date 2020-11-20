@@ -30,7 +30,7 @@ export class DataProvider extends Component {
   getAccountViewData = () => {
     var self = this;
     axios
-    .get(accountApiEndPoint + "/api/account/", {
+    .get(accountApiEndPoint + "/api/account/?page=0&size=50", {
         "Content-Type": "application/json; charset=utf-8"
      })
     .then(function(response) {
