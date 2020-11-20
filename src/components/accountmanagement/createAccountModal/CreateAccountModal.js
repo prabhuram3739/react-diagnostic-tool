@@ -221,7 +221,8 @@ function CreateAccountModal(props) {
            prop2: row.prop2 ?  row.prop2 : "value2",
            prop3: row.prop3 ?  row.prop3 : "value3"
         }
-    }
+    };
+    console.log("API Request data:", params);
     const APIURL = `http://3.127.248.97:8081/api/account`;
     let headers = {
       "Content-Type": "application/json",
@@ -485,12 +486,9 @@ function CreateAccountModal(props) {
                                     onChange={handleTenantChange}
                                     label="Organization"
                                     >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={1}>One</MenuItem>
-                                    <MenuItem value={2}>Two</MenuItem>
-                                    <MenuItem value={3}>Three</MenuItem>
+                                    <MenuItem value="ATT">ATT</MenuItem>
+                                    <MenuItem value="USCC">USCC</MenuItem>
+                                    <MenuItem value="TELE2">TELE2</MenuItem>
                                     </Select>
                                 </FormControl>
                                 </TableCell>
@@ -507,9 +505,6 @@ function CreateAccountModal(props) {
                                     onChange={handleAccountTypeChange}
                                     label="Account Type"
                                     >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
                                     <MenuItem value="INDIVIDUAL">INDIVIDUAL</MenuItem>
                                     <MenuItem value="ENTERPRISE">ENTERPRISE</MenuItem>
                                     <MenuItem value="RESELLER">RESELLER</MenuItem>
@@ -541,12 +536,9 @@ function CreateAccountModal(props) {
                                     onChange={handleTenantChange}
                                     label="Organization"
                                     >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
-                                    <MenuItem value={1}>One</MenuItem>
-                                    <MenuItem value={2}>Two</MenuItem>
-                                    <MenuItem value={3}>Three</MenuItem>
+                                    <MenuItem value="ATT">ATT</MenuItem>
+                                    <MenuItem value="USCC">USCC</MenuItem>
+                                    <MenuItem value="TELE2">TELE2</MenuItem>
                                     </Select>
                                 </FormControl>
                                 </TableCell>
@@ -566,9 +558,6 @@ function CreateAccountModal(props) {
                                     value={parentAccount}
                                     label="Parent Account"
                                     >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
                                     {props.parentAccountIdData.map((ele, index) =>
                                         <MenuItem key={index} value={ele.parent} >{ele.parent}</MenuItem>
                                     )}
@@ -589,9 +578,6 @@ function CreateAccountModal(props) {
                                     onChange={handleAccountTypeChange}
                                     label="Account Type"
                                     >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
                                     <MenuItem value="INDIVIDUAL">INDIVIDUAL</MenuItem>
                                     <MenuItem value="ENTERPRISE">ENTERPRISE</MenuItem>
                                     <MenuItem value="RESELLER">RESELLER</MenuItem>
@@ -658,9 +644,6 @@ function CreateAccountModal(props) {
                                     onChange={handleCountryChange}
                                     label="Country"
                                     >
-                                    <MenuItem value="">
-                                        <em>None</em>
-                                    </MenuItem>
                                     <MenuItem value="INDIA">India</MenuItem>
                                     <MenuItem value="USA">USA</MenuItem>
                                     <MenuItem value="UK">UK</MenuItem>
