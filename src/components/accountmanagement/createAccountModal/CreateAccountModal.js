@@ -100,17 +100,13 @@ function CreateAccountModal(props) {
   const [accountTypeDrpDown, setAccountTypeDrpDown] = React.useState('');
   const steps = getSteps();
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
-
   const onSubmitClick = (e) => {
     e.preventDefault();
     let row = {
         extId: externalAccountId ? externalAccountId : "EXT2",
         name: name ? name : "",
         tenantId: tenantDrpDown ? tenantDrpDown : 1,
-        parentAccountId:  parentAccount ? parentAccount : 1,
+        parentAccountId:  parentAccount ? parentAccount : null,
         accountType : accountTypeDrpDown ?  accountTypeDrpDown : "INDIVIDUAL",
         firstName: firstName ? firstName : "",
         lastName: lastName ? lastName : "",
@@ -192,7 +188,6 @@ function CreateAccountModal(props) {
            prop3: row.prop3 ?  row.prop3 : "value3"
         }
     };
-    console.log("API Request data:", params);
     const APIURL = `http://3.127.248.97:8081/api/account`;
     let headers = {
       "Content-Type": "application/json",
@@ -317,8 +312,18 @@ function CreateAccountModal(props) {
 
   }*/
 
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setRadioVal(radioVal);
+  };
+
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    if(activeStep === 1 && radioVal === "master") {
+        setRadioVal("master");
+    } else if(activeStep === 1 && radioVal === "sub") {
+        setRadioVal("sub");
+    }
   };
 
   const handleReset = () => {
@@ -392,7 +397,11 @@ function CreateAccountModal(props) {
   };
 
   const handleRadioValueChange = (e) => {
-    setRadioVal(e.target.value);
+      if(radioVal === "master") {
+        setRadioVal("sub");
+      } else {
+        setRadioVal("master");
+      }
   };
     return (
       
@@ -436,9 +445,9 @@ function CreateAccountModal(props) {
                 {activeStep === 0 ? 
                              (
                                 <React.Fragment>
-                                    <RadioGroup row aria-label="accounttype" name="accounttype" defaultValue="master" onChange={handleRadioValueChange} style={{marginLeft: '1%'}}>
-                                    <FormControlLabel value="master" control={<Radio color="primary" />} label="Master Account" />
-                                    <FormControlLabel value="sub" control={<Radio color="primary" />} label="Sub Account" />
+                                    <RadioGroup row aria-label="accounttype" name="accounttype" defaultValue={radioVal === "master" ?  "master" : "sub" } style={{marginLeft: '1%'}}>
+                                    <FormControlLabel value="master" onChange={handleRadioValueChange} control={<Radio color="primary" />} label="Master Account" />
+                                    <FormControlLabel value="sub" onChange={handleRadioValueChange} control={<Radio color="primary" />} label="Sub Account" />
                                     </RadioGroup>
                                     { radioVal === "master" ? (
                                         <React.Fragment>
@@ -489,7 +498,7 @@ function CreateAccountModal(props) {
                                 <TextField label="External Account ID" value={externalAccountId} autoComplete='off' size="small" variant="outlined" style={{ margin: 8, minWidth: 400, marginBottom: 20 }} placeholder="ID" disabled margin="normal" />
                                 </TableCell>
                                 
-                        </TableRow> </React.Fragment> ) : (
+                        </TableRow> </React.Fragment> ) : radioVal === "sub" ? (
                         <React.Fragment>
                         <TableRow>
                             <TableCell align="left" className={classes.boaderlessTr}>
@@ -564,7 +573,7 @@ function CreateAccountModal(props) {
                                 </TableCell>
                                 
                         </TableRow>
-                        </React.Fragment>  )}
+                        </React.Fragment>  ) : ''}
                         </React.Fragment> ) : activeStep === 1 ? ( 
                             <React.Fragment>
                             <TableRow>
