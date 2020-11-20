@@ -136,12 +136,11 @@ function CreateAccountModal(props) {
     const country = "test";
     const city = "test";
     const state = "test";*/
-
     let row = {
         extId: externalAccountId ? externalAccountId : "EXT2",
         name: name ? name : "",
         tenantId: tenantDrpDown ? tenantDrpDown : 1,
-        parentAccountId:  1,
+        parentAccountId:  parentAccount ? parentAccount : 1,
         accountType : accountTypeDrpDown ?  accountTypeDrpDown : "INDIVIDUAL",
         firstName: firstName ? firstName : "",
         lastName: lastName ? lastName : "",
@@ -417,6 +416,7 @@ function CreateAccountModal(props) {
 
   const handleClose = () => {
     setActiveStep(0);
+    setRadioVal("master");
     setOpen(false);
   };
 
@@ -562,15 +562,16 @@ function CreateAccountModal(props) {
                                     <Select
                                     labelId="parent-account-label"
                                     id="parent-account"
-                                    onChange={handleParentAccountChange} value={parentAccount}
+                                    onChange={handleParentAccountChange} 
+                                    value={parentAccount}
                                     label="Parent Account"
                                     >
                                     <MenuItem value="">
                                         <em>None</em>
                                     </MenuItem>
-                                    <MenuItem value={1}>One</MenuItem>
-                                    <MenuItem value={2}>Two</MenuItem>
-                                    <MenuItem value={3}>Three</MenuItem>
+                                    {props.parentAccountIdData.map((ele, index) =>
+                                        <MenuItem key={index} value={ele.parent} >{ele.parent}</MenuItem>
+                                    )}
                                     </Select>
                                 </FormControl>
                                 

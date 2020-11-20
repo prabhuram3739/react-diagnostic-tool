@@ -1,327 +1,340 @@
-#root {
-    overflow: hidden !important;
-}
-
-.makeStyles-content-13 {
-    overflow-x: hidden !important;
-}
-
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
-}
-
-.centerDisplayDefaultView {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 55%;
-    left: 50%;
-}
-
-.makeStyles-drawerPaperClose-11 {
-    background: #094391 !important;
-}
-
-.MuiTableSortLabel-root.MuiTableSortLabel-active,
-.MuiInputBase-fullWidth,
-.MuiTableSortLabel-icon {
-    color: #FFF !important;
-}
-
-.makeStyles-title-9,
-.MuiIconButton-label,
-input {
-    color: #000 !important;
-}
-
-.MuiTableRow-head {
-    font-weight: 700 !important;
-    background-color: #094391 !important;
-    color: #FFF !important;
-}
-
-.MuiTableCell-head {
-    color: #FFF !important;
-}
-
-div[class^='Editor-root'],
-div[class*=' Editor-root'] {
-    background-color: white !important;
-    color: #000 !important;
-}
-
-
-/*.MuiSvgIcon-root {
+    #root {
+        overflow: hidden !important;
+    }
+    
+    .makeStyles-content-13 {
+        overflow-x: hidden !important;
+    }
+    
+    body {
+        margin: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    code {
+        font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    }
+    
+    .centerDisplayDefaultView {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        top: 55%;
+        left: 50%;
+    }
+    
+    .makeStyles-drawerPaperClose-11 {
+        background: #094391 !important;
+    }
+    
+    .MuiTableSortLabel-root.MuiTableSortLabel-active,
+    .MuiInputBase-fullWidth,
+    .MuiTableSortLabel-icon {
+        color: #FFF !important;
+    }
+    
+    .makeStyles-title-9,
+    .MuiIconButton-label,
+    input {
+        color: #000 !important;
+    }
+    
+    .MuiTableRow-head {
+        font-weight: 700 !important;
+        background-color: #094391 !important;
+        color: #FFF !important;
+    }
+    
+    .MuiTableCell-head {
+        color: #FFF !important;
+    }
+    
+    div[class^='Editor-root'],
+    div[class*=' Editor-root'] {
+        background-color: white !important;
+        color: #000 !important;
+        border-radius: 5px;
+        padding-left: 4px;
+    }
+    /*.Toolbar-toolbar-60 {
+        position: absolute !important;
+        top: 201px;
+        right: 204px;
+        border-bottom: none !important;
+    }
+    
+    .Toolbar-toolbar-51 {
+        position: absolute !important;
+        top: 184px;
+        right: 204px;
+        border-bottom: none !important;
+    }*/
+    /*.MuiSvgIcon-root {
     color: #FFF !important;
 }*/
-
-.MuiButton-containedSecondary {
-    background-color: #1976d2 !important;
-}
-
-.v-loading-indicator[style*="none"] {
-    display: block !important;
-    width: 100%;
-    opacity: 0;
-    -webkit-animation: none;
-    -moz-animation: none;
-    animation: none;
-    -webkit-transition: opacity 5s 3s, width 1s;
-    -moz-transition: opacity 5s 3s, width 1s;
-    transition: opacity 5s 3s, width 1s;
-}
-
-.v-loading-indicator-wait {
-    width: 96%;
-    -webkit-animation: v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards !important;
-    -moz-animation: v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards !important;
-    animation: v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards !important;
-}
-
-.v-loading-indicator-delay {
-    width: 100%;
-    -webkit-animation: v-progress-delay 10.8s forwards !important;
-    -moz-animation: v-progress-delay 10.8s forwards !important;
-    animation: v-progress-delay 10.8s forwards !important;
-}
-
-.v-loading-indicator {
-    position: fixed !important;
-    z-index: 99999;
-    left: 0;
-    right: auto;
-    top: 0;
-    width: 100%;
-    opacity: 1;
-    height: 4px;
-    background-color: #ff3154;
-    pointer-events: none;
-    -webkit-transition: none;
-    -moz-transition: none;
-    transition: none;
-    -webkit-animation: v-progress-start 1000ms 200ms both;
-    -moz-animation: v-progress-start 1000ms 200ms both;
-    animation: v-progress-start 1000ms 200ms both;
-}
-
-@-webkit-keyframes v-rotate-360 {
-    to {
-        -webkit-transform: rotate(360deg)
+    
+    .MuiButton-containedSecondary {
+        background-color: #1976d2 !important;
     }
-}
-
-@-moz-keyframes v-rotate-360 {
-    to {
-        -moz-transform: rotate(360deg)
+    
+    .v-loading-indicator[style*="none"] {
+        display: block !important;
+        width: 100%;
+        opacity: 0;
+        -webkit-animation: none;
+        -moz-animation: none;
+        animation: none;
+        -webkit-transition: opacity 5s 3s, width 1s;
+        -moz-transition: opacity 5s 3s, width 1s;
+        transition: opacity 5s 3s, width 1s;
     }
-}
-
-@-o-keyframes v-rotate-360 {
-    to {
-        -o-transform: rotate(360deg)
-    }
-}
-
-@keyframes v-rotate-360 {
-    to {
-        transform: rotate(360deg)
-    }
-}
-
-@-webkit-keyframes v-progress-start {
-    0% {
-        width: 0
-    }
-    100% {
-        width: 100%
-    }
-}
-
-@-moz-keyframes v-progress-start {
-    0% {
-        width: 0
-    }
-    100% {
-        width: 100%
-    }
-}
-
-@keyframes v-progress-start {
-    0% {
-        width: 0
-    }
-    100% {
-        width: 100%
-    }
-}
-
-@-webkit-keyframes v-progress-delay {
-    0% {
-        width: 50%
-    }
-    100% {
-        width: 90%
-    }
-}
-
-@-moz-keyframes v-progress-delay {
-    0% {
-        width: 50%
-    }
-    100% {
-        width: 90%
-    }
-}
-
-@keyframes v-progress-delay {
-    0% {
-        width: 50%
-    }
-    100% {
-        width: 90%
-    }
-}
-
-@-webkit-keyframes v-progress-wait {
-    0% {
-        width: 90%;
-        height: 4px
-    }
-    3% {
-        width: 91%;
-        height: 7px
-    }
-    100% {
+    
+    .v-loading-indicator-wait {
         width: 96%;
-        height: 7px
+        -webkit-animation: v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards !important;
+        -moz-animation: v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards !important;
+        animation: v-progress-wait 5s forwards, v-progress-wait-pulse 1s 4s infinite backwards !important;
     }
-}
-
-@-moz-keyframes v-progress-wait {
-    0% {
-        width: 90%;
-        height: 4px
+    
+    .v-loading-indicator-delay {
+        width: 100%;
+        -webkit-animation: v-progress-delay 10.8s forwards !important;
+        -moz-animation: v-progress-delay 10.8s forwards !important;
+        animation: v-progress-delay 10.8s forwards !important;
     }
-    3% {
-        width: 91%;
-        height: 7px
+    
+    .v-loading-indicator {
+        position: fixed !important;
+        z-index: 99999;
+        left: 0;
+        right: auto;
+        top: 0;
+        width: 100%;
+        opacity: 1;
+        height: 4px;
+        background-color: #ff3154;
+        pointer-events: none;
+        -webkit-transition: none;
+        -moz-transition: none;
+        transition: none;
+        -webkit-animation: v-progress-start 1000ms 200ms both;
+        -moz-animation: v-progress-start 1000ms 200ms both;
+        animation: v-progress-start 1000ms 200ms both;
     }
-    100% {
-        width: 96%;
-        height: 7px
+    
+    @-webkit-keyframes v-rotate-360 {
+        to {
+            -webkit-transform: rotate(360deg)
+        }
     }
-}
-
-@keyframes v-progress-wait {
-    0% {
-        width: 90%;
-        height: 4px
+    
+    @-moz-keyframes v-rotate-360 {
+        to {
+            -moz-transform: rotate(360deg)
+        }
     }
-    3% {
-        width: 91%;
-        height: 7px
+    
+    @-o-keyframes v-rotate-360 {
+        to {
+            -o-transform: rotate(360deg)
+        }
     }
-    100% {
-        width: 96%;
-        height: 7px
+    
+    @keyframes v-rotate-360 {
+        to {
+            transform: rotate(360deg)
+        }
     }
-}
-
-@-webkit-keyframes v-progress-wait-pulse {
-    0% {
-        opacity: 1
+    
+    @-webkit-keyframes v-progress-start {
+        0% {
+            width: 0
+        }
+        100% {
+            width: 100%
+        }
     }
-    50% {
-        opacity: .1
+    
+    @-moz-keyframes v-progress-start {
+        0% {
+            width: 0
+        }
+        100% {
+            width: 100%
+        }
     }
-    100% {
-        opacity: 1
+    
+    @keyframes v-progress-start {
+        0% {
+            width: 0
+        }
+        100% {
+            width: 100%
+        }
     }
-}
-
-@-moz-keyframes v-progress-wait-pulse {
-    0% {
-        opacity: 1
+    
+    @-webkit-keyframes v-progress-delay {
+        0% {
+            width: 50%
+        }
+        100% {
+            width: 90%
+        }
     }
-    50% {
-        opacity: .1
+    
+    @-moz-keyframes v-progress-delay {
+        0% {
+            width: 50%
+        }
+        100% {
+            width: 90%
+        }
     }
-    100% {
-        opacity: 1
+    
+    @keyframes v-progress-delay {
+        0% {
+            width: 50%
+        }
+        100% {
+            width: 90%
+        }
     }
-}
-
-@keyframes v-progress-wait-pulse {
-    0% {
-        opacity: 1
+    
+    @-webkit-keyframes v-progress-wait {
+        0% {
+            width: 90%;
+            height: 4px
+        }
+        3% {
+            width: 91%;
+            height: 7px
+        }
+        100% {
+            width: 96%;
+            height: 7px
+        }
     }
-    50% {
-        opacity: .1
+    
+    @-moz-keyframes v-progress-wait {
+        0% {
+            width: 90%;
+            height: 4px
+        }
+        3% {
+            width: 91%;
+            height: 7px
+        }
+        100% {
+            width: 96%;
+            height: 7px
+        }
     }
-    100% {
-        opacity: 1
+    
+    @keyframes v-progress-wait {
+        0% {
+            width: 90%;
+            height: 4px
+        }
+        3% {
+            width: 91%;
+            height: 7px
+        }
+        100% {
+            width: 96%;
+            height: 7px
+        }
     }
-}
-
-.customCard {
-    height: 280px;
-    overflow-y: auto !important;
-}
-
-.MuiCardHeader-subheader {
-    font-weight: 700 !important;
-}
-
-.modalOpenButton {
-    padding-top: 7px;
-}
-
-.warningLabel,
-.headerMsgText {
-    color: #cd040b !important;
-}
-
-.msgText,
-.headerMsgText {
-    font-weight: bold;
-    font-size: 12px;
-}
-
-.iconBtn {
-    padding: 12px 16px !important;
-}
-
-.customRowClass {
-    height: 30px;
-    border-bottom: none !important;
-}
-
-.statusDrpDown {
-    margin-top: -2px;
-    margin-bottom: 8px;
-}
-
-.dx-field-label {
-    margin-top: 14px;
-}
-
-.topAlign {
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-.noUpperCaseTxt {
-    font-size: 1rem !important;
-    font-family: NokiaPureHeadlineLight, NokiaThemeIcons, NokiaPureHeadline, Helvetica, Arial;
-    font-weight: 700;
-    line-height: 1.5;
-    text-transform: none !important;
-}
+    
+    @-webkit-keyframes v-progress-wait-pulse {
+        0% {
+            opacity: 1
+        }
+        50% {
+            opacity: .1
+        }
+        100% {
+            opacity: 1
+        }
+    }
+    
+    @-moz-keyframes v-progress-wait-pulse {
+        0% {
+            opacity: 1
+        }
+        50% {
+            opacity: .1
+        }
+        100% {
+            opacity: 1
+        }
+    }
+    
+    @keyframes v-progress-wait-pulse {
+        0% {
+            opacity: 1
+        }
+        50% {
+            opacity: .1
+        }
+        100% {
+            opacity: 1
+        }
+    }
+    
+    .customCard {
+        height: 280px;
+        overflow-y: auto !important;
+    }
+    
+    .MuiCardHeader-subheader {
+        font-weight: 700 !important;
+    }
+    
+    .modalOpenButton {
+        padding-top: 7px;
+    }
+    
+    .warningLabel,
+    .headerMsgText {
+        color: #cd040b !important;
+    }
+    
+    .msgText,
+    .headerMsgText {
+        font-weight: bold;
+        font-size: 12px;
+    }
+    
+    .iconBtn {
+        padding: 12px 16px !important;
+    }
+    
+    .customRowClass {
+        height: 30px;
+        border-bottom: none !important;
+    }
+    
+    .statusDrpDown {
+        margin-top: -2px;
+        margin-bottom: 8px;
+    }
+    
+    .dx-field-label {
+        margin-top: 14px;
+    }
+    
+    .topAlign {
+        margin-top: 10px;
+        margin-left: 10px;
+    }
+    
+    .noUpperCaseTxt {
+        font-size: 1rem !important;
+        font-family: NokiaPureHeadlineLight, NokiaThemeIcons, NokiaPureHeadline, Helvetica, Arial;
+        font-weight: 700;
+        line-height: 1.5;
+        text-transform: none !important;
+    }

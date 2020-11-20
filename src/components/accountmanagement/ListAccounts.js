@@ -105,9 +105,6 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButtonHidden: {
     display: 'none',
-  },
-  testMenu: {
-    top: '60%'
   }
 }));
 
@@ -138,10 +135,10 @@ export default function ListAccounts() {
   const classes = useStyles();
   const [tableColumnExtensions] = React.useState([
     { columnName: 'id', width: '10%' },
-    { columnName: 'name', width: '15%' },
-    { columnName: 'tenantId', width: '15%' },
-    { columnName: 'accountType', width: '10%' },
-    { columnName: 'parentAccount', width: '10%' },
+    { columnName: 'name', width: '23%' },
+    { columnName: 'tenantId', width: '14%' },
+    { columnName: 'accountType', width: '16%' },
+    { columnName: 'parentAccount', width: '14%' },
     { columnName: 'accountState', width: '15%' },
     // { columnName: 'action', width: '8%' },
   ]);
@@ -187,15 +184,25 @@ export default function ListAccounts() {
       }
     }
     return arr;
-  }
+}
+    const accountTypeArr = [];
+    const accountStateArr = [];
 
+    const onlyUnique = (value, index, self) => {
+        return self.indexOf(value) === index;
+      }
+    data.map((e,i) => {
+        accountTypeArr.push(e.accountType);
+        accountStateArr.push(e.accountState);
+        return accountTypeArr;
+    });
   const DetailContent = ({ row, ...rest }) => {
     const {
       processValueChange,
       applyChanges,
       cancelChanges,
     } = rest;
-    let arr = getKey(row);
+    
     return (
       <MuiGrid container spacing={1}>
         <MuiGrid item xs={6}>
@@ -257,14 +264,10 @@ export default function ListAccounts() {
             >
               <option value={row.accountType}>{row.accountType}</option>
               {
-                arr.filter((e) => {
-                  if (e.toLowerCase() === row.accountType.toLowerCase()) {
-                    return false;
-                  } return true;
-                }).map((ele, index) => {
-                  if (ele.toLowerCase() !== row.accountType.toLowerCase()) {
-                    return (<React.Fragment key={index}><option value={ele.toUpperCase()}>{ele.toUpperCase()}</option></React.Fragment>);
-                  } return false;
+                accountTypeArr.filter(onlyUnique).map((ele, index) => {
+                    if (ele.toLowerCase() !== row.accountType.toLowerCase()) {
+                    return (<React.Fragment key={index}><option value={ele}>{ele}</option></React.Fragment>);
+                    } return false;
                 })
               }
             </NativeSelect>
@@ -296,14 +299,10 @@ export default function ListAccounts() {
             >
               <option value={row.accountState}>{row.accountState}</option>
               {
-                arr.filter((e) => {
-                  if (e.toLowerCase() === row.accountState.toLowerCase()) {
-                    return false;
-                  } return true;
-                }).map((ele, index) => {
-                  if (ele.toLowerCase() !== row.accountState.toLowerCase()) {
-                    return (<React.Fragment key={index}><option value={ele.toUpperCase()}>{ele.toUpperCase()}</option></React.Fragment>);
-                  } return false;
+                accountStateArr.filter(onlyUnique).map((ele, index) => {
+                    if (ele.toLowerCase() !== row.accountState.toLowerCase()) {
+                    return (<React.Fragment key={index}><option value={ele}>{ele}</option></React.Fragment>);
+                    } return false;
                 })
               }
             </NativeSelect>
@@ -693,6 +692,7 @@ export default function ListAccounts() {
       {...props}
     />
   );
+
   React.useEffect(() => {
     let rows = [];
     /*let rowsToBeModified = [
@@ -740,7 +740,7 @@ export default function ListAccounts() {
             "tenantId": 1,
             "extId": "EXT2",
             "name": "test_account_1",
-            "accountType": "INDIVIDUAL",
+            "accountType": "ENTERPRISE",
             "accountState": "SUSPENDED",
             "billingAccountId": 1,
             "custFields": {
@@ -879,6 +879,13 @@ export default function ListAccounts() {
     setRows(rows)
   }, [data, count, loading])
 
+  const parentAccountIdData = [];
+  data.map((e,i) => {
+    if(e.parentAccountId === null) 
+    parentAccountIdData.push({'parent': e.id});
+    return parentAccountIdData;
+});
+
   return (
     <React.Fragment>
       <div style={{ height: '100%', width: '100%' }}>
@@ -899,7 +906,7 @@ export default function ListAccounts() {
               <Divider component="span" className={classes.divider} orientation="vertical" />
               <span onClick={() => setModalNewAccountShow(true)}>
 
-        <CreateAccountModal activeStep={0} show={ModalNewAccountShow} onHide={() => setModalNewAccountShow(false)} /> </span>
+        <CreateAccountModal parentAccountIdData={parentAccountIdData} activeStep={0} show={ModalNewAccountShow} onHide={() => setModalNewAccountShow(false)} /> </span>
           </Box>
 </Box>
           <Box className={classes.root} style={{ height: '100%', overflow: 'auto', width: '100%' }} display="flex" >
@@ -921,7 +928,7 @@ export default function ListAccounts() {
                   onCommitChanges={commitChanges}
                 />
 		<SortingState
-                defaultSorting={[{ columnName: 'id', direction: 'asc' },]}
+                defaultSorting={[{ columnName: 'id', direction: 'asc' },{ columnName: 'name', direction: 'asc' },{ columnName: 'tenantId', direction: 'asc' },{ columnName: 'accountType', direction: 'asc' },{ columnName: 'parentAccountId', direction: 'asc' },{ columnName: 'accountState', direction: 'asc' },]}
                 //defaultSorting={[{ columnName: 'imsi', direction: 'asc' }, { columnName: 'msisdn', direction: 'desc' },]}
               />
                 { /*<GroupingState
