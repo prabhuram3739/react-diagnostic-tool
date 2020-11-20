@@ -175,7 +175,7 @@ export default function ListAccounts() {
   const [actionColumn] = React.useState(['action']);
 
   const getRowId = row => row.id;
-  function getKey(objArr) {
+  /*function getKey(objArr) {
     const arr = [],
       obj = Object.keys(objArr);
     for (var x in obj) {
@@ -184,7 +184,7 @@ export default function ListAccounts() {
       }
     }
     return arr;
-}
+}*/
     const accountTypeArr = [];
     const accountStateArr = [];
 
