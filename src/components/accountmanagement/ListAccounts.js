@@ -415,21 +415,32 @@ export default function ListAccounts() {
     //status: row.currentSimState,
     //simver: row.simver
     //}
+
+    console.log("Inside update row:", row);
     let params = {
-      iccid: row.iccid,
-      imsi: row.imsi,
-      curr_state: row.oldSimState,
-      new_state: row.currentSimState,
-    }
-    const APIURL = `http://18.185.117.167:7070/api/workflow/update_sim_state_wf` // 'http://18.185.117.167:8086/api/simlcstates/' + params.id + '/' + params.status 
+        id: row.id,
+        extId: row.extId ? row.extId : "EXT2",
+        name: row.name ? row.name : "",
+        tenantId: row.tenantId ? row.tenantId : 1,
+        accountType: row.accountType ? row.accountType : "INDIVIDUAL",
+        accountState: row.accountState ? row.accountState : "DRAFT",
+        billingAccountId: row.billingAccountId ? row.billingAccountId : 0,
+        parentAccountId: row.parentAccountId ? row.parentAccountId : null,
+        custFields:{
+            prop1: row.prop1 ?  row.prop1 : "value1",
+            prop2: row.prop2 ?  row.prop2 : "value2",
+            prop3: row.prop3 ?  row.prop3 : "value3"
+        }
+      };
+      const APIURL = `http://3.127.248.97:8081/api/account`;
     let headers = {
       "Content-Type": "application/json",
     }
-    axios.post(APIURL, params, headers).then(response => {
+    axios.patch(APIURL, params, headers).then(response => {
       if (response.status === 200) {
-        stausCheck(response.data, row);
-
-        toast.success('Account state change request accepted.', {
+        //stausCheck(response.data, row);
+        showToast("success", "Account state changd successfully.");
+        /*toast.success('Account state changed successfully.', {
           position: "top-right",
           autoClose: 2000,
           hideProgressBar: false,
@@ -437,7 +448,7 @@ export default function ListAccounts() {
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });
+        });*/
         // setTimeout(() => {
         //   window.location.reload();
         // }, 2000);
@@ -445,7 +456,7 @@ export default function ListAccounts() {
       }
     })
       .catch(function (error) {
-        if (error?.response?.status === 409) {
+        if (error?.response?.status === 401) {
           toast.error('' + error?.response?.data?.message, {
             position: "top-right",
             autoClose: 5000,
@@ -455,8 +466,7 @@ export default function ListAccounts() {
             draggable: true,
             progress: undefined,
           });
-          row.currentSimState = row.oldSimState;
-        } else if (error?.response?.status === 500) {
+        } else if (error?.response?.status === 403) {
           toast.error('' + error?.response?.data?.message, {
             position: "top-right",
             autoClose: 5000,
@@ -466,18 +476,6 @@ export default function ListAccounts() {
             draggable: true,
             progress: undefined,
           });
-          row.currentSimState = row.oldSimState;
-        } else if (error?.response?.status === 400) {
-          toast.error('' + error?.response?.data?.message, {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          row.currentSimState = row.oldSimState;
         } else {
           toast.error('' + error.message, {
             position: "top-right",
@@ -488,12 +486,11 @@ export default function ListAccounts() {
             draggable: true,
             progress: undefined,
           });
-          row.currentSimState = row.oldSimState;
         }
         console.log(error);
       });
   }
-  const stausCheck = (id, row) => {
+  /*const stausCheck = (id, row) => {
     let i = 0;
     let statusCheck = true;
     let updatedId = id;
@@ -533,7 +530,7 @@ export default function ListAccounts() {
       }
     }
     checkStatus();
-  }
+  }*/
 
   const showToast = (type, message, position = "top-right", autoClose = 5000) => {
     let toastConfig = {
@@ -580,7 +577,7 @@ export default function ListAccounts() {
   const StatusFormatter = ({ value }) => (
     (value.toLocaleLowerCase() === "draft") ? <span style={{ color: 'blue' }}> {value} </span> 
       : (value.toLocaleLowerCase() === "active") ? <span style={{ color: 'green' }}> {value} </span> 
-      : (value.toLocaleLowerCase() === "suspended") ? <span style={{ color: 'orange' }}> {value} </span> 
+      : (value.toLocaleLowerCase() === "suspend") ? <span style={{ color: 'orange' }}> {value} </span> 
       : (value.toLocaleLowerCase() === "retired") ? <span style={{ color: 'red' }}> {value} </span> 
       : <span style={{ color: 'black' }}> {value} </span>
   );
