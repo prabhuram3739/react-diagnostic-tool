@@ -327,6 +327,7 @@ function CreateAccountModal(props) {
   };
 
   const handleReset = () => {
+    handleReset();
     setActiveStep(0);
   };
 
